@@ -1,5 +1,6 @@
 <?php
-//NEED REVISION HERE, cant use Entrust on > Laravel 6
+//Middleware for Rbac check via Spatie Laravel Permission. Checks if a User has certain permisssions.
+
 namespace App\Http\Middleware;
 
 use Closure;
@@ -22,12 +23,15 @@ class RbacMiddle
         
         
         
-        //if has Rbac admin role (version for regular http RBAC check)
-        /* if(!Auth::user()->hasRole('admin')){ 
+        //if has Rbac admin role (version for Zizaco/Entrust regular http web RBAC check)
+        /* 
+        if(!Auth::user()->hasRole('admin')){ 
             throw new \App\Exceptions\myException('You have No rbac rights to Admin Panel');
-		}*/
+		}
+        */
         
-        //version for REST API RBAC check)
+        
+        //version for Zizaco/Entrust REST API RBAC check. Working
         /*
         $userX = User::where('api_token', '=', $request->bearerToken())->first(); //$request->bearerToken() is an access token sent in headers in ajax
         if(!$userX->hasRole('admin')){ 
@@ -35,6 +39,15 @@ class RbacMiddle
             return response()->json(['error' => true, 'data' => 'You have No REST API rbac rights to Admin Panel']);
         }
         */
+        
+        
+        //version for Spatie REST API RBAC check. Working
+        $userX = User::where('api_token', '=', $request->bearerToken())->first(); //$request->bearerToken() is an access token sent in headers in ajax
+        if(!$userX->hasAllPermissions(['edit articles', 'delete articles',])){ 
+            //throw new \App\Exceptions\myException('You have No REST API rbac rights to Admin Panel');
+            return response()->json(['error' => true, 'data' => 'You have No REST API Spatie Rbac rights to Admin Panel']);
+        }
+        
         
         //return $next($request);
         return $response;

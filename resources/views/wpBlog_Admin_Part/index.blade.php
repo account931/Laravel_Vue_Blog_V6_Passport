@@ -41,7 +41,7 @@
                 <div class="panel-heading text-warning borderX" style="border:1px solid black;">
 				    <p>
 					    <img class="vue-logo" src="{{URL::to("/")}}/images/admin.jpg"  alt="a"/>
-				        <button style="font-size:28px">Wpress Admin Part <i class="fa fa-book"></i></button>
+				        <button style="font-size:28px">Wpress Admin Part (Passport + Spatie RBAC) <i class="fa fa-book"></i></button>
 					</p>
 				    WpBlog with Images on Vue.js framework + Vuex Store <span class="small text-danger">(It is a Vue.js version of Wpress Images (blog article with one or more images). 
 					Images are LightBox-ed. This WpRess Vue.js Blog uses 3-table DB (same as Wpress Image Blog). Pagination is set by $_GET['page'], i.e if there is NO $_GET['page'] in URL, it displays first n articles)</span> 

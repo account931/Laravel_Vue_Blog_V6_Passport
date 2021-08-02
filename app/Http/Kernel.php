@@ -20,7 +20,6 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         //\App\Http\Middleware\RbacMiddle::class, //my Rbac middelware
- 
         //\App\Http\Middleware\AccessTokenMiddleware::class, //my Rest middelware
 
     ];

@@ -1,4 +1,5 @@
 <?php 
+// not used in Vue_Blog_V6_Passport, reassigned to Spatie Laravel Permisssion
 //not needed for Entrust RBAC, I have just created to make my custom queries to DB Role_User
 
 namespace App\models\EntrustRbac\My_rbac;

@@ -3,6 +3,7 @@
 - <p> This project uses api auth via Passport, while {CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses api auth via token sent in headers in ajax (in vue). Token is a column {api_token} in DB {Users}  </p>
 - <p> As long as this project is on Laravel version 6, it can not use Entrust Rbac like {CLEANSED_GIT_HUB/Laravel_Vue_Blog} do, so it uses Spatie Laravel permission RBAC </p>
 
+- <p> History of this project: firstly it was developed within {Laravel+Yii2_comment_widget}, then was carved as separated {CLEANSED_GIT_HUB/Laravel_Vue_Blog} and finally carved to account931 for Passport and Spatie testing. </p>
 
 ## Main features  (same for both projects):
 - <p> Api routes use 'middleware' => ['auth:api', 'myJsonForce'] </p>

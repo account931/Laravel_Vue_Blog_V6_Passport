@@ -21,7 +21,7 @@ Route::get('/home', 'HomeController@index');
 Auth::routes();
 
 //Wpress Blog on Vue Framework
-Route::get('/wpBlogVueFrameWork',   'WpBlog_VueContoller@index')  ->name('wpBlogVueFrameWork')->middleware('auth');  //WpPress on Vue Framework Blog index route
+Route::get('/wpBlogVueFrameWork',   'WpBlog_VueContoller@index')  ->name('wpBlogVueFrameWork');//->middleware('auth');  //WpPress on Vue Framework Blog index route
 
 //Get Token Section
 Route::get('/getToken',       'GetTokenContoller@index')   ->name('getToken')     ->middleware('auth');  //Displays current token or button to generate

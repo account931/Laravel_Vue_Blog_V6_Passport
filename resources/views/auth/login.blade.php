@@ -41,12 +41,12 @@
                 
 
                 <div class="alert alert-danger">
-                    Change Login form action route to Api auth
+                    Login form action route changed from 'login' to Api auth route => 'passport_login' 
                 </div> 
                 
                 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('passport_login') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">

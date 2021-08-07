@@ -9,12 +9,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 //use Illuminate\Database\Eloquent\Model; //Added by me
 //use Zizaco\Entrust\Traits\EntrustUserTrait; //Zizaco\Entrust is not used here, reassigned to Spatie Laravel Permission
 //use Tymon\JWTAuth\Contracts\JWTSubject; //JWT
-use Spatie\Permission\Traits\HasRoles; //Spatie Laravel Permission
+use Spatie\Permission\Traits\HasRoles; //Spatie Laravel RBAC Permission
+use Laravel\Passport\HasApiTokens;  //Passport
+
 
 class User extends Authenticatable //implements JWTSubject
 {
     //use EntrustUserTrait; //use Zizaco Entrust //Zizaco\Entrust is not used here, reassigned to Spatie Laravel Permission
-	use HasRoles; //Spatie Laravel Permission
+	use HasRoles; //Spatie Laravel RBAC Permission
+     use HasApiTokens;//, HasFactory; //Passport
     use Notifiable;
 	
 

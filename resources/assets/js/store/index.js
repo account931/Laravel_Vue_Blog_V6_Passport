@@ -45,7 +45,7 @@ export default new Vuex.Store({
         //working example how to change Vuex store from child component //Catch a passed api token from VueRouterMenu, triggered in beforeMount()
 	    changeVuexStoreTokenFromChild({ commit }, dataTestX) { 
 	        //var dataTest = {"error":false,"data":[{"wpBlog_id":1,"wpBlog_title":"Dima", "wpBlog_text":"Store 1", "get_images":[]}, {"wpBlog_id":2,"wpBlog_title":"Dima 2", "wpBlog_text":"Store 2", "get_images":[]}]};
-	        console.log('store token ' + dataTestX);
+	        alert('store token ' + dataTestX);
 		    return commit('setApiToken', dataTestX ); //sets dataTestX to store via mutation
 	    },
       

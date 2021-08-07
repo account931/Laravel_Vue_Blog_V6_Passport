@@ -2,7 +2,12 @@
 - <p> This project uses Laravel version 6, while {CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses version 5.4. </p>
 - <p> This project uses api auth via Passport, while {CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses api auth via token sent in headers in ajax (in vue). Token is a column {api_token} in DB {Users}  </p>
 - <p> As long as this project is on Laravel version 6, it can not use Entrust Rbac like {CLEANSED_GIT_HUB/Laravel_Vue_Blog} do, so it uses Spatie Laravel permission RBAC </p>
-
+- <p> This project uses in {/config/auth.php}  'guards' => [ 'api' => [ 'driver'   => 'passport' ] ], while {CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses 'guards' => [ 'api' => [ 'driver'   => 'token' ] ] </p>
+- <p>This project uses auth soleley on token(including login/register), while {CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses login/register via regular http sessions, and only while requesting REST API resources uses token,
+     So, this project for Login uses \App\Http\Controllers\Auth_API\UserAuthController and in Login form (/views/auth/login.blade.php) uses api route action="{{ route('passport_login') }}, {CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses route action="{{ route('login') }}
+  </p>
+  - <p>Additionally, we disabled middleware('auth') {Route::get()->middleware('auth')} in routes/web.ph, and disabled checking in Ctrl { if(auth()->user()->api_token == null) }</p>
+  
 - <p> History of this project: firstly it was developed within {Laravel+Yii2_comment_widget}, then was carved as separated {CLEANSED_GIT_HUB/Laravel_Vue_Blog} and finally carved to account931 for Passport and Spatie testing. </p>
 
 ## Main features  (same for both projects):

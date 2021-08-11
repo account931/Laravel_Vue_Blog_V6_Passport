@@ -18,6 +18,9 @@ mix.js('resources/assets/js/app.js',                           'public/js')  //V
    //Admin Part
    .js('resources/assets/js/WpBlog_Admin_Part/wpblog-admin-part-start.js',   'public/js/WpBlog_Admin_Part')
    
+   //Vue Auth Part (login/register)
+   .js('resources/assets/js/Wp_Login_Register_Rest/auth-start.js',   'public/js/Wp_Login_Register_Rest')
+   
    //.sass('resources/assets/sass/app.scss', 'public/css') //SAAS
    .styles([                                      //for pure CSS
         'resources/assets/css/my_css.css',

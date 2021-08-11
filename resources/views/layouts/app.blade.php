@@ -104,6 +104,11 @@
     <!-- Scripts -->
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> <!-- Mega Fix (collapsed main menu won't open)-->	
 	
+    <!-- Vue login/register JS --> 
+    <script src="{{ asset('js/Wp_Login_Register_Rest/auth-start.js') }}"></script> <!-- as included always -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css"> <!-- Sweet Alert CSS -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js'></script> <!--Sweet Alert JS-->        
+
 	<!-- To register JS file for specific view only (In layout template) (for home '/' only. Loads JS for home Vue component <example>. If is loaded globally will inerfere with Appointmant vue-->
     @if (in_array(Route::getFacadeRoot()->current()->uri(), ['/'])) <!--Route::getFacadeRoot()->current()->uri()  returns testRest--> 
         <script src="{{ asset('js/app.js') }}"></script> <!-- as included always -->

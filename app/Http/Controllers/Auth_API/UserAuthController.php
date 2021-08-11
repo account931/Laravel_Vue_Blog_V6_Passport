@@ -46,8 +46,9 @@ class UserAuthController extends Controller
         }
 
         $token = auth()->user()->createToken('API Token')->accessToken; //create token via Passport
+        
         //save token to session to use in requests
-        Session::put('PassportToken', $token); //Session get => session()->get('PassportToken');	
+        //Session::put('PassportToken', $token); //Session get => session()->get('PassportToken');	
         
         return response(['user' => auth()->user(), 'token' => $token, 'sessionX' => session()->get('PassportToken')]);
 

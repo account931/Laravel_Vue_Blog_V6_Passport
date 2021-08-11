@@ -10,9 +10,11 @@ export default new Vuex.Store({
     state: {
 	    //posts used in Vue blog
 	    posts: [], //posts: [{"wpBlog_id":1,"wpBlog_title":"Guadalupe Runolfsdottir", "wpBlog_text":"Store text 1", ,"wpBlog_category":4,"wpBlog_status":"1", "get_images":[{"wpImStock_id":16,"wpImStock_name":"product6.png","wpImStock_postID":1,"created_at":null,"updated_at":null}],"author_name":{"id":1,"name":"Admin","email":"admin@ukr.net","created_at":null,"updated_at":null},"category_names":{"wpCategory_id":4,"wpCategory_name":"Geeks","created_at":null,"updated_at":null}}, {"wpBlog_id":2,"wpBlog_title":"New", "wpBlog_text":"Store text 2"}],
-        api_tokenY: '', //api_token is passed from php in view as <vue-router-menu-with-link-content-display v-bind:current-user='{!! Auth::user()->toJson() !!}'>  and uplifted here to this store in VueRouterMenu in beforeMount() Section
+        api_tokenY: localStorage.getItem('tokenZ') || '' , //api_token is passed from php in view as <vue-router-menu-with-link-content-display v-bind:current-user='{!! Auth::user()->toJson() !!}'>  and uplifted here to this store in VueRouterMenu in beforeMount() Section
         adm_posts_qunatity: 0, //quantity of posts found
-      
+        ifLogged: false, //flag whether user logged or not (Passport changes here)
+        loggedUser: [], //logged user data , set by Login ajax
+
 	    //products are used in Router example. NOT USED IN CLEANSED Version. Set via seeder to DB and extracted via store/index.js ajax
         /*	 
         products:[
@@ -41,6 +43,10 @@ export default new Vuex.Store({
             //return commit('setPosts', await api.get('/post/get_all'))
         }, */
 	  
+        //on Login success save data to Store (trigger mutation)
+        changeVuexStoreLogged({ commit }, dataTestX) { 
+            return commit('setApiResults', dataTestX ); //sets dataTestX to store via mutation
+        },
           
         //working example how to change Vuex store from child component //Catch a passed api token from VueRouterMenu, triggered in beforeMount()
 	    changeVuexStoreTokenFromChild({ commit }, dataTestX) { 
@@ -48,6 +54,7 @@ export default new Vuex.Store({
 	        alert('store token ' + dataTestX);
 		    return commit('setApiToken', dataTestX ); //sets dataTestX to store via mutation
 	    },
+      
       
            
         /*
@@ -128,6 +135,16 @@ export default new Vuex.Store({
         //mutation to quantity of Blog to STORE
         setQuantMutations(state, myPassedArg) {
             state.adm_posts_qunatity = myPassedArg;        
+        },
+        
+        //on Login success save data to Store (trigger mutation)
+        setApiResults(state, response) { 
+            state.ifLogged   = true; //sets Vuex 
+            state.loggedUser = response.user;  //sets Vuex user array [name: '', email: ''] 
+            localStorage.setItem('tokenZ', response.token); //saves to localStorage to save operation on everey F5        
+            state.api_tokenY = response.token;
+	        console.log('setApiToken executed in store' + response + ' Store => ' + state.api_tokenY);
+            console.log('set apiToken mutation is done. localStorage is ' + localStorage.getItem('tokenZ'));
         },
     },
     strict: debug

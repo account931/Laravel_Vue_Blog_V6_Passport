@@ -31,7 +31,7 @@ class WpBlog_VueContoller extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {   dd($request->session()->all());//dd(session()->get('PassportToken'));
+    {   
     
         //if so far no api_token field in {User table}
         /* PASSPORT-purpose CHANGES were made here

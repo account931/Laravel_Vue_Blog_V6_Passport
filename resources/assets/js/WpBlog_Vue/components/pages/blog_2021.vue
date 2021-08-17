@@ -3,8 +3,21 @@
 	<div class="contact">
 		<h1> {{title}} </h1> 
 		
+        <!--------- Unauthorized/unlogged Section ------> 
+        <div v-if="this.$store.state.passport_api_tokenY == null" class="col-sm-12 col-xs-12 alert alert-info"> <!--auth check if Passport Token is set, i.e user is logged -->
+            <h3> <p>Sorry, you are not logged. Login first </p>
+            <i class="fa fa-minus-circle" style="font-size:48px;color:red"></i> 
+            </h3>
+                
+        </div>
+        
+        
+        
+        <!--------- Authorized/Logged Section ----------> 
+        <div v-else-if="this.$store.state.passport_api_tokenY != null">
+        
 		<div class="contact">
-		    <h3> Blog Vue,  <b> {{tokenZZ}}</b> <p>Token (from Vuex STORE): {{this.$store.state.api_tokenY}}</p> </h3>
+		    <h3> Blog Vue,  <b> {{tokenZZ}}</b> <p>Token (from Vuex STORE): {{this.$store.state.passport_api_tokenY}}</p> </h3>
             <p>{{this.ifMakeAjax}}</p>
 		</div>
          
@@ -74,8 +87,9 @@
     <!-- END Hidden modal window {ElementUI 'element-ui}(installed separately by npm) , will pop-up visible on click showing 1 full article -->
 
 
-   
 
+        </div>
+        <!------------ END Authorized/Logged Section -----------------> 
 
 	</div>
 </template>
@@ -112,6 +126,11 @@
   
         //before mount
         beforeMount() {
+            //Passport token check
+            if(this.$store.state.passport_api_tokenY == null){
+                swal("Access denied", "You not logged", "error");
+                return false;
+            }
             console.log("beforeMount");
             //if(this.ifMakeAjax === true /*!this.$store.state.posts*/){
             if(Object.keys(this.$store.state.posts).length < 1){ //if {posts} already exists in Vuex Store
@@ -126,7 +145,7 @@
   
   
   
-        //CONFIRM DELETE
+        //CONFIRM DELETE THIS SECTION
         //check if prev URL was '/details-info/2', if True, don't make ajax request again, as u are back from details-info
         beforeRouteEnter (to, from, next) { //the target Route Object being navigated to,  the current route being navigated away from., this function must be called to resolve the hook
             console.log("beforeRouteEnter " + from.path);

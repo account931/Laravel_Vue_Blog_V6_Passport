@@ -17628,10 +17628,12 @@ var debug = "development" !== 'production';
     state: {
         //posts used in Vue blog
         posts: [], //posts: [{"wpBlog_id":1,"wpBlog_title":"Guadalupe Runolfsdottir", "wpBlog_text":"Store text 1", ,"wpBlog_category":4,"wpBlog_status":"1", "get_images":[{"wpImStock_id":16,"wpImStock_name":"product6.png","wpImStock_postID":1,"created_at":null,"updated_at":null}],"author_name":{"id":1,"name":"Admin","email":"admin@ukr.net","created_at":null,"updated_at":null},"category_names":{"wpCategory_id":4,"wpCategory_name":"Geeks","created_at":null,"updated_at":null}}, {"wpBlog_id":2,"wpBlog_title":"New", "wpBlog_text":"Store text 2"}],
-        api_tokenY: localStorage.getItem('tokenZ') || '', //api_token is passed from php in view as <vue-router-menu-with-link-content-display v-bind:current-user='{!! Auth::user()->toJson() !!}'>  and uplifted here to this store in VueRouterMenu in beforeMount() Section
+        //api_tokenY       : localStorage.getItem('tokenZ') || '' , //api_token is passed from php in view as <vue-router-menu-with-link-content-display v-bind:current-user='{!! Auth::user()->toJson() !!}'>  and uplifted here to this store in VueRouterMenu in beforeMount() Section. Was true in prev project
         adm_posts_qunatity: 0, //quantity of posts found
-        ifLogged: false, //flag whether user logged or not (Passport changes here)
-        loggedUser: [] //logged user data , set by Login ajax
+        loggedUser: JSON.parse(localStorage.getItem('loggedStorageUser')) || { name: 'not set', email: 'errorMail' }, //logged user data (JS type:Object), set by Login ajax, {name: '', email: ''}  use {JSON.parse} to convert string to JS type: OBJECT
+        passport_api_tokenY: localStorage.getItem('tokenZ') || null, // is set by ajax in /subcomponents/login.vue {thatX.$store.dispatch('changeVuexStoreLogged', data); and mutated here by { changeVuexStoreLogged({ commit }, dataTestX) } }
+        //ifLogged           : this.getters.fruitsCount,//true,  //() =>ifTokenExists(), //state based on computed //false, //flag whether user logged or not (Passport changes here)
+        test: 'mmmm'
 
         //products are used in Router example. NOT USED IN CLEANSED Version. Set via seeder to DB and extracted via store/index.js ajax
         /*	 
@@ -17646,12 +17648,57 @@ var debug = "development" !== 'production';
         */
     },
 
+    /*
+    getters: {
+        fruitsCount (state) { 
+            
+            if(state.passport_api_tokenY !=''){
+                return true;
+            } else {
+                return true;
+            }
+             //(state.passport_api_tokenY !='') ?  true :  false;
+            
+        },
+    },
+    */
+
+    /*
     computed: {
         //not used here
-        BASE_URL: function BASE_URL() {
-            return this.$store.state.api_tokenY;
+        BASE_URL () {
+            return this.$store.state.passport_api_tokenY;  
+        },
+        
+     
+        //compute state.ifLogged based on state.passport_api_tokenY
+        /*
+        ifTokenExists(){
+            if(state.passport_api_tokenY !=''){ 
+                alert('good');
+                return true;
+            } else { 
+                alert('bad');
+                return false; 
+            }            
+        }
+        
+    }, 
+    */
+
+    /*
+    created() {
+        //state.ifLogged = (state.passport_api_tokenY !='') ? true : false;
+        return commit('Fire', 'dataTestX' ); //fire muation
+    },
+    
+    watch: {
+        myZZZ() {
+           //state.ifLogged = (state.passport_api_tokenY !='') ? true : false;
+           return commit('Fire', 'dataTestX' ); //fire muation
         }
     },
+    */
 
     actions: {
         /*
@@ -17664,10 +17711,11 @@ var debug = "development" !== 'production';
         changeVuexStoreLogged: function changeVuexStoreLogged(_ref, dataTestX) {
             var commit = _ref.commit;
 
-            return commit('setApiResults', dataTestX); //sets dataTestX to store via mutation
+            return commit('setLoginResults', dataTestX); //sets dataTestX to store via mutation
         },
 
 
+        //NOT USED HERE??????      
         //working example how to change Vuex store from child component //Catch a passed api token from VueRouterMenu, triggered in beforeMount()
         changeVuexStoreTokenFromChild: function changeVuexStoreTokenFromChild(_ref2, dataTestX) {
             var commit = _ref2.commit;
@@ -17691,11 +17739,11 @@ var debug = "development" !== 'production';
             //state is a fix
             $('.loader-x').fadeIn(800); //show loader
             alert('start (True) Disable 2nd alert in AllPosts beforeMount');
-            alert("store1 " + state.api_tokenY);
+            alert("Vuex store Passport token " + state.passport_api_tokenY);
             fetch('api/post/get_all' /*?token=' + state.api_tokenY*/, { //http://localhost/Laravel+Yii2_comment_widget/blog_Laravel/public/post/get_all
                 method: 'get',
                 //pass Bearer token in headers ()
-                headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + state.api_tokenY }
+                headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + state.passport_api_tokenY }
                 //contentType: 'application/json',
 
             }).then(function (response) {
@@ -17722,10 +17770,35 @@ var debug = "development" !== 'production';
         },
 
 
+        /*
+         |--------------------------------------------------------------------------
+         | Logging user out, triggered in /subcomponents/logged.vue (subcomponent of Login_component.vue )
+         |--------------------------------------------------------------------------
+         |
+         |
+         */
+
+        LogUserOut: function LogUserOut(_ref4) {
+            var commit = _ref4.commit;
+
+            alert('Vuex log out');
+            localStorage.removeItem('tokenZ');
+            localStorage.removeItem('loggedStorageUser');
+            commit('LogOutMutation'); //reset state vars to store via mutation
+        },
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Mutation section
+        |--------------------------------------------------------------------------
+        |
+        |
+        */
         //For mutation to set a quantity of found posts(in Admin Part). Fired in list_all. passedArgument is an arg passed in list_all.vue
-        setPostsQuantity: function setPostsQuantity(_ref4, passedArgument) {
-            var commit = _ref4.commit,
-                state = _ref4.state;
+        setPostsQuantity: function setPostsQuantity(_ref5, passedArgument) {
+            var commit = _ref5.commit,
+                state = _ref5.state;
             //state is a fix
             return commit('setQuantMutations', passedArgument); //to store via mutation
         }
@@ -17739,7 +17812,7 @@ var debug = "development" !== 'production';
         },
 
 
-        //mutation to set api token to STORE
+        //mutation to set api token to STORE. NOT USED?????
         setApiToken: function setApiToken(state, response) {
             state.api_tokenY = response;
             console.log('setApiToken executed in store' + response + ' Store => ' + state.api_tokenY);
@@ -17754,13 +17827,27 @@ var debug = "development" !== 'production';
 
 
         //on Login success save data to Store (trigger mutation)
-        setApiResults: function setApiResults(state, response) {
-            state.ifLogged = true; //sets Vuex 
-            state.loggedUser = response.user; //sets Vuex user array [name: '', email: ''] 
-            localStorage.setItem('tokenZ', response.token); //saves to localStorage to save operation on everey F5        
-            state.api_tokenY = response.token;
-            console.log('setApiToken executed in store' + response + ' Store => ' + state.api_tokenY);
+        setLoginResults: function setLoginResults(state, response) {
+            //state.ifLogged   = true; //sets Vuex 
+
+            state.loggedUser = response.user; //sets Vuex user Object (JS type:Object) {name: '', email: ''} 
+            localStorage.setItem('loggedStorageUser', JSON.stringify(response.user)); //use {JSON.stringify} to save JS type:Object (i.e converts Object to string) //saves to localStorage to not reset data on every F5        
+
+
+            //sets the passport api token
+            state.passport_api_token = response.token;
+            localStorage.setItem('tokenZ', response.token); //saves to localStorage to not reset data on every F5        
+            alert('Logged successfully');
+
+            console.log('setApiToken executed in store' + response + ' Store => ' + state.passport_api_token);
             console.log('set apiToken mutation is done. localStorage is ' + localStorage.getItem('tokenZ'));
+        },
+
+
+        //Log out mutation (clear state.passport_api_tokenY +  state.loggedUser vars) 
+        LogOutMutation: function LogOutMutation(state) {
+            state.passport_api_tokenY = null;
+            state.loggedUser = {};
         }
     },
     strict: debug

@@ -1,12 +1,14 @@
-<!-- Uses Vuex store: this.$store.state.loggedUser + this.$store.state.api_tokenY -->
+<!-- This is a Sub-component of Login_component.vue, used in \resources\assets\js\Wp_Login_Register_Rest\components -->
+<!-- Uses Vuex store: this.$store.state.loggedUser + this.$store.state.passport_api_tokenY -->
 
 <template>
 
     <div class="col-sm-12 col-xs-12 alert alert-info borderX">
         <center>
-           <p> click to Log Out <button class="btn btn-success" @click="logMeOut"> Log out </button> </p>
-		   <p> Your name is..... {{this.$store.state.loggedUser.name}} </p>
-           <p> Token is          {{this.$store.state.api_tokenY }} </p>
+           <p> click to Log Out </br> <button class="btn btn-success" @click="logMeOut"> Log out </button> </p>
+		   <h3> Your name is..... {{this.$store.state.loggedUser.name}} </h3>
+           <p> Your email is <b> {{this.$store.state.loggedUser.email}} </b></p>
+           <p style="word-wrap: break-word"> Token is  {{this.$store.state.passport_api_tokenY }} </p>
         </center>
     </div>
 
@@ -29,7 +31,10 @@ export default {
     },
     methods: {
         logMeOut(){
-            alert("do log out");
+            alert("do logging out");
+            this.$store.dispatch('LogUserOut'); //trigger Vuex function LogUserOut(), which is executed in Vuex store
+
+            //drop store localStorage.setItem('tokenZ' + localStorage.setItem('loggedStorageUser' + this.$store.state.ifLogged
         },
     },
 }

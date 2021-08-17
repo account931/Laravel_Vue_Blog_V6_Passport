@@ -1,3 +1,4 @@
+<!-- This is a Sub-component of Login_component.vue, used in \resources\assets\js\Wp_Login_Register_Rest\components -->
 <!-- Uses Vuex store: this.$store.state.ifLogged -->
 
 <template>
@@ -16,19 +17,22 @@
             <!-- Login Form -->
             <form class="login" @submit.prevent="loginSubmit">
                 <h1>Sign in</h1>
-                <label>Email</label>
+                <p><i class="fa fa-external-link" style="font-size:36px"></i></p>
                 
-                <div class="col-md-6">
+                <div class="col-md-6 form-group">
+                    <label for="email" class="col-md-6 control-label">E-Mail Address</label>
                     <input required v-model="email" type="email" placeholder="Name"  class="form-control"/>
                 </div>
                 
-                <label>Password</label>
+               
                 
-                <div class="col-md-6">
+                <div class="col-md-6 form-group">
+                    <label for="password" class="col-md-6 control-label">Password</label>
                     <input required v-model="password" type="password" placeholder="Password"  class="form-control"/>
                 </div>
-                <hr/>
-                <button type="submit">Login</button>
+                
+                <hr><br><br>
+                <button type="submit" class="btn btn-info">Login <i class="	fa fa-folder-open-o" style="font-size:12px"></i></button>
             </form>
         </div>
 
@@ -53,6 +57,7 @@ export default {
     computed: { 
     },
     beforeMount() {
+
     },
     methods: {
     

@@ -50,7 +50,7 @@ class UserAuthController extends Controller
         //save token to session to use in requests
         //Session::put('PassportToken', $token); //Session get => session()->get('PassportToken');	
         
-        return response(['user' => auth()->user(), 'token' => $token, 'sessionX' => session()->get('PassportToken')]);
+        return response(['user' => auth()->user(), 'token' => $token ]);
 
     }
 }

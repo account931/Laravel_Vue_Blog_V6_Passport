@@ -17628,10 +17628,12 @@ var debug = "development" !== 'production';
     state: {
         //posts used in Vue blog
         posts: [], //posts: [{"wpBlog_id":1,"wpBlog_title":"Guadalupe Runolfsdottir", "wpBlog_text":"Store text 1", ,"wpBlog_category":4,"wpBlog_status":"1", "get_images":[{"wpImStock_id":16,"wpImStock_name":"product6.png","wpImStock_postID":1,"created_at":null,"updated_at":null}],"author_name":{"id":1,"name":"Admin","email":"admin@ukr.net","created_at":null,"updated_at":null},"category_names":{"wpCategory_id":4,"wpCategory_name":"Geeks","created_at":null,"updated_at":null}}, {"wpBlog_id":2,"wpBlog_title":"New", "wpBlog_text":"Store text 2"}],
-        api_tokenY: localStorage.getItem('tokenZ') || '', //api_token is passed from php in view as <vue-router-menu-with-link-content-display v-bind:current-user='{!! Auth::user()->toJson() !!}'>  and uplifted here to this store in VueRouterMenu in beforeMount() Section
+        //api_tokenY       : localStorage.getItem('tokenZ') || '' , //api_token is passed from php in view as <vue-router-menu-with-link-content-display v-bind:current-user='{!! Auth::user()->toJson() !!}'>  and uplifted here to this store in VueRouterMenu in beforeMount() Section. Was true in prev project
         adm_posts_qunatity: 0, //quantity of posts found
-        ifLogged: false, //flag whether user logged or not (Passport changes here)
-        loggedUser: [] //logged user data , set by Login ajax
+        loggedUser: JSON.parse(localStorage.getItem('loggedStorageUser')) || { name: 'not set', email: 'errorMail' }, //logged user data (JS type:Object), set by Login ajax, {name: '', email: ''}  use {JSON.parse} to convert string to JS type: OBJECT
+        passport_api_tokenY: localStorage.getItem('tokenZ') || null, // is set by ajax in /subcomponents/login.vue {thatX.$store.dispatch('changeVuexStoreLogged', data); and mutated here by { changeVuexStoreLogged({ commit }, dataTestX) } }
+        //ifLogged           : this.getters.fruitsCount,//true,  //() =>ifTokenExists(), //state based on computed //false, //flag whether user logged or not (Passport changes here)
+        test: 'mmmm'
 
         //products are used in Router example. NOT USED IN CLEANSED Version. Set via seeder to DB and extracted via store/index.js ajax
         /*	 
@@ -17646,12 +17648,57 @@ var debug = "development" !== 'production';
         */
     },
 
+    /*
+    getters: {
+        fruitsCount (state) { 
+            
+            if(state.passport_api_tokenY !=''){
+                return true;
+            } else {
+                return true;
+            }
+             //(state.passport_api_tokenY !='') ?  true :  false;
+            
+        },
+    },
+    */
+
+    /*
     computed: {
         //not used here
-        BASE_URL: function BASE_URL() {
-            return this.$store.state.api_tokenY;
+        BASE_URL () {
+            return this.$store.state.passport_api_tokenY;  
+        },
+        
+     
+        //compute state.ifLogged based on state.passport_api_tokenY
+        /*
+        ifTokenExists(){
+            if(state.passport_api_tokenY !=''){ 
+                alert('good');
+                return true;
+            } else { 
+                alert('bad');
+                return false; 
+            }            
+        }
+        
+    }, 
+    */
+
+    /*
+    created() {
+        //state.ifLogged = (state.passport_api_tokenY !='') ? true : false;
+        return commit('Fire', 'dataTestX' ); //fire muation
+    },
+    
+    watch: {
+        myZZZ() {
+           //state.ifLogged = (state.passport_api_tokenY !='') ? true : false;
+           return commit('Fire', 'dataTestX' ); //fire muation
         }
     },
+    */
 
     actions: {
         /*
@@ -17664,10 +17711,11 @@ var debug = "development" !== 'production';
         changeVuexStoreLogged: function changeVuexStoreLogged(_ref, dataTestX) {
             var commit = _ref.commit;
 
-            return commit('setApiResults', dataTestX); //sets dataTestX to store via mutation
+            return commit('setLoginResults', dataTestX); //sets dataTestX to store via mutation
         },
 
 
+        //NOT USED HERE??????      
         //working example how to change Vuex store from child component //Catch a passed api token from VueRouterMenu, triggered in beforeMount()
         changeVuexStoreTokenFromChild: function changeVuexStoreTokenFromChild(_ref2, dataTestX) {
             var commit = _ref2.commit;
@@ -17691,11 +17739,11 @@ var debug = "development" !== 'production';
             //state is a fix
             $('.loader-x').fadeIn(800); //show loader
             alert('start (True) Disable 2nd alert in AllPosts beforeMount');
-            alert("store1 " + state.api_tokenY);
+            alert("Vuex store Passport token " + state.passport_api_tokenY);
             fetch('api/post/get_all' /*?token=' + state.api_tokenY*/, { //http://localhost/Laravel+Yii2_comment_widget/blog_Laravel/public/post/get_all
                 method: 'get',
                 //pass Bearer token in headers ()
-                headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + state.api_tokenY }
+                headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + state.passport_api_tokenY }
                 //contentType: 'application/json',
 
             }).then(function (response) {
@@ -17722,10 +17770,35 @@ var debug = "development" !== 'production';
         },
 
 
+        /*
+         |--------------------------------------------------------------------------
+         | Logging user out, triggered in /subcomponents/logged.vue (subcomponent of Login_component.vue )
+         |--------------------------------------------------------------------------
+         |
+         |
+         */
+
+        LogUserOut: function LogUserOut(_ref4) {
+            var commit = _ref4.commit;
+
+            alert('Vuex log out');
+            localStorage.removeItem('tokenZ');
+            localStorage.removeItem('loggedStorageUser');
+            commit('LogOutMutation'); //reset state vars to store via mutation
+        },
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Mutation section
+        |--------------------------------------------------------------------------
+        |
+        |
+        */
         //For mutation to set a quantity of found posts(in Admin Part). Fired in list_all. passedArgument is an arg passed in list_all.vue
-        setPostsQuantity: function setPostsQuantity(_ref4, passedArgument) {
-            var commit = _ref4.commit,
-                state = _ref4.state;
+        setPostsQuantity: function setPostsQuantity(_ref5, passedArgument) {
+            var commit = _ref5.commit,
+                state = _ref5.state;
             //state is a fix
             return commit('setQuantMutations', passedArgument); //to store via mutation
         }
@@ -17739,7 +17812,7 @@ var debug = "development" !== 'production';
         },
 
 
-        //mutation to set api token to STORE
+        //mutation to set api token to STORE. NOT USED?????
         setApiToken: function setApiToken(state, response) {
             state.api_tokenY = response;
             console.log('setApiToken executed in store' + response + ' Store => ' + state.api_tokenY);
@@ -17754,13 +17827,27 @@ var debug = "development" !== 'production';
 
 
         //on Login success save data to Store (trigger mutation)
-        setApiResults: function setApiResults(state, response) {
-            state.ifLogged = true; //sets Vuex 
-            state.loggedUser = response.user; //sets Vuex user array [name: '', email: ''] 
-            localStorage.setItem('tokenZ', response.token); //saves to localStorage to save operation on everey F5        
-            state.api_tokenY = response.token;
-            console.log('setApiToken executed in store' + response + ' Store => ' + state.api_tokenY);
+        setLoginResults: function setLoginResults(state, response) {
+            //state.ifLogged   = true; //sets Vuex 
+
+            state.loggedUser = response.user; //sets Vuex user Object (JS type:Object) {name: '', email: ''} 
+            localStorage.setItem('loggedStorageUser', JSON.stringify(response.user)); //use {JSON.stringify} to save JS type:Object (i.e converts Object to string) //saves to localStorage to not reset data on every F5        
+
+
+            //sets the passport api token
+            state.passport_api_token = response.token;
+            localStorage.setItem('tokenZ', response.token); //saves to localStorage to not reset data on every F5        
+            alert('Logged successfully');
+
+            console.log('setApiToken executed in store' + response + ' Store => ' + state.passport_api_token);
             console.log('set apiToken mutation is done. localStorage is ' + localStorage.getItem('tokenZ'));
+        },
+
+
+        //Log out mutation (clear state.passport_api_tokenY +  state.loggedUser vars) 
+        LogOutMutation: function LogOutMutation(state) {
+            state.passport_api_tokenY = null;
+            state.loggedUser = {};
         }
     },
     strict: debug
@@ -79975,6 +80062,20 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -80005,6 +80106,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     //before mount
     beforeMount: function beforeMount() {
+        //Passport token check
+        if (this.$store.state.passport_api_tokenY == null) {
+            swal("Access denied", "You not logged", "error");
+            return false;
+        }
         console.log("beforeMount");
         //if(this.ifMakeAjax === true /*!this.$store.state.posts*/){
         if (Object.keys(this.$store.state.posts).length < 1) {
@@ -80018,7 +80124,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
 
 
-    //CONFIRM DELETE
+    //CONFIRM DELETE THIS SECTION
     //check if prev URL was '/details-info/2', if True, don't make ajax request again, as u are back from details-info
     beforeRouteEnter: function beforeRouteEnter(to, from, next) {
         //the target Route Object being navigated to,  the current route being navigated away from., this function must be called to resolve the hook
@@ -80071,218 +80177,255 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "contact" },
-    [
-      _c("h1", [_vm._v(" " + _vm._s(_vm.title) + " ")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "contact" }, [
-        _c("h3", [
-          _vm._v(" Blog Vue,  "),
-          _c("b", [_vm._v(" " + _vm._s(_vm.tokenZZ))]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "Token (from Vuex STORE): " + _vm._s(this.$store.state.api_tokenY)
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("p", [_vm._v(_vm._s(this.ifMakeAjax))])
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "row" },
-        _vm._l(_vm.posts, function(post, i) {
-          return _c("div", { key: i }, [
-            i % 2 == 0
-              ? _c(
-                  "div",
-                  {
-                    staticClass: "col-sm-12 col-xs-12",
-                    staticStyle: { border: "1px solid black" }
-                  },
-                  [_vm._v(" \n                    banner \n                ")]
-                )
-              : _vm._e(),
+  return _c("div", { staticClass: "contact" }, [
+    _c("h1", [_vm._v(" " + _vm._s(_vm.title) + " ")]),
+    _vm._v(" "),
+    this.$store.state.passport_api_tokenY == null
+      ? _c("div", { staticClass: "col-sm-12 col-xs-12 alert alert-info" }, [
+          _vm._m(0)
+        ])
+      : this.$store.state.passport_api_tokenY != null
+      ? _c(
+          "div",
+          [
+            _c("div", { staticClass: "contact" }, [
+              _c("h3", [
+                _vm._v(" Blog Vue,  "),
+                _c("b", [_vm._v(" " + _vm._s(_vm.tokenZZ))]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "Token (from Vuex STORE): " +
+                      _vm._s(this.$store.state.passport_api_tokenY)
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("p", [_vm._v(_vm._s(this.ifMakeAjax))])
+            ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-sm-6 col-xs-6" }, [
-              post.get_images.length
-                ? _c(
-                    "a",
-                    {
-                      attrs: {
-                        href:
-                          "images/wpressImages/" +
-                          post.get_images[0].wpImStock_name,
-                        title: "image",
-                        "data-lightbox": "roadtrip" + post.wpBlog_id
-                      }
-                    },
-                    [
-                      post.get_images.length
-                        ? _c("img", {
-                            staticClass: "card-img-top my-img",
-                            attrs: {
-                              src:
-                                "images/wpressImages/" +
-                                post.get_images[0].wpImStock_name
-                            }
-                          })
-                        : _vm._e()
-                    ]
-                  )
-                : _c("img", {
-                    staticClass: "card-img-top my-img",
-                    attrs: { src: "images/no-image-found.png" }
-                  }),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c("p", { staticClass: "card-text" }, [
-                  _c("strong", [_vm._v(_vm._s(post.wpBlog_title))]),
+            _c(
+              "div",
+              { staticClass: "row" },
+              _vm._l(_vm.posts, function(post, i) {
+                return _c("div", { key: i }, [
+                  i % 2 == 0
+                    ? _c(
+                        "div",
+                        {
+                          staticClass: "col-sm-12 col-xs-12",
+                          staticStyle: { border: "1px solid black" }
+                        },
+                        [
+                          _vm._v(
+                            " \n                    banner \n                "
+                          )
+                        ]
+                      )
+                    : _vm._e(),
                   _vm._v(" "),
-                  _c("br"),
-                  _vm._v(
-                    "\n                           " +
-                      _vm._s(_vm.truncateText(post.wpBlog_text)) +
-                      "\n                        "
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-success m-2 z-overlay-fix-2",
-                  on: {
-                    click: function($event) {
-                      return _vm.viewPost(i)
-                    }
-                  }
-                },
-                [
-                  _vm._v("View   "),
-                  _c("i", {
-                    staticClass: "fa fa-crosshairs",
-                    staticStyle: { "font-size": "14px" }
-                  })
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-info m-2 z-overlay-fix-2",
-                  on: {
-                    click: function($event) {
-                      return _vm.goTodetail(i)
-                    }
-                  }
-                },
-                [
-                  _vm._v(" Router "),
-                  _c("i", {
-                    staticClass: "fa fa-tag",
-                    staticStyle: { "font-size": "14px" }
-                  })
-                ]
-              ),
-              _vm._v(" "),
-              _c("hr")
-            ])
-          ])
-        }),
-        0
-      ),
-      _vm._v(" "),
-      _vm.currentPost
-        ? _c(
-            "el-dialog",
-            {
-              staticClass: "z-overlay-3",
-              attrs: { visible: _vm.postDialogVisible, width: "80%" },
-              on: {
-                "update:visible": function($event) {
-                  _vm.postDialogVisible = $event
-                }
-              }
-            },
-            [
-              _c("span", [
-                _c("h3", [_vm._v(_vm._s(_vm.currentPost.wpBlog_title))]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "row" },
-                  _vm._l(_vm.currentPost.get_images, function(img, i) {
-                    return _c("div", { key: i, staticClass: "col-md-12" }, [
-                      _c("p", [
-                        _c("img", {
-                          staticClass: "img-thumbnail",
-                          attrs: {
-                            src: "images/wpressImages/" + img.wpImStock_name,
-                            alt: ""
-                          }
-                        })
+                  _c("div", { staticClass: "col-sm-6 col-xs-6" }, [
+                    post.get_images.length
+                      ? _c(
+                          "a",
+                          {
+                            attrs: {
+                              href:
+                                "images/wpressImages/" +
+                                post.get_images[0].wpImStock_name,
+                              title: "image",
+                              "data-lightbox": "roadtrip" + post.wpBlog_id
+                            }
+                          },
+                          [
+                            post.get_images.length
+                              ? _c("img", {
+                                  staticClass: "card-img-top my-img",
+                                  attrs: {
+                                    src:
+                                      "images/wpressImages/" +
+                                      post.get_images[0].wpImStock_name
+                                  }
+                                })
+                              : _vm._e()
+                          ]
+                        )
+                      : _c("img", {
+                          staticClass: "card-img-top my-img",
+                          attrs: { src: "images/no-image-found.png" }
+                        }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("p", { staticClass: "card-text" }, [
+                        _c("strong", [_vm._v(_vm._s(post.wpBlog_title))]),
+                        _vm._v(" "),
+                        _c("br"),
+                        _vm._v(
+                          "\n                           " +
+                            _vm._s(_vm.truncateText(post.wpBlog_text)) +
+                            "\n                        "
+                        )
                       ])
-                    ])
-                  }),
-                  0
-                ),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("p", [
-                  _vm._v(" Text:    " + _vm._s(_vm.currentPost.wpBlog_text))
-                ]),
-                _vm._v(" "),
-                _c("p", [
-                  _vm._v(
-                    " Author:  " + _vm._s(_vm.currentPost.author_name.name)
-                  )
-                ]),
-                _vm._v(" "),
-                _c("p", [
-                  _vm._v(
-                    "Category: " +
-                      _vm._s(_vm.currentPost.category_names.wpCategory_name)
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "span",
-                {
-                  staticClass: "dialog-footer",
-                  attrs: { slot: "footer" },
-                  slot: "footer"
-                },
-                [
-                  _c(
-                    "el-button",
-                    {
-                      attrs: { type: "primary" },
-                      on: {
-                        click: function($event) {
-                          _vm.postDialogVisible = false
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success m-2 z-overlay-fix-2",
+                        on: {
+                          click: function($event) {
+                            return _vm.viewPost(i)
+                          }
                         }
+                      },
+                      [
+                        _vm._v("View   "),
+                        _c("i", {
+                          staticClass: "fa fa-crosshairs",
+                          staticStyle: { "font-size": "14px" }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-info m-2 z-overlay-fix-2",
+                        on: {
+                          click: function($event) {
+                            return _vm.goTodetail(i)
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(" Router "),
+                        _c("i", {
+                          staticClass: "fa fa-tag",
+                          staticStyle: { "font-size": "14px" }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("hr")
+                  ])
+                ])
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _vm.currentPost
+              ? _c(
+                  "el-dialog",
+                  {
+                    staticClass: "z-overlay-3",
+                    attrs: { visible: _vm.postDialogVisible, width: "80%" },
+                    on: {
+                      "update:visible": function($event) {
+                        _vm.postDialogVisible = $event
                       }
-                    },
-                    [_vm._v("Okay")]
-                  )
-                ],
-                1
-              )
-            ]
-          )
-        : _vm._e()
-    ],
-    1
-  )
+                    }
+                  },
+                  [
+                    _c("span", [
+                      _c("h3", [_vm._v(_vm._s(_vm.currentPost.wpBlog_title))]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "row" },
+                        _vm._l(_vm.currentPost.get_images, function(img, i) {
+                          return _c(
+                            "div",
+                            { key: i, staticClass: "col-md-12" },
+                            [
+                              _c("p", [
+                                _c("img", {
+                                  staticClass: "img-thumbnail",
+                                  attrs: {
+                                    src:
+                                      "images/wpressImages/" +
+                                      img.wpImStock_name,
+                                    alt: ""
+                                  }
+                                })
+                              ])
+                            ]
+                          )
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          " Text:    " + _vm._s(_vm.currentPost.wpBlog_text)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          " Author:  " +
+                            _vm._s(_vm.currentPost.author_name.name)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "Category: " +
+                            _vm._s(
+                              _vm.currentPost.category_names.wpCategory_name
+                            )
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticClass: "dialog-footer",
+                        attrs: { slot: "footer" },
+                        slot: "footer"
+                      },
+                      [
+                        _c(
+                          "el-button",
+                          {
+                            attrs: { type: "primary" },
+                            on: {
+                              click: function($event) {
+                                _vm.postDialogVisible = false
+                              }
+                            }
+                          },
+                          [_vm._v("Okay")]
+                        )
+                      ],
+                      1
+                    )
+                  ]
+                )
+              : _vm._e()
+          ],
+          1
+        )
+      : _vm._e()
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h3", [
+      _c("p", [_vm._v("Sorry, you are not logged. Login first ")]),
+      _vm._v(" "),
+      _c("i", {
+        staticClass: "fa fa-minus-circle",
+        staticStyle: { "font-size": "48px", color: "red" }
+      })
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -82561,7 +82704,7 @@ exports = module.exports = __webpack_require__(8)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* mine */\n.nav-item   {margin-left:2em;\n}\n.nav-item a {color:black;\n}\n.navbar-brand {color:black\n}\n#appDemo {\r\n  font-family: 'Avenir', Helvetica, Arial, sans-serif;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  text-align: center;\r\n  color: #2c3e50;\r\n  margin-top: 20px;\n}\n.moveInUp-enter-active{\r\n  animation: fadeIn 2s ease-in;\n}\n@keyframes fadeIn{\n0%{\r\n    opacity: 0;\n}\n50%{\r\n    opacity: 0.5;\n}\n100%{\r\n    opacity: 1;\n}\n}\n.moveInUp-leave-active{\r\n  animation: moveInUp .3s ease-in;\n}\n@keyframes moveInUp{\n0%{\r\n  transform: translateY(0);\n}\n100%{\r\n  transform: translateY(-400px);\n}\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* mine */\n.nav-item   {margin-left:2em;\n}\n.nav-item a {color:black;\n}\n.navbar-brand {color:black\n}\n#appDemo {\r\n  font-family: 'Avenir', Helvetica, Arial, sans-serif;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  text-align: center;\r\n  color: #2c3e50;\r\n  margin-top: 20px;\n}\n.moveInUp-enter-active{\r\n  animation: fadeIn 2s ease-in;\n}\n@keyframes fadeIn{\n0%{\r\n    opacity: 0;\n}\n50%{\r\n    opacity: 0.5;\n}\n100%{\r\n    opacity: 1;\n}\n}\n.moveInUp-leave-active{\r\n  animation: moveInUp .3s ease-in;\n}\n@keyframes moveInUp{\n0%{\r\n  transform: translateY(0);\n}\n100%{\r\n  transform: translateY(-400px);\n}\n}\r\n", ""]);
 
 // exports
 
@@ -82732,9 +82875,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     //before mount
     beforeMount: function beforeMount() {
+        //used in prev project (without Passport)
+        /*
         var dataTest = this.currentUser; //this.currentUser.api_token; //PASSPORT-purpose CHANGES were made here //api_token is passed from php in view as <vue-router-menu-with-link-content-display v-bind:current-user='{!! Auth::user()->toJson() !!}'> 
         this.$store.dispatch('changeVuexStoreTokenFromChild', dataTest); //working example how to change Vuex store from child component  
         alert('before ' + dataTest);
+        */
     }
 });
 

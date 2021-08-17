@@ -1,13 +1,17 @@
-<!-- Uses Vuex store: this.$store.state.ifLogged-->
+<!-- Uses /subcomponents/login.vue + /subcomponents/logged.vue -->
+
+
+<!-- Uses Vuex store: this.$store.state.passport_api_tokenY -->
+<!-- Uses Vuex store: this.$store.state.ifLogged => FALSE -->
 
 <template>
 
     <div class="col-sm-12 col-xs-12 alert alert-info borderX">
         <center>
-		    <p>Login(Vuex):  {{ this.$store.state.ifLogged }}  </p> <!--{{ this.$store.state.posts.length }}-->
+		    <p> Login(Vuex state): {{ this.ifPassportTokenSet }} <!-- {{ this.$store.state.passport_api_tokenY }} -->  </p> <!--{{ this.$store.state.posts.length }}-->
             
             <!-- If user is logged View -->
-            <div v-if="this.$store.state.ifLogged"> 
+            <div v-if="this.$store.state.passport_api_tokenY != null"> <!--auth check if Passport Token is set, i.e user is logged -->
                 Logged 
                 <logged-user-page></logged-user-page>
             </div>
@@ -47,6 +51,13 @@ export default {
   
     //computed property is used to declaratively describe a value that depends on other values. When you data-bind to a computed property inside the template, Vue knows when to update the DOM when any of the values depended upon by the computed property has changed.
     computed: { 
+        ifPassportTokenSet () {
+            if(this.$store.state.passport_api_tokenY != null){
+                return "Computed: Passport Token is set, User logged";
+            } else {
+                return "Computed: Passport Token is not set, login first";
+            }
+        },
     },
     beforeMount() {
     },

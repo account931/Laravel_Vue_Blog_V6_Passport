@@ -259,13 +259,13 @@ export default {
                 headers: { 'Content-Type': 'multipart/form-data' }
             }) 
 		    */
-            alert('token is ' + this.$store.state.api_tokenY);
+            alert('token is ' + this.$store.state.passport_api_tokenY);
         
        
             //Add Bearer token to headers
             $.ajaxSetup({
                 headers: {
-                    'Authorization': 'Bearer ' + this.$store.state.api_tokenY
+                    'Authorization': 'Bearer ' + this.$store.state.passport_api_tokenY
                 }
             }); 
       
@@ -392,7 +392,7 @@ export default {
             fetch('api/post/get_categories', { /*http://localhost/Laravel+Yii2_comment_widget/blog_Laravel/public/post/get_categories*/
                 method: 'get',
                 //pass Bearer token in headers ()
-                headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.$store.state.api_tokenY },
+                headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.$store.state.passport_api_tokenY },
                 //contentType: 'application/json',
 
             }).then(response => {

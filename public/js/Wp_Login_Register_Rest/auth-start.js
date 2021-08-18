@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 261);
+/******/ 	return __webpack_require__(__webpack_require__.s = 259);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1337,15 +1337,15 @@ var index = {
 
 /***/ }),
 
-/***/ 261:
+/***/ 259:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(262);
+module.exports = __webpack_require__(260);
 
 
 /***/ }),
 
-/***/ 262:
+/***/ 260:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1373,7 +1373,7 @@ window.Vue = __webpack_require__(1);
  //import Vuex Store
 
 
-Vue.component('login-vue-component', __webpack_require__(263)); //register component dispalying qunatity
+Vue.component('login-vue-component', __webpack_require__(261)); //register component dispalying qunatity
 //Vue.component('create-post',            require('./components/CreatePost.vue')/*.default*/);
 //Vue.component('all-posts',              require('./components/AllPosts.vue')/*.default*/); //register component dispalying all posts
 
@@ -1420,15 +1420,15 @@ var appLogin = new Vue({
 
 /***/ }),
 
-/***/ 263:
+/***/ 261:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(264)
+var __vue_script__ = __webpack_require__(262)
 /* template */
-var __vue_template__ = __webpack_require__(271)
+var __vue_template__ = __webpack_require__(269)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1468,15 +1468,21 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 264:
+/***/ 262:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__subcomponents_login_vue__ = __webpack_require__(265);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__subcomponents_login_vue__ = __webpack_require__(263);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__subcomponents_login_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__subcomponents_login_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__subcomponents_logged_vue__ = __webpack_require__(268);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__subcomponents_logged_vue__ = __webpack_require__(266);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__subcomponents_logged_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__subcomponents_logged_vue__);
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+//
+//
+//
+//
 //
 //
 //
@@ -1531,30 +1537,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     //computed property is used to declaratively describe a value that depends on other values. When you data-bind to a computed property inside the template, Vue knows when to update the DOM when any of the values depended upon by the computed property has changed.
     computed: {
+
+        //just to form text information
         ifPassportTokenSet: function ifPassportTokenSet() {
             if (this.$store.state.passport_api_tokenY != null) {
                 return "Computed: Passport Token is set, User logged";
             } else {
                 return "Computed: Passport Token is not set, login first";
             }
+        },
+        isLoggedInZ: function isLoggedInZ() {
+            return this.$store.getters.isLoggedIn;
         }
     },
     beforeMount: function beforeMount() {},
+    created: function created() {
+        alert("passport_api_tokenY type is " + _typeof(this.$store.state.passport_api_tokenY));
+    },
+
 
     methods: {}
 });
 
 /***/ }),
 
-/***/ 265:
+/***/ 263:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(266)
+var __vue_script__ = __webpack_require__(264)
 /* template */
-var __vue_template__ = __webpack_require__(267)
+var __vue_template__ = __webpack_require__(265)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1594,11 +1609,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 266:
+/***/ 264:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -1754,13 +1771,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 //clears message in n seconds
                 _this.status_msg = '';
             }, 3000 * 155);
+        },
+
+
+        /*
+        |--------------------------------------------------------------------------
+        |Toggles Password Visibility //eye icon in Password input 
+        |--------------------------------------------------------------------------
+        |
+        |
+        */
+        togglePassword: function togglePassword() {
+            var password = document.querySelector('#passwordd');
+            var type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            // toggle the eye slash icon
+            document.getElementById("passEye").classList.toggle('fa-eye-slash'); //HTML DOM property element.classList //classList.toggle => if css class exists, it acts as classList.remove (i.e remove class).  If class does not exist, it works as classList.add (i.e add class), 
         }
     }
 });
 
 /***/ }),
 
-/***/ 267:
+/***/ 265:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1860,7 +1893,8 @@ var render = function() {
                 attrs: {
                   required: "",
                   type: "password",
-                  placeholder: "Password"
+                  placeholder: "Password",
+                  id: "passwordd"
                 },
                 domProps: { value: _vm.password },
                 on: {
@@ -1871,6 +1905,13 @@ var render = function() {
                     _vm.password = $event.target.value
                   }
                 }
+              }),
+              _vm._v(" "),
+              _c("i", {
+                staticClass: "fa fa-eye",
+                staticStyle: { cursor: "pointer" },
+                attrs: { id: "passEye" },
+                on: { click: _vm.togglePassword }
               })
             ]),
             _vm._v(" "),
@@ -1926,15 +1967,15 @@ if (false) {
 
 /***/ }),
 
-/***/ 268:
+/***/ 266:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(269)
+var __vue_script__ = __webpack_require__(267)
 /* template */
-var __vue_template__ = __webpack_require__(270)
+var __vue_template__ = __webpack_require__(268)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1974,7 +2015,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 269:
+/***/ 267:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2022,7 +2063,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 270:
+/***/ 268:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -2082,7 +2123,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 271:
+/***/ 269:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -2095,10 +2136,16 @@ var render = function() {
     [
       _c("center", [
         _c("p", [
+          _vm._v(" Vuex Getter: " + _vm._s(this.$store.getters.isLoggedIn))
+        ]),
+        _vm._v(" "),
+        _c("p", [_vm._v(" My comp: " + _vm._s(this.isLoggedInZ))]),
+        _vm._v(" "),
+        _c("p", [
           _vm._v(" Login(Vuex state): " + _vm._s(this.ifPassportTokenSet) + " ")
         ]),
         _vm._v(" "),
-        this.$store.state.passport_api_tokenY != null
+        this.$store.state.passport_api_tokenY !== null
           ? _c(
               "div",
               [
@@ -14714,6 +14761,8 @@ module.exports = g;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(13);
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 //Vuex store
 
 
@@ -14746,8 +14795,17 @@ var debug = "development" !== 'production';
         */
     },
 
-    /*
     getters: {
+        //minor getter, can delete (both from Login_component)
+        getCart: function getCart(state) {
+            return state.passport_api_tokenY;
+        },
+
+
+        isLoggedIn: function isLoggedIn(state) {
+            return !!state.passport_api_tokenY;
+        } //get value (true/false) based on other state
+        /*
         fruitsCount (state) { 
             
             if(state.passport_api_tokenY !=''){
@@ -14758,8 +14816,8 @@ var debug = "development" !== 'production';
              //(state.passport_api_tokenY !='') ?  true :  false;
             
         },
+        */
     },
-    */
 
     /*
     computed: {
@@ -14880,7 +14938,7 @@ var debug = "development" !== 'production';
             var commit = _ref4.commit;
 
             alert('Vuex log out');
-            localStorage.removeItem('tokenZ');
+            localStorage.removeItem('tokenZ'); //clear localStorage
             localStorage.removeItem('loggedStorageUser');
             commit('LogOutMutation'); //reset state vars to store via mutation
         },
@@ -14926,17 +14984,19 @@ var debug = "development" !== 'production';
 
         //on Login success save data to Store (trigger mutation)
         setLoginResults: function setLoginResults(state, response) {
-            //state.ifLogged   = true; //sets Vuex 
 
-            state.loggedUser = response.user; //sets Vuex user Object (JS type:Object) {name: '', email: ''} 
+            //sets user's array to Vuex store object(state.state.loggedUser). Is gotten from /subcomponents/login.vue ajax 
             localStorage.setItem('loggedStorageUser', JSON.stringify(response.user)); //use {JSON.stringify} to save JS type:Object (i.e converts Object to string) //saves to localStorage to not reset data on every F5        
+            state.loggedUser = response.user; //sets Vuex user Object (JS type:Object) {name: '', email: ''} 
 
 
-            //sets the passport api token
-            state.passport_api_token = response.token;
+            //sets the passport api token to Vuex store(state.passport_api_tokenY). Is gotten from /subcomponents/login.vue ajax 
+            //Vue.set(state, passport_api_token, response.token);
             localStorage.setItem('tokenZ', response.token); //saves to localStorage to not reset data on every F5        
-            alert('Logged successfully');
+            state.passport_api_tokenY = response.token;
 
+            alert('Logged successfully');
+            alert("passport_api_tokenY type is " + _typeof(state.passport_api_tokenY));
             console.log('setApiToken executed in store' + response + ' Store => ' + state.passport_api_token);
             console.log('set apiToken mutation is done. localStorage is ' + localStorage.getItem('tokenZ'));
         },
@@ -14946,6 +15006,7 @@ var debug = "development" !== 'production';
         LogOutMutation: function LogOutMutation(state) {
             state.passport_api_tokenY = null;
             state.loggedUser = {};
+            alert("passport_api_tokenY type is " + _typeof(state.passport_api_tokenY));
         }
     },
     strict: debug

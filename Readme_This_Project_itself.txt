@@ -8,14 +8,16 @@
 
  1. This project {Laravel_Vue_Blog_V6_Passport} 
      => see docs at =>  13.2.1 REST API authentication via Passport package  at => https://github.com/account931/Laravel-Yii2_Comment_Vote_widgets/blob/master/blog_Laravel/ReadMe_Laravel_Com_Commands.txt
- # Login, register are now Vue component, work via REST API (ajax): \resources\assets\js\Wp_Login_Register_Rest
- # Auth verification is performed on Passport token (issued on login) and this Passport roken is sent on every ajax request in headers
-
+ 
+ Main features:
+     # Login, register are now Vue component, work via REST API (ajax): \resources\assets\js\Wp_Login_Register_Rest
+     # Auth verification is performed on Passport token (issued on login) and this Passport roken is sent on every ajax request in headers
+     # Api routes use 'middleware' => ['auth:api', 'myJsonForce'], 'auth:api' automatically checks if a token is passed in request (though passing token u must implement by yourself), 'myJsonForce' forces response in JSON, 
    
    -------------------
    How it works:
    1. Login
-   2. Differences and similarities between {CLEANSED_GIT_HUB/Laravel_Vue_Blog_V6_Passport} and {CLEANSED_GIT_HUB/Laravel_Vue_Blog}
+   2. Differences and similarities between {CLEANSED_GIT_HUB/Laravel_Vu e_Blog_V6_Passport} and {CLEANSED_GIT_HUB/Laravel_Vue_Blog}
    3. Get Article posts
    4. Create an Article post
    5. Edit   one Article post (Admin Part)
@@ -121,15 +123,17 @@
 
  2. {CLEANSED_GIT_HUB/Laravel_Vue_Blog}        
      => see docs at => 13.2   REST API authentication via token (Token Bearer, String Query) at => https://github.com/account931/Laravel-Yii2_Comment_Vote_widgets/blob/master/blog_Laravel/ReadMe_Laravel_Com_Commands.txt
+ 
+ Main features:
+     # Login/register actions work via regular http sessions, while CRUD operations (read, create, delete, etc) uses access token for auth (sent as header in Vue ajax)
+     # Auth verification(except for login) is performed via token (token is issued manually when user clicks button "Generate token" and saved to table {users} -> column {api_token}) and this token is sent with every ajax request in headers
 
-# Login/register actions work via regular http sessions, while CRUD operations (read, create, delete, etc) uses access token for auth (sent as header in Vue ajax)
-
-# Auth verification(except for login) is performed via token (token is issued manually when user clicks button "Generate token" and saved to table {users} -> column {api_token}) and this token is sent with every ajax request in headers
-
-# This WpRess Vue.js Blog uses 3-table DB (same as Wpress Image Blog and {Laravel_Vue_Blog_V6_Passport}):
-    wpressimages_blog_post
-    wpressimage_category
-    wpressimage_imagesstock => each row contains one image and Foreign Key id {wpImStock_postID} to what Blog post {wpressimages_blog_post} it relates to
+     # This WpRess Vue.js Blog uses 3-table DB (same as Wpress Image Blog and {Laravel_Vue_Blog_V6_Passport}):
+         wpressimages_blog_post
+         wpressimage_category
+         wpressimage_imagesstock => each row contains one image and Foreign Key id {wpImStock_postID} to what Blog post {wpressimages_blog_post} it relates to
+     
+     # Api routes use 'middleware' => ['auth:api', 'myJsonForce'], 'auth:api' automatically checks if a token is passed in request (though passing token u must implement by yourself), 'myJsonForce' forces response in JSON, 
 
    -------------------
    How it works:

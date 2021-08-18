@@ -19,16 +19,18 @@
                 <h1>Sign in</h1>
                 <p><i class="fa fa-external-link" style="font-size:36px"></i></p>
                 
+                <!-- Login: email -->
                 <div class="col-md-6 form-group">
                     <label for="email" class="col-md-6 control-label">E-Mail Address</label>
                     <input required v-model="email" type="email" placeholder="Name"  class="form-control"/>
                 </div>
                 
                
-                
+                <!-- Password -->
                 <div class="col-md-6 form-group">
                     <label for="password" class="col-md-6 control-label">Password</label>
-                    <input required v-model="password" type="password" placeholder="Password"  class="form-control"/>
+                    <input required v-model="password" type="password" placeholder="Password" id="passwordd"  class="form-control"/>
+                    <i class="fa fa-eye" id="passEye" @click="togglePassword" style="cursor:pointer;"></i>
                 </div>
                 
                 <hr><br><br>
@@ -155,6 +157,23 @@ export default {
             setTimeout(() => {  //clears message in n seconds
                 this.status_msg = ''
             }, 3000 * 155)
+        },
+        
+        
+         
+        /*
+        |--------------------------------------------------------------------------
+        |Toggles Password Visibility //eye icon in Password input 
+        |--------------------------------------------------------------------------
+        |
+        |
+        */
+        togglePassword(){
+            const password       = document.querySelector('#passwordd');
+            const type           = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            // toggle the eye slash icon
+            document.getElementById("passEye").classList.toggle('fa-eye-slash');//HTML DOM property element.classList //classList.toggle => if css class exists, it acts as classList.remove (i.e remove class).  If class does not exist, it works as classList.add (i.e add class), 
         },
         
         

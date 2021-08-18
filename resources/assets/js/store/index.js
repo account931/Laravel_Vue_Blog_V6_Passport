@@ -30,8 +30,15 @@ export default new Vuex.Store({
         */
     },
   
-    /*
+    
     getters: {
+        //minor getter, can delete (both from Login_component)
+        getCart(state) {
+            return state.passport_api_tokenY;
+        },
+        
+        isLoggedIn: state => !!state.passport_api_tokenY, //get value (true/false) based on other state
+        /*
         fruitsCount (state) { 
             
             if(state.passport_api_tokenY !=''){
@@ -42,8 +49,9 @@ export default new Vuex.Store({
              //(state.passport_api_tokenY !='') ?  true :  false;
             
         },
+        */
     },
-    */
+    
  
 
     /*
@@ -158,7 +166,7 @@ export default new Vuex.Store({
         
         LogUserOut ({ commit }) { 
             alert('Vuex log out');
-            localStorage.removeItem('tokenZ');
+            localStorage.removeItem('tokenZ'); //clear localStorage
             localStorage.removeItem('loggedStorageUser');
             commit('LogOutMutation'); //reset state vars to store via mutation
             
@@ -212,19 +220,24 @@ export default new Vuex.Store({
             state.adm_posts_qunatity = myPassedArg;        
         },
         
+        
+        
         //on Login success save data to Store (trigger mutation)
         setLoginResults (state, response) { 
-            //state.ifLogged   = true; //sets Vuex 
             
-            state.loggedUser = response.user;  //sets Vuex user Object (JS type:Object) {name: '', email: ''} 
+            //sets user's array to Vuex store object(state.state.loggedUser). Is gotten from /subcomponents/login.vue ajax 
             localStorage.setItem('loggedStorageUser', JSON.stringify(response.user)); //use {JSON.stringify} to save JS type:Object (i.e converts Object to string) //saves to localStorage to not reset data on every F5        
+            state.loggedUser = response.user;  //sets Vuex user Object (JS type:Object) {name: '', email: ''} 
 
 
-            //sets the passport api token
-            state.passport_api_token = response.token;
+            //sets the passport api token to Vuex store(state.passport_api_tokenY). Is gotten from /subcomponents/login.vue ajax 
+            //Vue.set(state, passport_api_token, response.token);
             localStorage.setItem('tokenZ', response.token); //saves to localStorage to not reset data on every F5        
-            alert('Logged successfully');
+            state.passport_api_tokenY = response.token;
+
             
+            alert('Logged successfully');
+            alert("passport_api_tokenY type is " + typeof state.passport_api_tokenY);
 	        console.log('setApiToken executed in store' + response + ' Store => ' + state.passport_api_token);
             console.log('set apiToken mutation is done. localStorage is ' + localStorage.getItem('tokenZ'));
         },
@@ -235,7 +248,8 @@ export default new Vuex.Store({
         //Log out mutation (clear state.passport_api_tokenY +  state.loggedUser vars) 
         LogOutMutation(state) {
             state.passport_api_tokenY = null;
-            state.loggedUser          = {};             
+            state.loggedUser          = {}; 
+            alert("passport_api_tokenY type is " + typeof state.passport_api_tokenY);            
         },
     },
     strict: debug

@@ -44,7 +44,9 @@ class UserAuthController extends Controller
         if (!auth()->attempt($data)) {
             return response(['error_message' => 'Incorrect Details. Please try again']);
         }
-
+        
+        //IMPLEMENT DELTING OLD USER"S PASSPORT TOKEN HERE............
+        
         $token = auth()->user()->createToken('API Token')->accessToken; //create token via Passport
         
         //save token to session to use in requests

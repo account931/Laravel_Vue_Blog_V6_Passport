@@ -128,11 +128,15 @@
     </div>
 </div>
 
-<!-- Vue Login component -->
+
+
+<!------------------- Vue Login component ---------------------------->
 <div id="vue-login" class="col-md-9 col-md-offset-2">
     <login-vue-component> <login-vue-component/>
 </div>
-<!-- Vue Login component -->
+<!------------------- END Vue Login component ------------------------>
+
+
 
 <!-- Include js file for thisview only -->
 <script src="{{ asset('js/login/login.js')}}"></script>

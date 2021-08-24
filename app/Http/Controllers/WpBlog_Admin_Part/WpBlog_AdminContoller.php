@@ -32,12 +32,16 @@ class WpBlog_AdminContoller extends Controller
     public function index()
     {
         //if so far no api_token field in {User table}
+        
+        //<!--  was used in Laravel Blog v.1 -->
+        /* 
         if(auth()->user()->api_token == null){
             return redirect('/getToken')->with('flashMessageFailX', 'Redirected here as no api_token was found. Please generate');
         }
+        */
         
         //gets current user Db table field {api_token}
-		$myDBToken = auth()->user()->api_token;
+		//$myDBToken = auth()->user()->api_token;
         
         return view('wpBlog_Admin_Part.index')->with(compact('myDBToken'));
     }

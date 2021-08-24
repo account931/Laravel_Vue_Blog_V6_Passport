@@ -4,7 +4,7 @@
 <template>
     <div id="appDemo">
         
-        <p> Current token(passed from view) {{this.currentUser.api_token}} </p> <!-- //passed from php in view as <vue-router-menu-with-link-content-display v-bind:current-user='{!! Auth::user()->toJson() !!}'>  -->
+        <!-- <p> Current token(passed from view) {{this.currentUser.api_token}} </p> -->  <!-- was used in Laravel Blog v.1 -->  <!-- //passed from php in view as <vue-router-menu-with-link-content-display v-bind:current-user='{!! Auth::user()->toJson() !!}'>  -->
 
                 <!--- Menu Variant 3 --->
                 <nav class="navbar navbar-inverse fix-for-non-working-click-in-mobile"> <!-- .fix-for-non-working-click-in-mobile is a fix for non-working click in mobile -->
@@ -41,8 +41,9 @@
         
         //before mount
         beforeMount() { 
-            var dataTest = this.currentUser.api_token; //api_token is passed from php in view as <vue-router-menu-with-link-content-display v-bind:current-user='{!! Auth::user()->toJson() !!}'> 
-            this.$store.dispatch('changeVuexStoreTokenFromChild', dataTest); //Sest api token to Vuex Store //working example how to change Vuex store from child component  
+            //<!-- was used in Laravel Blog v.1 -->
+            //var dataTest = this.currentUser.api_token; //api_token is passed from php in view as <vue-router-menu-with-link-content-display v-bind:current-user='{!! Auth::user()->toJson() !!}'> //was used in Laravel Blog v.1
+            //this.$store.dispatch('changeVuexStoreTokenFromChild', dataTest); //Sest api token to Vuex Store //working example how to change Vuex store from child component                       //was used in Laravel Blog v.1
         },
     }
 </script>

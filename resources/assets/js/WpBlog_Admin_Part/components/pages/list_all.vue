@@ -79,7 +79,7 @@
                 //Add Bearer token to headers
                 $.ajaxSetup({
                     headers: {
-                        'Authorization': 'Bearer ' + this.$store.state.api_tokenY
+                        'Authorization': 'Bearer ' + this.$store.state.passport_api_tokenY // this.$store.state.api_tokenY //was used in Laravel Blog v.1
                     }
                 }); 
       
@@ -94,7 +94,7 @@
                     //contentType: 'application/x-www-form-urlencoded; charset=utf-8',
                     //contentType: 'multipart/form-data',
 			        //crossDomain: true,
-			        //headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer ' + this.$store.state.api_tokenY},
+			        //headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer ' + this.$store.state.passport_api_tokenY }, //this.$store.state.api_tokenY //was used in Laravel Blog v.1
                     //headers: { 'Content-Type': 'application/json',  },
 			        //contentType: false,
 			        //dataType: 'json', //In Laravel causes crash!!!!!// without this it returned string(that can be alerted), now it returns object
@@ -175,7 +175,7 @@
                 //Add Bearer token to headers
                 $.ajaxSetup({
                     headers: {
-                        'Authorization': 'Bearer ' + this.$store.state.api_tokenY
+                        'Authorization': 'Bearer ' + this.$store.state.passport_api_tokenY //api_tokenY
                     }
                 }); 
       
@@ -188,7 +188,7 @@
                     processData : false,
                     contentType: false,
 			        //crossDomain: true,
-			        //headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer ' + this.$store.state.api_tokenY},
+			        //headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer ' + this.$store.state.passport_api_tokenY},  //this.$store.state.api_tokenY
                     //headers: { 'Content-Type': 'application/json',  },
 			        //contentType: false,
 			        //dataType: 'json', //In Laravel causes crash!!!!!// without this it returned string(that can be alerted), now it returns object

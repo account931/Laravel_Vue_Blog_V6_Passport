@@ -79417,7 +79417,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             //Add Bearer token to headers
             $.ajaxSetup({
                 headers: {
-                    'Authorization': 'Bearer ' + this.$store.state.api_tokenY
+                    'Authorization': 'Bearer ' + this.$store.state.passport_api_tokenY // this.$store.state.api_tokenY //was used in Laravel Blog v.1
                 }
             });
 
@@ -79432,7 +79432,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 //contentType: 'application/x-www-form-urlencoded; charset=utf-8',
                 //contentType: 'multipart/form-data',
                 //crossDomain: true,
-                //headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer ' + this.$store.state.api_tokenY},
+                //headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer ' + this.$store.state.passport_api_tokenY }, //this.$store.state.api_tokenY //was used in Laravel Blog v.1
                 //headers: { 'Content-Type': 'application/json',  },
                 //contentType: false,
                 //dataType: 'json', //In Laravel causes crash!!!!!// without this it returned string(that can be alerted), now it returns object
@@ -79511,7 +79511,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             //Add Bearer token to headers
             $.ajaxSetup({
                 headers: {
-                    'Authorization': 'Bearer ' + this.$store.state.api_tokenY
+                    'Authorization': 'Bearer ' + this.$store.state.passport_api_tokenY //api_tokenY
                 }
             });
 
@@ -79524,7 +79524,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 processData: false,
                 contentType: false,
                 //crossDomain: true,
-                //headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer ' + this.$store.state.api_tokenY},
+                //headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer ' + this.$store.state.passport_api_tokenY},  //this.$store.state.api_tokenY
                 //headers: { 'Content-Type': 'application/json',  },
                 //contentType: false,
                 //dataType: 'json', //In Laravel causes crash!!!!!// without this it returned string(that can be alerted), now it returns object
@@ -80892,7 +80892,7 @@ exports = module.exports = __webpack_require__(8)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* mine */\n.nav-item   {margin-left:2em;\n}\n.nav-item a {color:black;\n}\n.navbar-brand {color:black\n}\n#appDemo {\r\n  font-family: 'Avenir', Helvetica, Arial, sans-serif;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  text-align: center;\r\n  color: #2c3e50;\r\n  margin-top: 20px;\n}\n.moveInUp-enter-active{\r\n  animation: fadeIn 2s ease-in;\n}\n@keyframes fadeIn{\n0%{\r\n    opacity: 0;\n}\n50%{\r\n    opacity: 0.5;\n}\n100%{\r\n    opacity: 1;\n}\n}\n.moveInUp-leave-active{\r\n  animation: moveInUp .3s ease-in;\n}\n@keyframes moveInUp{\n0%{\r\n  transform: translateY(0);\n}\n100%{\r\n  transform: translateY(-400px);\n}\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* mine */\n.nav-item   {margin-left:2em;\n}\n.nav-item a {color:black;\n}\n.navbar-brand {color:black\n}\n#appDemo {\r\n  font-family: 'Avenir', Helvetica, Arial, sans-serif;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  text-align: center;\r\n  color: #2c3e50;\r\n  margin-top: 20px;\n}\n.moveInUp-enter-active{\r\n  animation: fadeIn 2s ease-in;\n}\n@keyframes fadeIn{\n0%{\r\n    opacity: 0;\n}\n50%{\r\n    opacity: 0.5;\n}\n100%{\r\n    opacity: 1;\n}\n}\n.moveInUp-leave-active{\r\n  animation: moveInUp .3s ease-in;\n}\n@keyframes moveInUp{\n0%{\r\n  transform: translateY(0);\n}\n100%{\r\n  transform: translateY(-400px);\n}\n}\r\n", ""]);
 
 // exports
 
@@ -80944,8 +80944,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     //before mount
     beforeMount: function beforeMount() {
-        var dataTest = this.currentUser.api_token; //api_token is passed from php in view as <vue-router-menu-with-link-content-display v-bind:current-user='{!! Auth::user()->toJson() !!}'> 
-        this.$store.dispatch('changeVuexStoreTokenFromChild', dataTest); //Sest api token to Vuex Store //working example how to change Vuex store from child component  
+        //<!-- was used in Laravel Blog v.1 -->
+        //var dataTest = this.currentUser.api_token; //api_token is passed from php in view as <vue-router-menu-with-link-content-display v-bind:current-user='{!! Auth::user()->toJson() !!}'> //was used in Laravel Blog v.1
+        //this.$store.dispatch('changeVuexStoreTokenFromChild', dataTest); //Sest api token to Vuex Store //working example how to change Vuex store from child component                       //was used in Laravel Blog v.1
     }
 });
 
@@ -80958,14 +80959,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "appDemo" } }, [
-    _c("p", [
-      _vm._v(
-        " Current token(passed from view) " +
-          _vm._s(this.currentUser.api_token) +
-          " "
-      )
-    ]),
-    _vm._v(" "),
     _c(
       "nav",
       {

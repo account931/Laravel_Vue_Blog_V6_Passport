@@ -49,6 +49,7 @@
                 
                 <div class="alert alert-danger">
                    <p>Admin Part => Edit/Delete</p>
+                   <p>Currently Admin Part is protected by Spatie RBAC via middleware. It protects access to REST controller (in routes/api.php), but not to this view. If u wish, in further to protect access to view, u may add similar developed middleware in routes/web.php </p>
                 </div>
                 
                 <div class="panel-body">
@@ -73,7 +74,8 @@
 			    <div  id="vue-menu" class="col-sm-12 col-xs-12"> <!--  id="vue-menu" --> 
 					<h3><b>Menu with Vue-Router</b></h3>
                     <!-- My Vue component with Menu Links -->
-					<vue-router-menu-with-link-content-display v-bind:current-user='{!! Auth::user()->toJson() !!}'> 
+					<?php //<vue-router-menu-with-link-content-display v-bind:current-user='{!! Auth::user()->toJson() !!}'> ?> <!-- was used in Laravel Blog v.1 -->
+                    <vue-router-menu-with-link-content-display> 
                     </vue-router-menu-with-link-content-display/>
                 </div>
 					

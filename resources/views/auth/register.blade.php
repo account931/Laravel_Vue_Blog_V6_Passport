@@ -44,7 +44,9 @@
                 </div> 
                 
                 
-                <div class="panel-body">
+                
+                <!-- This Register form is no longer used (was OK for regular http), reassigned to REST API <register-vue-component> <register-vue-component/> -->
+                <div class="panel-body" style="background:white; opacity: 0.3">
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
@@ -52,7 +54,7 @@
                             <label for="name" class="col-md-4 control-label">Name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="name" type="text" class="form-control" placeholder="don't use this form, use Vue form below" name="name" value="{{ old('name') }}" required autofocus>
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -107,8 +109,24 @@
                         </div>
                     </form>
                 </div>
+                <!-- End This Register form is no longer used (was OK for regular http), reassigned to REST API <login-vue-component> <login-vue-component/> -->
+
+                
+                
             </div>
         </div>
     </div>
 </div>
+
+
+
+<!----------------------------- Vue Registration component (Rest Api Registration) ---------------------------------->
+<div id="vueRegistrationRest" class="col-md-9 col-md-offset-2">
+    <registration-vue-component> <registration-vue-component/>
+</div>
+<!------------------------------ END Vue Registration component ------------------------------------------------------->
+
+
+
+
 @endsection

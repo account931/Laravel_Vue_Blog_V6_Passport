@@ -56,7 +56,10 @@ class RbacMiddle
         if(!$authedUser->hasAllPermissions(['edit articles', 'delete articles',])){ 
             //throw new \App\Exceptions\myException('You have No REST API rbac rights to Admin Panel');
             return response()->json(['error' => true, 'data' => 'You have No REST API Spatie Rbac rights to Admin Panel']);
-        } 
+        } else {
+            return response()->json(['error' => true, 'data' => 'You have REST API Spatie Rbac rights to Admin Panel. Drop me in middleware']);
+
+        }
         
         
         

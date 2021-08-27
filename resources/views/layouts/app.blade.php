@@ -105,10 +105,11 @@
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> <!-- Mega Fix (collapsed main menu won't open)-->	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css"> <!-- Sweet Alert CSS -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js'></script> <!--Sweet Alert JS-->    
-        
-    <!--  --> 
+      
+      
+    <!-- Login, Register Rest API --> 
     <!-- To register JS file for specific view only (In layout template) (for Vue login/register JS only. -->
-    @if (in_array(Route::getFacadeRoot()->current()->uri(), ['login']))
+    @if (in_array(Route::getFacadeRoot()->current()->uri(), ['login', 'register']))
         <script src="{{ asset('js/Wp_Login_Register_Rest/auth-start.js') }}"></script> <!-- as included always -->
         
     @endif

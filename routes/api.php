@@ -16,7 +16,8 @@ use Http\Controllers\WpBlog_Rest_API_Contoller;
 
 //Login and register via REST API + Passport
 Route::post('api_login',       'Auth_API\UserAuthController@login')->name('passport_login');
-//Route::post('/register_api', 'Auth_API\UserAuthController@register');
+Route::post('api_register',   'Auth_API\UserAuthController@register');
+
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

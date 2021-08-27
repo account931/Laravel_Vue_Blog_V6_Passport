@@ -1,4 +1,4 @@
-//NOT USED IN {Laravel_Vue_Blog_V6_Passport}, reassigned to /subcomponents/logged.vue
+//NOT USED IN {Laravel_Vue_Blog_V6_Passport}, reassigned to /subcomponents/login.vue + /subcomponents/register_form.vue 
 //How to Toggle Password Visibility //eye icon in Password input 
 
 (function(){ //START IIFE (Immediately Invoked Function Expression)

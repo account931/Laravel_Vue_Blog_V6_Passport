@@ -1,3 +1,4 @@
+<!-- get all blog entries -->
 <!-- Most up-to-date version (CLEANSED Version) -->
 <template>
 	<div class="contact">

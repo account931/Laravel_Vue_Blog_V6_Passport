@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 259);
+/******/ 	return __webpack_require__(__webpack_require__.s = 261);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1337,15 +1337,111 @@ var index = {
 
 /***/ }),
 
-/***/ 259:
+/***/ 164:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(260);
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(265)
+/* template */
+var __vue_template__ = __webpack_require__(266)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/Wp_Login_Register_Rest/components/subcomponents/login.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-a1c60920", Component.options)
+  } else {
+    hotAPI.reload("data-v-a1c60920", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
 
 
 /***/ }),
 
-/***/ 260:
+/***/ 165:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(267)
+/* template */
+var __vue_template__ = __webpack_require__(268)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/Wp_Login_Register_Rest/components/subcomponents/logged.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-839ac1ea", Component.options)
+  } else {
+    hotAPI.reload("data-v-839ac1ea", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 261:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(262);
+
+
+/***/ }),
+
+/***/ 262:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1373,7 +1469,10 @@ window.Vue = __webpack_require__(1);
  //import Vuex Store
 
 
-Vue.component('login-vue-component', __webpack_require__(261)); //register component dispalying qunatity
+Vue.component('login-vue-component', __webpack_require__(263)); //login component 
+Vue.component('registration-vue-component', __webpack_require__(270)); //register component 
+
+
 //Vue.component('create-post',            require('./components/CreatePost.vue')/*.default*/);
 //Vue.component('all-posts',              require('./components/AllPosts.vue')/*.default*/); //register component dispalying all posts
 
@@ -1411,22 +1510,29 @@ const app2 = new Vue({
 });
 */
 
-//Component => Div with Vue route menu and area to dispaly selected menu    
+//Component => Div with Vue Login form 
 var appLogin = new Vue({
   store: __WEBPACK_IMPORTED_MODULE_0__store_index__["a" /* default */], //connect Vuex store, must-have
   //router, //must-have for Vue routing
   el: '#vue-login'
 });
 
+//Component => Div with Vue Register form 
+var appRegister = new Vue({
+  store: __WEBPACK_IMPORTED_MODULE_0__store_index__["a" /* default */], //connect Vuex store, must-have
+  //router, //must-have for Vue routing
+  el: '#vueRegistrationRest'
+});
+
 /***/ }),
 
-/***/ 261:
+/***/ 263:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(262)
+var __vue_script__ = __webpack_require__(264)
 /* template */
 var __vue_template__ = __webpack_require__(269)
 /* template functional */
@@ -1468,14 +1574,14 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 262:
+/***/ 264:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__subcomponents_login_vue__ = __webpack_require__(263);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__subcomponents_login_vue__ = __webpack_require__(164);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__subcomponents_login_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__subcomponents_login_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__subcomponents_logged_vue__ = __webpack_require__(266);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__subcomponents_logged_vue__ = __webpack_require__(165);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__subcomponents_logged_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__subcomponents_logged_vue__);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -1561,55 +1667,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 /***/ }),
 
-/***/ 263:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(3)
-/* script */
-var __vue_script__ = __webpack_require__(264)
-/* template */
-var __vue_template__ = __webpack_require__(265)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/Wp_Login_Register_Rest/components/subcomponents/login.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-a1c60920", Component.options)
-  } else {
-    hotAPI.reload("data-v-a1c60920", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 264:
+/***/ 265:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1793,7 +1851,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 265:
+/***/ 266:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1964,54 +2022,6 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-a1c60920", module.exports)
   }
 }
-
-/***/ }),
-
-/***/ 266:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(3)
-/* script */
-var __vue_script__ = __webpack_require__(267)
-/* template */
-var __vue_template__ = __webpack_require__(268)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/Wp_Login_Register_Rest/components/subcomponents/logged.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-839ac1ea", Component.options)
-  } else {
-    hotAPI.reload("data-v-839ac1ea", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
 
 /***/ }),
 
@@ -2187,6 +2197,788 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-de99e3f2", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 270:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(271)
+/* template */
+var __vue_template__ = __webpack_require__(272)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/Wp_Login_Register_Rest/components/Registration_component.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-08005bc7", Component.options)
+  } else {
+    hotAPI.reload("data-v-08005bc7", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 271:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__subcomponents_register_form_vue__ = __webpack_require__(273);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__subcomponents_register_form_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__subcomponents_register_form_vue__);
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+//using other sub-component 
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'all-posts',
+
+    //using other sub-component 
+    components: {
+        'registration-auth-page': __WEBPACK_IMPORTED_MODULE_0__subcomponents_register_form_vue___default.a
+
+    },
+    data: function data() {
+        return {
+            //postDialogVisible: false,
+        };
+    },
+
+
+    //computed property is used to declaratively describe a value that depends on other values. When you data-bind to a computed property inside the template, Vue knows when to update the DOM when any of the values depended upon by the computed property has changed.
+    computed: {
+
+        //just to form text information
+        ifPassportTokenSet: function ifPassportTokenSet() {
+            if (this.$store.state.passport_api_tokenY != null) {
+                return "Computed: Passport Token is set, User logged";
+            } else {
+                return "Computed: Passport Token is not set, login first";
+            }
+        },
+        isLoggedInZ: function isLoggedInZ() {
+            return this.$store.getters.isLoggedIn;
+        }
+    },
+    beforeMount: function beforeMount() {},
+    created: function created() {
+        alert("passport_api_tokenY type is " + _typeof(this.$store.state.passport_api_tokenY));
+    },
+
+
+    methods: {
+        logMeOut: function logMeOut() {
+            alert("do logging out");
+            this.$store.dispatch('LogUserOut'); //trigger Vuex function LogUserOut(), which is executed in Vuex store
+            //drop store localStorage.setItem('tokenZ' + localStorage.setItem('loggedStorageUser' + this.$store.state.ifLogged
+        }
+    }
+});
+
+/***/ }),
+
+/***/ 272:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "col-sm-12 col-xs-12 alert alert-info borderX" },
+    [
+      _c("center", [
+        _c("p", [
+          _vm._v(" Vuex Getter: " + _vm._s(this.$store.getters.isLoggedIn))
+        ]),
+        _vm._v(" "),
+        _c("p", [_vm._v(" My comp: " + _vm._s(this.isLoggedInZ))]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(" Login(Vuex state): " + _vm._s(this.ifPassportTokenSet) + " ")
+        ]),
+        _vm._v(" "),
+        this.$store.state.passport_api_tokenY !== null
+          ? _c("div", [
+              _vm._v(
+                "\n                You are already Logged\n                "
+              ),
+              _c("p", [
+                _vm._v(" click to Log Out "),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success",
+                    on: { click: _vm.logMeOut }
+                  },
+                  [_vm._v(" Log out ")]
+                )
+              ])
+            ])
+          : _c(
+              "div",
+              { staticClass: "col-sm-12 col-xs-12 alert alert-danger" },
+              [
+                _vm._v("\n                Not Logged\n                "),
+                _c("registration-auth-page")
+              ],
+              1
+            )
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-08005bc7", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 273:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(274)
+/* template */
+var __vue_template__ = __webpack_require__(275)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/Wp_Login_Register_Rest/components/subcomponents/register_form.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-f85d4332", Component.options)
+  } else {
+    hotAPI.reload("data-v-f85d4332", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 274:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'all-posts',
+    data: function data() {
+        return {
+            email: "", //form email
+            password: "", //form password
+            password_confirm: "", //form password confirm
+            name: "", //form name
+            status_msg: "", //validate error message
+            status: "",
+            errroList: ['no validation error1', 'no validation error2'] //list of validations errors of server-side validator
+
+        };
+    },
+
+
+    //computed property is used to declaratively describe a value that depends on other values. When you data-bind to a computed property inside the template, Vue knows when to update the DOM when any of the values depended upon by the computed property has changed.
+    computed: {
+        booksGet: function booksGet() {
+            //compute Back-end validation errors
+            return this.errroList;
+        }
+    },
+    beforeMount: function beforeMount() {},
+
+    methods: {
+
+        /*
+        |--------------------------------------------------------------------------
+        |Rest Api Registertaion submit
+        |--------------------------------------------------------------------------
+        |
+        |
+        */
+        registerSubmit: function registerSubmit(e) {
+            e.preventDefault();
+            if (!this.validateForm()) {
+                return false;
+            }
+
+            var that = this; //Fix this issue. Explaination => if you use this.data, it is incorrect, because when 'this' reference the vue-app, you could use this.data, but here (ajax success callback function), this does not reference to vue-app, instead 'this' reference to whatever who called this function(ajax call)
+
+
+            var emailX = this.email;
+            var passwordX = this.password;
+
+            //Use Formdata to bind inpts 
+            var thatX = this; //Fix for ajax //Explaination => if you use this.data, it is incorrect, because when 'this' reference the vue-app, you could use this.data, but here (ajax success callback function), this does not reference to vue-app, instead 'this' reference to whatever who called this function(ajax call)
+            var formData = new FormData(); //new FormData(document.getElementById("myFormZZ"));
+            formData.append('email', this.email);
+            formData.append('name', this.name);
+            formData.append('password', this.password);
+            formData.append('password_confirmation', this.password_confirm); //must be named 'password_confirmation', i.e 'firstINPUT_confirmation' to be automatically validate in back-end via ('password' => 'required|confirmed',)
+
+            $.ajax({
+                url: 'api/api_register',
+                type: 'POST', //POST is to create a new user
+                cache: false,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                //contentType:"application/json; charset=utf-8",						  
+                //contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                //contentType: 'multipart/form-data',
+                //crossDomain: true,
+                //headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer ' + this.$store.state.api_tokenY},
+                //headers: { 'Content-Type': 'application/json',  },
+                //contentType: false,
+                //dataType: 'json', //In Laravel causes crash!!!!!// without this it returned string(that can be alerted), now it returns object
+
+                //passing the data
+                data: formData,
+
+                success: function success(data) {
+                    //alert("success"); 
+                    alert("success " + JSON.stringify(data, null, 4));
+
+                    if (data.error_message) {
+                        swal("Failed", data.error_message, "error");
+                        thatX.status_msg = data.error_message;
+
+                        //setting the list of validations errors of server-side validator
+                        var tempoArray = []; //temporary array
+                        for (var key in data.validateErrors) {
+                            //Object iterate
+                            var t = data.validateErrors[key][0]; //gets validation err message, e.g validateErrors.title[0]
+                            tempoArray.push(t);
+                        }
+                        that.errroList = tempoArray; //change state errroList //{this-that} fix
+                        //
+                    } else {
+
+                        swal("OK", "Reg is OK", "success");
+                        var tempoArray = [];
+                        that.errroList = tempoArray; //clears validation server-side errors if any. Simple that.errroList = [] won't work
+
+                        //thatX.$store.dispatch('changeVuexStoreLogged', data); //working example how to change Vuex store from child component  
+                    }
+                }, //end success
+
+                error: function error(errorZ) {
+                    alert("Crashed");
+                    alert("error " + JSON.stringify(errorZ, null, 4));
+                }
+            });
+            //END AJAXed  part 
+        },
+
+
+        /*
+        |--------------------------------------------------------------------------
+        |Client-side form validation
+        |--------------------------------------------------------------------------
+        |
+        |
+        */
+        validateForm: function validateForm() {
+
+            if (!this.email) {
+                this.status = false;
+                this.showNotification('Email title cannot be empty');
+                return false;
+            }
+
+            if (!this.name) {
+                this.status = false;
+                this.showNotification('Name cannot be empty');
+                return false;
+            }
+
+            if (!this.password) {
+                this.status = false;
+                this.showNotification('Password cannot be empty');
+                return false;
+            }
+
+            if (!this.password_confirm) {
+                this.status = false;
+                this.showNotification('Password confirm cannot be empty');
+                return false;
+            }
+
+            //client-side password match check
+            if (this.password != this.password_confirm) {
+                this.status = false;
+                this.showNotification('Passwords do not match');
+                //return false;
+            }
+
+            this.showNotification(''); //clears error messages if any prev
+            return true;
+        },
+        showNotification: function showNotification(message) {
+            var _this = this;
+
+            this.status_msg = message;
+            setTimeout(function () {
+                //clears message in n seconds
+                _this.status_msg = '';
+            }, 3000 * 155);
+        },
+
+
+        /*
+        |--------------------------------------------------------------------------
+        |Toggles Password Visibility //eye icon in Password input 
+        |--------------------------------------------------------------------------
+        |
+        |
+        */
+        togglePasswordReg1: function togglePasswordReg1() {
+            var password = document.querySelector('#passwordd');
+            var type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            // toggle the eye slash icon
+            document.getElementById("passEye1").classList.toggle('fa-eye-slash'); //HTML DOM property element.classList //classList.toggle => if css class exists, it acts as classList.remove (i.e remove class).  If class does not exist, it works as classList.add (i.e add class), 
+        },
+        togglePasswordReg2: function togglePasswordReg2() {
+            var password = document.querySelector('#passworddConfirm');
+            var type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            // toggle the eye slash icon
+            document.getElementById("passEye2").classList.toggle('fa-eye-slash'); //HTML DOM property element.classList //classList.toggle => if css class exists, it acts as classList.remove (i.e remove class).  If class does not exist, it works as classList.add (i.e add class), 
+        }
+    }
+});
+
+/***/ }),
+
+/***/ 275:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "col-sm-12 col-xs-12 alert alert-info borderX" },
+    [
+      _c("center", [_c("p", [_vm._v(" Registration Vue ")])]),
+      _vm._v(" "),
+      _vm._l(_vm.booksGet, function(book, i) {
+        return _c("div", { key: i, staticClass: "alert alert-danger" }, [
+          _vm._v(" \n            Error: " + _vm._s(book) + " \n        ")
+        ])
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _vm.status_msg
+          ? _c(
+              "div",
+              { staticClass: "alert-danger alert", attrs: { role: "alert" } },
+              [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.status_msg) +
+                    "\n            "
+                )
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "form",
+          {
+            staticClass: "login",
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.registerSubmit($event)
+              }
+            }
+          },
+          [
+            _c("h1", [_vm._v("Register")]),
+            _vm._v(" "),
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-6 form-group" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "col-md-6 control-label",
+                  attrs: { for: "email" }
+                },
+                [_vm._v("E-Mail Address")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.email,
+                    expression: "email"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { required: "", type: "email", placeholder: "Email" },
+                domProps: { value: _vm.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.email = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-6 form-group" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "col-md-6 control-label",
+                  attrs: { for: "name" }
+                },
+                [_vm._v(" Name ")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.name,
+                    expression: "name"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { required: "", type: "text", placeholder: "Name" },
+                domProps: { value: _vm.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.name = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-6 form-group" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "col-md-6 control-label",
+                  attrs: { for: "password" }
+                },
+                [_vm._v("Password")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.password,
+                    expression: "password"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  required: "",
+                  type: "password",
+                  placeholder: "Password",
+                  id: "passwordd",
+                  required: ""
+                },
+                domProps: { value: _vm.password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.password = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("i", {
+                staticClass: "fa fa-eye",
+                staticStyle: { cursor: "pointer" },
+                attrs: { id: "passEye1" },
+                on: { click: _vm.togglePasswordReg1 }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-6 form-group" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "col-md-6 control-label",
+                  attrs: { for: "passworddConfirm" }
+                },
+                [_vm._v("Confirm Password")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.password_confirm,
+                    expression: "password_confirm"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  required: "",
+                  type: "password",
+                  placeholder: "Confirm Password",
+                  id: "passworddConfirm"
+                },
+                domProps: { value: _vm.password_confirm },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.password_confirm = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("i", {
+                staticClass: "fa fa-eye",
+                staticStyle: { cursor: "pointer" },
+                attrs: { id: "passEye2" },
+                on: { click: _vm.togglePasswordReg2 }
+              })
+            ]),
+            _vm._v(" "),
+            _c("hr"),
+            _c("br"),
+            _c("br"),
+            _vm._v(" "),
+            _vm._m(1)
+          ]
+        )
+      ])
+    ],
+    2
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _c("i", {
+        staticClass: "fa fa-credit-card",
+        staticStyle: { "font-size": "36px" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "btn btn-info", attrs: { type: "submit" } },
+      [
+        _vm._v(" Register "),
+        _c("i", {
+          staticClass: "\tfa fa-folder-open-o",
+          staticStyle: { "font-size": "12px" }
+        })
+      ]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-f85d4332", module.exports)
   }
 }
 
@@ -14884,7 +15676,7 @@ var debug = "development" !== 'production';
 
         /*
         |--------------------------------------------------------------------------
-        | Ajax request, get REST API located at => WpBlog_VueContoller/ function getAllPosts()
+        | Ajax request, get REST API located at => WpBlog_VueContoller/ function getAllPosts(), get all blog posts (non-admin section)
         |--------------------------------------------------------------------------
         |
         |
@@ -14893,6 +15685,9 @@ var debug = "development" !== 'production';
             var commit = _ref3.commit,
                 state = _ref3.state;
             //state is a fix
+
+            var thatX = this; //to fix context issue
+
             $('.loader-x').fadeIn(800); //show loader
             alert('start (True) Disable 2nd alert in AllPosts beforeMount');
             alert("Vuex store Passport token " + state.passport_api_tokenY);
@@ -14912,7 +15707,15 @@ var debug = "development" !== 'production';
                 if (dataZ.error == true || dataZ.error == "Unauthenticated.") {
                     //if Rest endpoint returns any predefined error
                     console.log(dataZ.data);
-                    swal("Unauthenticated", "Check Bearer Token", "error");
+                    swal("Unauthenticated2", "Check Bearer Token2", "error");
+
+                    //Unlog the user if  dataZ.error == "Unauthenticated." || 401, otherwise if user has wrong password token saved in Locals storage, he will always recieve error and neber log out                  
+                    //store.dispatch('LogUserOut');//this.$store.dispatch('LogUserOut'); //trigger Vuex function LogUserOut(), which is executed in Vuex store
+                    //so far  can't fire store.dispatch('LogUserOut'), so do manually
+                    alert('Vuex log out');
+                    localStorage.removeItem('tokenZ'); //clear localStorage
+                    localStorage.removeItem('loggedStorageUser');
+                    commit('LogOutMutation'); //reset state vars to store via mutation
                 } else if (dataZ.error == false) {
 
                     swal("Done", "Articles are loaded (Vuex store).", "success");
@@ -15006,7 +15809,7 @@ var debug = "development" !== 'production';
         LogOutMutation: function LogOutMutation(state) {
             state.passport_api_tokenY = null;
             state.loggedUser = {};
-            alert("passport_api_tokenY type is " + _typeof(state.passport_api_tokenY));
+            alert("passport_api_tokenY type is logged out " + _typeof(state.passport_api_tokenY));
         }
     },
     strict: debug

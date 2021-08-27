@@ -20,7 +20,10 @@ window.Vue = require('vue');
 import store from '../store/index'; //import Vuex Store
 
 
-Vue.component('login-vue-component', require('./components/Login_component.vue')); //register component dispalying qunatity
+Vue.component('login-vue-component',        require('./components/Login_component.vue'));        //login component 
+Vue.component('registration-vue-component', require('./components/Registration_component.vue')); //register component 
+
+
 //Vue.component('create-post',            require('./components/CreatePost.vue')/*.default*/);
 //Vue.component('all-posts',              require('./components/AllPosts.vue')/*.default*/); //register component dispalying all posts
 
@@ -65,7 +68,7 @@ const app2 = new Vue({
 
   
   
-//Component => Div with Vue route menu and area to dispaly selected menu    
+//Component => Div with Vue Login form 
 const appLogin = new Vue({
 	store, //connect Vuex store, must-have
 	//router, //must-have for Vue routing
@@ -73,4 +76,10 @@ const appLogin = new Vue({
 });
 
 
+//Component => Div with Vue Register form 
+const appRegister = new Vue({
+	store, //connect Vuex store, must-have
+	//router, //must-have for Vue routing
+    el: '#vueRegistrationRest'
+});
 

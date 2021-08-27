@@ -1,4 +1,4 @@
-<!-- Uses /subcomponents/login.vue + /subcomponents/logged.vue -->
+<!-- Uses /subcomponents/register_form.vue  -->
 
 
 <!-- Uses Vuex store: this.$store.state.passport_api_tokenY -->
@@ -16,17 +16,17 @@
             
             <!-- If user is logged View -->
             <div v-if="this.$store.state.passport_api_tokenY !== null"> <!--auth check if Passport Token is set, i.e user is logged -->
-                Logged 
-                <logged-user-page></logged-user-page>
+                You are already Logged
+                <p> click to Log Out </br> <button class="btn btn-success" @click="logMeOut"> Log out </button> </p>
+                
+                
             </div>
             
-            <!-- Login Form -->
+            <!-- Register Form -->
             <div v-else class="col-sm-12 col-xs-12 alert alert-danger">
-                <div class="col-sm-4 col-xs-4 alert alert-danger col-sm-offset-4 col-xs-offset-4">
-                    Not Logged 
-                </div>
+                Not Logged
+                <registration-auth-page> </registration-auth-page> <!-- Vue subcomponent (Register form) -->                  
                 
-                <login-auth-page> </login-auth-page> <!-- Vue subcomponent (Login Form) -->
             </div>
             
         </center>
@@ -36,16 +36,16 @@
 
 <script>
 //using other sub-component 
-import loginPage      from './subcomponents/login.vue';
-import loggedUserPage from './subcomponents/logged.vue';
+import RegistrationPage      from './subcomponents/register_form.vue';
+
 
 export default {
     name: 'all-posts',
     
     //using other sub-component 
 	components: {
-          'login-auth-page' : loginPage,
-          'logged-user-page': loggedUserPage,
+          'registration-auth-page' : RegistrationPage,
+         
     },
     data() {
         return {
@@ -75,6 +75,11 @@ export default {
     },
     
     methods: {
+        logMeOut(){
+            alert("do logging out");
+            this.$store.dispatch('LogUserOut'); //trigger Vuex function LogUserOut(), which is executed in Vuex store
+            //drop store localStorage.setItem('tokenZ' + localStorage.setItem('loggedStorageUser' + this.$store.state.ifLogged
+        },
     
     },
 }

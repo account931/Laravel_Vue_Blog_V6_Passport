@@ -45,6 +45,9 @@
                 </div> 
                 
                 
+                
+                
+                <!-- This Login form is no longer used (was OK for regular hhtp), reassigned to REST API <login-vue-component> <login-vue-component/> -->
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('passport_login') }}">
                         {{ csrf_field() }}
@@ -123,6 +126,9 @@
                         </div>
                     </form>
                 </div>
+                <!-- End This Login form is no longer used (was OK for regular hhtp), reassigned to REST API <login-vue-component> <login-vue-component/> -->
+
+
             </div>
         </div>
     </div>
@@ -130,11 +136,13 @@
 
 
 
-<!------------------- Vue Login component ---------------------------->
+
+
+<!----------------------------- Vue Login component (Rest Api Login) ---------------------------------->
 <div id="vue-login" class="col-md-9 col-md-offset-2">
     <login-vue-component> <login-vue-component/>
 </div>
-<!------------------- END Vue Login component ------------------------>
+<!------------------------------ END Vue Login component ----------------------------------------------->
 
 
 

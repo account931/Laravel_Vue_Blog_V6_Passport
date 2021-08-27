@@ -115,12 +115,15 @@ export default new Vuex.Store({
            
         /*
         |--------------------------------------------------------------------------
-        | Ajax request, get REST API located at => WpBlog_VueContoller/ function getAllPosts()
+        | Ajax request, get REST API located at => WpBlog_VueContoller/ function getAllPosts(), get all blog posts (non-admin section)
         |--------------------------------------------------------------------------
         |
         |
         */
 	    getAllPosts({ commit, state  }) {  //state is a fix
+        
+            var thatX = this; //to fix context issue
+
 	        $('.loader-x').fadeIn(800); //show loader
             alert('start (True) Disable 2nd alert in AllPosts beforeMount');
             alert( "Vuex store Passport token " + state.passport_api_tokenY);
@@ -139,7 +142,15 @@ export default new Vuex.Store({
               
                 if(dataZ.error == true|| dataZ.error == "Unauthenticated."){ //if Rest endpoint returns any predefined error
                     console.log(dataZ.data);
-                    swal("Unauthenticated", "Check Bearer Token", "error");
+                    swal("Unauthenticated2", "Check Bearer Token2", "error");
+                    
+                    //Unlog the user if  dataZ.error == "Unauthenticated." || 401, otherwise if user has wrong password token saved in Locals storage, he will always recieve error and neber log out                  
+                    //store.dispatch('LogUserOut');//this.$store.dispatch('LogUserOut'); //trigger Vuex function LogUserOut(), which is executed in Vuex store
+                    //so far  can't fire store.dispatch('LogUserOut'), so do manually
+                    alert('Vuex log out');
+                    localStorage.removeItem('tokenZ'); //clear localStorage
+                    localStorage.removeItem('loggedStorageUser');
+                    commit('LogOutMutation'); //reset state vars to store via mutation
                   
                 } else if(dataZ.error == false){
               
@@ -249,7 +260,7 @@ export default new Vuex.Store({
         LogOutMutation(state) {
             state.passport_api_tokenY = null;
             state.loggedUser          = {}; 
-            alert("passport_api_tokenY type is " + typeof state.passport_api_tokenY);            
+            alert("passport_api_tokenY type is logged out " + typeof state.passport_api_tokenY);            
         },
     },
     strict: debug

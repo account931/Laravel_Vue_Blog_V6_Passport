@@ -8,11 +8,20 @@
 		    <p> Login Vue </p>
         </center>
         
+        <!-- Link to registration for new users -->
+        <div>
+             <button class="btn btn-info"> <a href="register"> Not registered yet? </a> </button>
+        </div>
+        <!-- Link to registration for new users -->
+        
         
         <div class="form-group">
             <div v-if="status_msg" class="alert-danger alert" role="alert">
                 {{ status_msg }}
             </div>
+            
+            
+
             
             <!-- Login Form -->
             <form class="login" @submit.prevent="loginSubmit">

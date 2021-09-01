@@ -1,6 +1,8 @@
 //Vuex store
 import Vue from 'vue';
 import Vuex from 'vuex';
+import axios from 'axios';
+
 
 Vue.use(Vuex);
 const debug = process.env.NODE_ENV !== 'production';
@@ -127,7 +129,15 @@ export default new Vuex.Store({
 	        $('.loader-x').fadeIn(800); //show loader
             alert('start (True) Disable 2nd alert in AllPosts beforeMount');
             alert( "Vuex store Passport token " + state.passport_api_tokenY);
-            fetch('api/post/get_all'/*?token=' + state.api_tokenY*/, { //http://localhost/Laravel+Yii2_comment_widget/blog_Laravel/public/post/get_all
+            
+            
+            // Fetch method http variant (100% working)
+            //Main difference Fetch method from Axios is:
+            //1. that Axios wraps back-end REST API response in additional {data}, so where in Fetch we used {dataZ}, in Axios we have to use {dataZ.data} (in then(dataZ => {})
+            //2. In Axios we do unlogging for Unauthenticated 401 requests in fail section {.catch(function(err){ }, while for Fetch in success {.then(dataZ => { if(dataZ.error == true|| dataZ.error == "Unauthenticated."){
+            
+            /*
+            fetch('api/post/get_all', { //fetch('api/post/get_all'?token=' + state.api_tokenY //http://localhost/Laravel+Yii2_comment_widget/blog_Laravel/public/post/get_all
                 method: 'get',
                 //pass Bearer token in headers ()
                 headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + state.passport_api_tokenY },
@@ -135,7 +145,7 @@ export default new Vuex.Store({
 
             }).then(response => {
                 $('.loader-x').fadeOut(800);  //hide loader
-                return response.json();
+                return response.json(); //important Fetch feature //The .json method returns a promise to the parsed JSON, not the parsed JSON itself.
             }).then(dataZ => {
                 console.log("Here STORE => " + dataZ);
 		        //core rewritten, async getAllPosts, trigger mutation setPosts()
@@ -158,11 +168,94 @@ export default new Vuex.Store({
 	                return commit('setPosts', dataZ ); //sets ajax results to store via mutation
                 }
             })
-	        .catch(/*err => */ function(err){
+	        .catch(function(err){ 
                 console.log("Getting articles failed ( in store/index.js). Check if ure logged =>  " + err);
                 swal("Crashed", "You are in catch", "error");
             }); // catch any error
-      
+            */
+            //End Fetch http variant (100% working)
+            
+            
+            
+            
+            
+            //Axios method http variant (100% working)
+            //Main difference Axios method from Fetch is:
+            //1. that Axios wraps back-end REST API response in additional {data}, so where in Fetch we used {dataZ}, in Axios we have to use {dataZ.data} (in then(dataZ => {})
+            //2. In Axios we do unlogging for Unauthenticated 401 requests in fail section {.catch(function(err){ }, while for Fetch in success {.then(dataZ => { if(dataZ.error == true|| dataZ.error == "Unauthenticated."){
+            
+            axios({
+                method: 'get', //you can set what request you want to be
+                url: 'api/post/get_all',
+                //data: {id: varID},
+                headers: {
+                    'Content-Type': 'application/json', 'Authorization': 'Bearer ' + state.passport_api_tokenY
+                },
+            })
+            /*.then(response => {
+                $('.loader-x').fadeOut(800);  //hide loader
+                //return response.json(); //Fetch feature //In Axios responses are already served as javascript object, no need to parse, simply get response and access data.
+                alert(1);
+            }) */
+            .then(dataZ => {
+                //var dataZ = JSON.stringify(dataVV);
+                console.log(dataZ);
+                $('.loader-x').fadeOut(800);  //hide loader
+                alert(2);
+                console.log("Here STORE => "   + dataZ.data.data[0].wpBlog_title);
+                //console.log("Here STORE 2 => " + JSON.stringify(dataZ.data.data)); //works
+		        //core rewritten, async getAllPosts, trigger mutation setPosts()
+                alert(3);
+                console.log("dataZ.error " + dataZ.data.error);
+                /*
+                if(dataZ.data.error == true ||  dataZ.data.error == "Unauthenticated."){ //if Rest endpoint returns any predefined error
+                    console.log("dataZ.data.error 2 " + dataZ.data.error);
+                    swal("Unauthenticated2", "Check Bearer Token2", "error");
+                    
+                    //Unlog the user if  dataZ.error == "Unauthenticated." || 401, otherwise if user has wrong password token saved in Locals storage, he will always recieve error and neber log out                  
+                    //store.dispatch('LogUserOut');//this.$store.dispatch('LogUserOut'); //trigger Vuex function LogUserOut(), which is executed in Vuex store
+                    //so far  can't fire store.dispatch('LogUserOut'), so do manually
+                    alert('Vuex log out');
+                    localStorage.removeItem('tokenZ'); //clear localStorage
+                    localStorage.removeItem('loggedStorageUser');
+                    commit('LogOutMutation'); //reset state vars to store via mutation
+                  
+                } else if(dataZ.data.error == false){ 
+                    alert('dataZ.data.error 4 ' + dataZ.data.error);
+                    swal("Done", "Articles are loaded (axios) (Vuex store).", "success");
+	                return commit('setPosts', dataZ.data ); //sets ajax results to store via mutation
+                }
+                */
+                
+                //change for Axios
+                if (dataZ.data.error == false){ 
+                    alert('dataZ.data.error 4 ' + dataZ.data.error);
+                    swal("Done", "Articles are loaded (axios) (Vuex store).", "success");
+	                return commit('setPosts', dataZ.data ); //sets ajax results to store via mutation
+                }
+            })
+	        .catch(function(err){ 
+                $('.loader-x').fadeOut(800);  //hide loader
+                console.log("Getting articles failed ( in store/index.js). Check if ure logged =>  " + err);
+                swal("Crashed", "You are in catch", "error");
+                alert("err " + err);
+                
+                //changes for Axios //Unlogg the user 
+                if(err == "Error: Request failed with status code 401" ||  err == "Unauthenticated."){ //if Rest endpoint returns any predefined error
+                    console.log("dataZ.data.error 2 " + err.error);
+                    swal("Unauthenticated2", "Check Bearer Token2", "error");
+                    
+                    //Unlog the user if  dataZ.error == "Unauthenticated." || 401, otherwise if user has wrong password token saved in Locals storage, he will always recieve error and neber log out                  
+                    //store.dispatch('LogUserOut');//this.$store.dispatch('LogUserOut'); //trigger Vuex function LogUserOut(), which is executed in Vuex store
+                    //so far  can't fire store.dispatch('LogUserOut'), so do manually
+                    alert('Vuex log out');
+                    localStorage.removeItem('tokenZ'); //clear localStorage
+                    localStorage.removeItem('loggedStorageUser');
+                    commit('LogOutMutation'); //reset state vars to store via mutation
+                }
+            }); // catch any error
+ 
+            //End Axios http variant (% working)
       
         },
         

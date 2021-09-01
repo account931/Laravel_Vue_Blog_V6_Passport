@@ -6,8 +6,11 @@
 		
         <!--------- Unauthorized/unlogged Section ------> 
         <div v-if="this.$store.state.passport_api_tokenY == null" class="col-sm-12 col-xs-12 alert alert-info"> <!--auth check if Passport Token is set, i.e user is logged -->
-            <h3> <p>Sorry, you are not logged. Login first </p>
-            <i class="fa fa-minus-circle" style="font-size:48px;color:red"></i> 
+            <h3> 
+                <p>Sorry, you are not logged. Login first </p>
+                <p> <button class="btn btn-info"> <a href="login"> Click to go to Login page </a> </button> </p>
+                </br>
+                <i class="fa fa-minus-circle" style="font-size:55px;color:red"></i> 
             </h3>
                 
         </div>
@@ -129,7 +132,7 @@
         beforeMount() {
             //Passport token check
             if(this.$store.state.passport_api_tokenY == null){
-                swal("Access denied", "You not logged", "error");
+                swal("Blog_2021 says: Access denied", "You are not logged", "error");
                 return false;
             }
             console.log("beforeMount");

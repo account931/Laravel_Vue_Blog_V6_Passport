@@ -53,7 +53,7 @@
                     <div class="panel-body">
                         <p> <i class="fa fa-check-circle-o" style="font-size:24px"></i> Passport Api Authentication  <p>
                         <p> <i class="fa fa-check-circle-o" style="font-size:24px"></i> Spatie Laravel-permission RBAC </p>
-
+                        <p> <i class="fa fa-check-circle-o" style="font-size:24px"></i> Axios or $.ajax({}) request (working variants for both) </p>
                         <p> <i class="fa fa-check-circle-o" style="font-size:24px"></i> Laravel Framework 6.20. Rest Api Blog on Vue + Vuex Store + Vue Router + Bearer token Header Authentication (middleware 'auth:api'). </p>
                         <p> <i class="fa fa-check-circle-o" style="font-size:24px"></i> Uses UI Toolkit Element-UI, Vue 2.0 based component library. </p>
                         <p> <i class="fa fa-check-circle-o" style="font-size:24px"></i> Login/password auth via session, REST API auth via Bearer token . </p>

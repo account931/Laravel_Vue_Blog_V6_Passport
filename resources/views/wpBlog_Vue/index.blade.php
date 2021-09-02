@@ -89,7 +89,7 @@
 					
 			    <!-- Show all posts component -->
                 <div id="app2" class="col-md-6 posts-container" style="height: 45em; overflow-y: scroll">
-                    <all-posts /> <!-- Vue component -->
+                    <!--<all-posts /> --> <!-- Vue component -->
                 </div>
                 </div>		
 				<!----------- Vue.js Componenet + VUEX ------------>	 		

@@ -1,5 +1,6 @@
 <template>
   <div :key="componentKey" class="card mt-4">
+  
     <div class="card-header row">
     
         <div class="col-sm-5 col-xs-5">
@@ -10,103 +11,116 @@
             <h3 style="float:left;">Create New Post {{this.isCreatingPost }}</h3>
         </div>
         
-    
-        
     </div>
     
-    <div class="card-body">
-        <div
-          v-if="status_msg"
-          :class="{ 'alert-success': status, 'alert-danger': !status }"
-          class="alert" role="alert"
-        >
-            {{ status_msg }}
+    
+    <!--------- Unauthorized/unlogged Section ------> 
+    <div v-if="this.$store.state.passport_api_tokenY == null" class="col-sm-12 col-xs-12 alert alert-info"> <!--auth check if Passport Token is set, i.e user is logged -->
+        <!-- Display subcomponent/you_are_not_logged.vue -->
+        <you-are-not-logged-page></you-are-not-logged-page>         
+    </div>
+        
+        
+        
+    <!--------- Authorized/Logged Section ----------> 
+    <div v-else-if="this.$store.state.passport_api_tokenY != null">
+        
+        <div class="card-body">
+            <div
+                 v-if="status_msg"
+                 :class="{ 'alert-success': status, 'alert-danger': !status }"
+                 class="alert" role="alert"
+            >
+                {{ status_msg }}
 		
-        </div>
+            </div>
         
         
         
-        <!-- Display Validation errors if any come from Controller Request Php validator -->
-        <div v-for="(book, i) in booksGet " :key="i" class="alert alert-danger"> 
-            Error: {{ book }} 
-        </div>
+            <!-- Display Validation errors if any come from Controller Request Php validator -->
+            <div v-for="(book, i) in booksGet " :key="i" class="alert alert-danger"> 
+                Error: {{ book }} 
+            </div>
         
         
 	    
 	  
-      <form id="myFormZZ">
-	    <input type="hidden" name="_token" :value="tokenXX" /> <!-- csfr token -->
-		<!--<input type="hidden" name="_token" value="4gyBcsEYlPibNHfhi1r55rRQAZkBWepxCmVLlqAW" />-->
+            <form id="myFormZZ">
+	            <input type="hidden" name="_token" :value="tokenXX" /> <!-- csfr token -->
+		        <!--<input type="hidden" name="_token" value="4gyBcsEYlPibNHfhi1r55rRQAZkBWepxCmVLlqAW" />-->
 		
-		<!-- Post Title -->
-        <div class="form-group">
-          <label for="exampleFormControlInput1">Title</label>
-          <input id="title" v-model="title"
-            type="text" class="form-control" placeholder="Post Title" required>
-        </div>
+		        <!-- Post Title -->
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Title</label>
+                    <input id="title" v-model="title" type="text" class="form-control" placeholder="Post Title" required>
+                </div>
         
-        <!-- Post Body -->
-        <div class="form-group">
-          <label for="exampleFormControlTextarea1">Post Content</label>
-          <textarea id="post-content" v-model="body" class="form-control" rows="3" placeholder="Body Title" required />
-        </div>
+                <!-- Post Body -->
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Post Content</label>
+                    <textarea id="post-content" v-model="body" class="form-control" rows="3" placeholder="Body Title" required />
+                </div>
         
         
-        <!-- Select category -->
-        <div class="form-group">
-            <label for="exampleFormControlTextarea1">Category</label>
+                <!-- Select category -->
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Category</label>
         
-            <select name="category_sel" class="mdb-select md-form" v-model="selectV">
-				<option  disabled="disabled"  selected="selected">Choose category</option>
-                <!-- Loop -->
-				<option v-for="(book, i) in this.categoriesList " :key="i" :value="book.wpCategory_id"  > {{ book.wpCategory_name}} </option>
-		    </select>
-		</div>					
+                    <select name="category_sel" class="mdb-select md-form" v-model="selectV">
+				        <option  disabled="disabled"  selected="selected">Choose category</option>
+                        <!-- Loop -->
+				        <option v-for="(book, i) in this.categoriesList " :key="i" :value="book.wpCategory_id"  > {{ book.wpCategory_name}} </option>
+		            </select>
+		        </div>					
         
 
 
         
                                 
-        <div class>  
-          <!-- Element-UI Upload element (contains "+" button to add new image and contains thumbnails views of loaded images) -->
-          <!--ref="upload" is used to fire  clearFiles() in <el-upload> on ajax success -->
-          <el-upload
-            action="https://jsonplaceholder.typicode.com/posts/"
-            ref="upload"
-            list-type="picture-card"
-            :on-preview="handlePictureCardPreview"
-            :on-remove="handleRemove"
-            :before-remove="beforeRemove"
-            :on-change="updateImageList"
-            :auto-upload="false"
-          >
-            <i class="el-icon-plus" />
-          </el-upload>
+                <div class>  
+                <!-- Element-UI Upload element (contains "+" button to add new image and contains thumbnails views of loaded images) -->
+                <!--ref="upload" is used to fire  clearFiles() in <el-upload> on ajax success -->
+                    <el-upload
+                        action="https://jsonplaceholder.typicode.com/posts/"
+                        ref="upload"
+                        list-type="picture-card"
+                        :on-preview="handlePictureCardPreview"
+                        :on-remove="handleRemove"
+                        :before-remove="beforeRemove"
+                        :on-change="updateImageList"
+                        :auto-upload="false"
+                    >
+                        <i class="el-icon-plus" />
+                    </el-upload>
           
-          <!-- Element-UI Preview Uploaded element (if u hover over it, there appears "+"/"delete" icons, if u click "+" icon the full-screen image pop-up'll emerge, pop-up is hidden by dafault) -->
-          <el-dialog :visible.sync="dialogVisible">
-            <img width="100%" :src="dialogImageUrl" alt>
-          </el-dialog>
+                    <!-- Element-UI Preview Uploaded element (if u hover over it, there appears "+"/"delete" icons, if u click "+" icon the full-screen image pop-up'll emerge, pop-up is hidden by dafault) -->
+                    <el-dialog :visible.sync="dialogVisible">
+                        <img width="100%" :src="dialogImageUrl" alt>
+                    </el-dialog>
           
+                </div>
+            </form>
         </div>
-      </form>
-    </div>
     
-    <div class="card-footer">
-      <!--Button to submit -->
-      <button type="button" class="btn btn-success"
-        @click="createPost"
-      >
-        {{ isCreatingPost ? "Posting..." : "Create Post" }}
-      </button>
+        <div class="card-footer">
+            <!--Button to submit -->
+            <button type="button" class="btn btn-success"
+                @click="createPost"
+            >
+                {{ isCreatingPost ? "Posting..." : "Create Post" }}
+            </button>
       
-      <!--Button to clear the fields -->
-      <button type="button" class="btn btn-success" @click="clearInputFieldsAndFiles">
-        Clear
-      </button>
+            <!--Button to clear the fields -->
+            <button type="button" class="btn btn-success" @click="clearInputFieldsAndFiles">
+                Clear
+            </button>
       
+        </div>
+    
     </div>
-  </div>
+    <!--------- Authorized/Logged Section ----------> 
+    
+</div>
 </template>
 
 <style>
@@ -139,8 +153,14 @@
 <script>
 import { mapActions } from 'vuex';
 import { mapState } from 'vuex';
+//using other sub-component 
+import youAreNotLogged  from '../subcomponents/you_are_not_logged.vue';
 export default {
     name: 'CreatePost',
+    //using other sub-component 
+	components: {
+        'you-are-not-logged-page' : youAreNotLogged,
+    },
     //props: ['categorrrv'], //passed in view 
     data () {
         return {
@@ -165,11 +185,22 @@ export default {
             return this.errroList;
         }      
     },
-  
+    
+    //before mount
+    beforeMount() {
+        
+    },
+    
+    
     mounted () {
-        let token = document.head.querySelector('meta[name="csrf-token"]'); //gets meta tag with csrf
+        //Passport token check
+        if(this.$store.state.passport_api_tokenY == null){
+            swal("LoadNew says: Access denied", "You are not logged", "error");
+            return false;
+        }
+        let token = document.head.querySelector('meta[name="csrf-token"]'); //gets meta tag with csrf //NOT USED?????
         //alert(token.content);
-	    this.tokenXX = token.content; //gets csrf token and sets it to data.tokenXX
+	    this.tokenXX = token.content; //gets csrf token and sets it to data.tokenXX //NOT USED?????
         this.getAjaxCategories(); //get /GET all DB table categories (to build <select> in loadnew.vue)
       
     },

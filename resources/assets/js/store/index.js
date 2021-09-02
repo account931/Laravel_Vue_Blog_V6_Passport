@@ -132,10 +132,11 @@ export default new Vuex.Store({
             
             
             // Fetch method http variant (100% working)
-            //Main difference Fetch method from Axios is:
+            //Main differences between Axios method and Fetch method is:
             //1. that Axios wraps back-end REST API response in additional {data}, so where in Fetch we used {dataZ}, in Axios we have to use {dataZ.data} (in then(dataZ => {})
             //2. In Axios we do unlogging for Unauthenticated 401 requests in fail section {.catch(function(err){ }, while for Fetch in success {.then(dataZ => { if(dataZ.error == true|| dataZ.error == "Unauthenticated."){
-            
+                //In other words, when RST API return {Unauthenticated 401 requests }, Axios gets it in fail section, while Fetch in success
+
             /*
             fetch('api/post/get_all', { //fetch('api/post/get_all'?token=' + state.api_tokenY //http://localhost/Laravel+Yii2_comment_widget/blog_Laravel/public/post/get_all
                 method: 'get',
@@ -180,9 +181,10 @@ export default new Vuex.Store({
             
             
             //Axios method http variant (100% working)
-            //Main difference Axios method from Fetch is:
+            //Main differences between Axios method and Fetch method is:
             //1. that Axios wraps back-end REST API response in additional {data}, so where in Fetch we used {dataZ}, in Axios we have to use {dataZ.data} (in then(dataZ => {})
             //2. In Axios we do unlogging for Unauthenticated 401 requests in fail section {.catch(function(err){ }, while for Fetch in success {.then(dataZ => { if(dataZ.error == true|| dataZ.error == "Unauthenticated."){
+                 //In other words, when RST API return {Unauthenticated 401 requests }, Axios gets it in fail section, while Fetch in success
             
             axios({
                 method: 'get', //you can set what request you want to be

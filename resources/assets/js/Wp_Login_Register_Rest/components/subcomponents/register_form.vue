@@ -145,6 +145,7 @@ export default {
                     //alert("success"); 
                     alert("success " +  JSON.stringify(data, null, 4));
                     
+                 
                     if(data.error_message){
                         swal("Failed", data.error_message, "error");
                         thatX.status_msg = data.error_message;
@@ -216,7 +217,7 @@ export default {
             if (this.password != this.password_confirm) {
                 this.status = false;
                 this.showNotification('Passwords do not match');
-                //return false;
+                return false;
             }
       
             this.showNotification(''); //clears error messages if any prev

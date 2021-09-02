@@ -16,7 +16,10 @@
             
             <!-- If user is logged View -->
             <div v-if="this.$store.state.passport_api_tokenY !== null"> <!--auth check if Passport Token is set, i.e user is logged -->
-                You are already Logged
+                <p>You are now Logged as </p>
+                <p> <i class="fa fa-address-card-o" style="font-size:24px"></i> {{ this.$store.state.loggedUser.name }} </p>
+                <p> <i class="fa fa-envelope-o" style="font-size:24px"></i>     {{ this.$store.state.loggedUser.email }} </p>
+
                 <p> click to Log Out </br> <button class="btn btn-success" @click="logMeOut"> Log out </button> </p>
                 
                 

@@ -1,5 +1,5 @@
 <?php
-//Login and register via REST API + Passport
+//Login and register via REST API + Passport (passport token is issued on successful login)
 namespace App\Http\Controllers\Auth_API;
 
 use App\Http\Controllers\Controller;
@@ -32,28 +32,29 @@ class UserAuthController extends Controller
         
         if ($validator->fails()) {
             //return response()->json($request->validator->messages(), 400);
-            return response()->json(['error' => true, 'data' => 'Too Good, but validation crashes', 'validateErrors'=>  $validator->messages(), 'error_message' => 'Validation failed']);
+            return response()->json(['error' => true, 'data' => 'Looked OK, but validation crashes', 'validateErrors'=>  $validator->messages(), 'error_message' => 'Validation failed']);
         } 
 
         if ($validator->passes()) {
-            return response()->json(['error' => true, 'data' => 'Too Good, but validation OK']);
+            return response()->json(['error' => true, 'data' => 'Too Good, and validation OK']);
+        
+        
+            //return response([ 'user' => $request->name]);
+        
+            $data['password'] = bcrypt($request->password);
+
+            $user = User::create($data);
+
+            $token = $user->createToken('API Token')->accessToken;
+
+            return response([ 'user' => $user, 'token' => $token]);
         }
-        
-        //return response([ 'user' => $request->name]);
-        
-        $data['password'] = bcrypt($request->password);
-
-        $user = User::create($data);
-
-        $token = $user->createToken('API Token')->accessToken;
-
-        return response([ 'user' => $user, 'token' => $token]);
     }
 
 
 
     /**
-     * Login via Passport 
+     * Login via Passport (passport token is issued on successful login)
      * @param Request $request
      * @return Json
      *

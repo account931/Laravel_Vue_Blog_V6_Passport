@@ -6,13 +6,9 @@
 		
         <!--------- Unauthorized/unlogged Section ------> 
         <div v-if="this.$store.state.passport_api_tokenY == null" class="col-sm-12 col-xs-12 alert alert-info"> <!--auth check if Passport Token is set, i.e user is logged -->
-            <h3> 
-                <p>Sorry, you are not logged. Login first </p>
-                <p> <button class="btn btn-info"> <a href="login"> Click to go to Login page </a> </button> </p>
-                </br>
-                <i class="fa fa-minus-circle" style="font-size:55px;color:red"></i> 
-            </h3>
-                
+            
+            <!-- Display subcomponent/you_are_not_logged.vue -->
+            <you-are-not-logged-page></you-are-not-logged-page>         
         </div>
         
         
@@ -100,8 +96,15 @@
 
 <script>
     import { mapState } from 'vuex';
+    //using other sub-component 
+    import youAreNotLogged  from '../subcomponents/you_are_not_logged.vue';
 	export default{
 		name:'new_2021',
+        
+        //using other sub-component 
+	    components: {
+            'you-are-not-logged-page' : youAreNotLogged,
+        },
         props: ['tokenZZ'],
 		data (){
 			return{

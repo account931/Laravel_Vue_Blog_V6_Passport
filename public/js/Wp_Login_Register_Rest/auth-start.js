@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 285);
+/******/ 	return __webpack_require__(__webpack_require__.s = 290);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1940,15 +1940,15 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-/***/ 285:
+/***/ 290:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(286);
+module.exports = __webpack_require__(291);
 
 
 /***/ }),
 
-/***/ 286:
+/***/ 291:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1976,8 +1976,8 @@ window.Vue = __webpack_require__(2);
  //import Vuex Store
 
 
-Vue.component('login-vue-component', __webpack_require__(287)); //login component 
-Vue.component('registration-vue-component', __webpack_require__(296)); //register component 
+Vue.component('login-vue-component', __webpack_require__(292)); //login component 
+Vue.component('registration-vue-component', __webpack_require__(301)); //register component 
 
 
 //Vue.component('create-post',            require('./components/CreatePost.vue')/*.default*/);
@@ -2033,15 +2033,15 @@ var appRegister = new Vue({
 
 /***/ }),
 
-/***/ 287:
+/***/ 292:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(288)
+var __vue_script__ = __webpack_require__(293)
 /* template */
-var __vue_template__ = __webpack_require__(295)
+var __vue_template__ = __webpack_require__(300)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -2081,14 +2081,14 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 288:
+/***/ 293:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__subcomponents_login_vue__ = __webpack_require__(289);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__subcomponents_login_vue__ = __webpack_require__(294);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__subcomponents_login_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__subcomponents_login_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__subcomponents_logged_vue__ = __webpack_require__(292);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__subcomponents_logged_vue__ = __webpack_require__(297);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__subcomponents_logged_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__subcomponents_logged_vue__);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -2174,15 +2174,15 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 /***/ }),
 
-/***/ 289:
+/***/ 294:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(290)
+var __vue_script__ = __webpack_require__(295)
 /* template */
-var __vue_template__ = __webpack_require__(291)
+var __vue_template__ = __webpack_require__(296)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -2222,7 +2222,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 290:
+/***/ 295:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2415,7 +2415,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 291:
+/***/ 296:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -2603,15 +2603,15 @@ if (false) {
 
 /***/ }),
 
-/***/ 292:
+/***/ 297:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(293)
+var __vue_script__ = __webpack_require__(298)
 /* template */
-var __vue_template__ = __webpack_require__(294)
+var __vue_template__ = __webpack_require__(299)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -2651,7 +2651,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 293:
+/***/ 298:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2699,7 +2699,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 294:
+/***/ 299:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -2759,7 +2759,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 295:
+/***/ 300:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -2828,15 +2828,15 @@ if (false) {
 
 /***/ }),
 
-/***/ 296:
+/***/ 301:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(297)
+var __vue_script__ = __webpack_require__(302)
 /* template */
-var __vue_template__ = __webpack_require__(301)
+var __vue_template__ = __webpack_require__(306)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -2876,12 +2876,12 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 297:
+/***/ 302:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__subcomponents_register_form_vue__ = __webpack_require__(298);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__subcomponents_register_form_vue__ = __webpack_require__(303);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__subcomponents_register_form_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__subcomponents_register_form_vue__);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -2975,15 +2975,15 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 /***/ }),
 
-/***/ 298:
+/***/ 303:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(299)
+var __vue_script__ = __webpack_require__(304)
 /* template */
-var __vue_template__ = __webpack_require__(300)
+var __vue_template__ = __webpack_require__(305)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -3023,7 +3023,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 299:
+/***/ 304:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3287,7 +3287,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 300:
+/***/ 305:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -3546,7 +3546,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 301:
+/***/ 306:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -16490,6 +16490,8 @@ var debug = "development" !== 'production';
             .then(function (dataZ) {
                 //var dataZ = JSON.stringify(dataVV);
                 console.log(dataZ);
+                console.log("type is => " + (typeof dataZ === 'undefined' ? 'undefined' : _typeof(dataZ)));
+
                 $('.loader-x').fadeOut(800); //hide loader
                 alert(2);
                 console.log("Here STORE => " + dataZ.data.data[0].wpBlog_title);
@@ -16541,7 +16543,8 @@ var debug = "development" !== 'production';
                     alert('Vuex log out');
                     localStorage.removeItem('tokenZ'); //clear localStorage
                     localStorage.removeItem('loggedStorageUser');
-                    commit('LogOutMutation'); //reset state vars to store via mutation
+                    commit('LogOutMutation'); //reset state vars (state.passport_api_tokenY + state.loggedUser) via mutation
+                    state.passport_api_tokenY = null;
                 }
             }); // catch any error
 

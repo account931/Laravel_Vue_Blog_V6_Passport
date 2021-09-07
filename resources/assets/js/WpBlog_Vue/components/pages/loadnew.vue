@@ -269,7 +269,7 @@ export default {
             this.isCreatingPost = true;
       
             //Use Formdata to bind inpts and images upload
-            var that = this; //Explaination => if you use this.data, it is incorrect, because when 'this' reference the vue-app, you could use this.data, but here (ajax success callback function), this does not reference to vue-app, instead 'this' reference to whatever who called this function(ajax call)
+            var that = this; //Explanation => if you use this.data, it is incorrect, because when 'this' reference the vue-app, you could use this.data, but here (ajax success callback function), this does not reference to vue-app, instead 'this' reference to whatever who called this function(ajax call)
             var formData = new FormData(); //new FormData(document.getElementById("myFormZZ"));
             formData.append('title', this.title);
             formData.append('body',  this.body);
@@ -296,7 +296,7 @@ export default {
             //Add Bearer token to headers
             $.ajaxSetup({
                 headers: {
-                    'Authorization': 'Bearer ' + this.$store.state.passport_api_tokenY
+                    'Authorization': 'Bearer '  + this.$store.state.passport_api_tokenY
                 }
             }); 
       
@@ -330,6 +330,9 @@ export default {
                     alert("success");            
                     alert("success" + JSON.stringify(data, null, 4));
 
+                
+                
+                
                     if(data.error == true ){ //if Rest API endpoint returns any predefined validation error
                         var text = data.data;
                         swal("Check", text, "error");
@@ -344,6 +347,7 @@ export default {
                        
                             that.errroList = tempoArray; //change state errroList //{this-that} fix
                         }
+                        
                   
                     //if load new is OK
                     } else if(data.error == false){
@@ -362,21 +366,50 @@ export default {
 			    error: function (errorZ) {
                     alert("Crashed"); 
 			        alert("error" +  JSON.stringify(errorZ, null, 4));
+                    console.log("type is => " + typeof(errorZ));
                     console.log(errorZ.responseText);
+                    alert(errorZ.responseText);
+                    alert("this " + errorZ.responseJSON.error);
                     console.log(errorZ);
                 
                     /*
                     if (errorZ.status == 422) {
                         swal("Error", "Validation crashed", "error");  
                     }*/
-                
+                    
+                    //Unlog (log out) the user if  dataZ.error == "Unauthenticated." || 401, otherwise if user has wrong password token saved in Locals storage, he will always recieve error and neber log out                  
+                    //{responseJSON} is an object property, formed by Passport (if no token is sent, ie. unauthorized), i.e response is like =>  responseJSON: {error: "Unauthenticated."}  
+                    //use responseJSON as error section does not return my predifinied json, but automatic Laravel
+                    if (errorZ.responseJSON.error == "Error: Request failed with status code 401" ||  errorZ.responseJSON.error == "Unauthenticated."){ //if Rest endpoint returns 401 error
+                        console.log(errorZ.error);
+                        
+                    
+                        //Unlog the user if dataZ.error == "Unauthenticated." || 401, otherwise if user has wrong password token saved in Locals storage, he will always recieve error and neber log out                  
+                        //store.dispatch('LogUserOut');//this.$store.dispatch('LogUserOut'); //trigger Vuex function LogUserOut(), which is executed in Vuex store
+                        //so far  can't fire store.dispatch('LogUserOut'), so do manually
+                        alert('Vuex log out - pre');
+                        //localStorage.removeItem('tokenZ'); //clear localStorage
+                        //localStorage.removeItem('loggedStorageUser');
+                        that.$store.dispatch('LogUserOut'); //reset state vars (state.passport_api_tokenY + state.loggedUser) via mutation
+                    }
+                    
+                    /*
                     if(errorZ.responseJSON != null){
                         if(errorZ.responseJSON.error == true || errorZ.responseJSON.error == "Unauthenticated."){ //if Rest endpoint returns any predefined error
                             swal("Error: Unauthenticated", "Check Bearer Token", "error");  
                             //alert("Unauthenticated");                  
                         } 
+                    }*/
+                    
+                    
+                    if (errorZ.responseJSON.error == "Error: Request failed with status code 401" ||  errorZ.responseJSON.error == "Unauthenticated."){ //if Rest endpoint returns 401 error
+
+                        swal("Unauthenticated", "Check Bearer Token", "error");
+                    } else { 
+
+                        swal("Error", "Something crashed", "error"); 
                     }
-                    swal("Error", "Something crashed", "error");  
+                                  
                 
                     that.isCreatingPost = false; //change button text   
 			    }	  

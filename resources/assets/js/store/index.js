@@ -202,6 +202,8 @@ export default new Vuex.Store({
             .then(dataZ => {
                 //var dataZ = JSON.stringify(dataVV);
                 console.log(dataZ);
+                console.log("type is => " + typeof(dataZ));
+
                 $('.loader-x').fadeOut(800);  //hide loader
                 alert(2);
                 console.log("Here STORE => "   + dataZ.data.data[0].wpBlog_title);
@@ -253,7 +255,9 @@ export default new Vuex.Store({
                     alert('Vuex log out');
                     localStorage.removeItem('tokenZ'); //clear localStorage
                     localStorage.removeItem('loggedStorageUser');
-                    commit('LogOutMutation'); //reset state vars to store via mutation
+                    commit('LogOutMutation'); //reset state vars (state.passport_api_tokenY + state.loggedUser) via mutation
+                    state.passport_api_tokenY = null;
+           
                 }
             }); // catch any error
  

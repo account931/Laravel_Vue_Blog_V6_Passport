@@ -15,7 +15,7 @@
 </template>
 <script>
 	export default{
-		name:'You are not logged',
+		name:'You_are_not_now_logged',
 		data (){
 			return{
 				title:'Unlogged'

@@ -34,6 +34,8 @@
     to manage JS dependencies run <b>npm install</b>, 
     to minify js files run <b>npm run production</b>, to automate your build when there is any change use <b>npm run watch </b></p>
 - <p>If encounter error <b> cross-env not found </b> , firstly run command <b>npm i cross-env --save</b> </p>
+- <p>To init Passport seetings, run <b> php artisan passport:install </b> </p>
+
 
 ## Brief overview of the application
 

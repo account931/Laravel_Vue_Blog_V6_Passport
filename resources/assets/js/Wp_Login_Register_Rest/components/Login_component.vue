@@ -71,7 +71,7 @@ export default {
     beforeMount() {
     },
     created(){
-        alert("Login_component.vue says : passport_api_tokenY type is " + typeof this.$store.state.passport_api_tokenY + " . Type Object means Null");
+        alert("Login_component.vue says : passport_api_tokenY type is " + typeof this.$store.state.passport_api_tokenY + " . If Type is Object -> it means Null(no token), type String means Passport token is set ");
     },
     
     methods: {

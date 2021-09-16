@@ -80988,7 +80988,7 @@ exports = module.exports = __webpack_require__(8)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -81000,6 +81000,21 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__subcomponents_you_are_not_logged_vue__ = __webpack_require__(307);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__subcomponents_you_are_not_logged_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__subcomponents_you_are_not_logged_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -81035,9 +81050,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+//using other sub-component 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'blog',
+    //using other sub-component 
+    components: {
+        'you-are-not-logged-page': __WEBPACK_IMPORTED_MODULE_1__subcomponents_you_are_not_logged_vue___default.a
+    },
     data: function data() {
         return {
             title: 'List all blog entries',
@@ -81055,9 +81076,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     beforeMount: function beforeMount() {
-        var token = document.head.querySelector('meta[name="csrf-token"]'); //gets meta tag with csrf
+        var token = document.head.querySelector('meta[name="csrf-token"]'); //gets meta tag with csrf //NOT USED in Passport????
         //alert(token.content);
-        this.tokenXX = token.content; //gets csrf token and sets it to data.tokenXX
+        this.tokenXX = token.content; //gets csrf token and sets it to data.tokenXX //NOT USED in Passport????
+
+        //Passport token check
+        if (this.$store.state.passport_api_tokenY == null) {
+            swal("List_all says: Access denied", "You are not logged", "error");
+            return false;
+        }
         this.runAjaxToGetPosts();
     },
 
@@ -81265,94 +81292,112 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "services" },
-    [
-      _c("h1", [_vm._v(_vm._s(_vm.title))]),
-      _vm._v(" "),
-      _c("p"),
-      _vm._v(" "),
-      _vm._l(_vm.booksGet, function(postAdmin, i) {
-        return _c(
+  return _c("div", { staticClass: "services" }, [
+    _c("h1", [_vm._v(" " + _vm._s(_vm.title))]),
+    _vm._v(" "),
+    _c("p"),
+    _vm._v(" "),
+    this.$store.state.passport_api_tokenY == null
+      ? _c(
           "div",
-          {
-            key: i,
-            staticClass: "col-sm-12 col-xs-12 oneAdminPost",
-            attrs: { id: postAdmin.wpBlog_id }
-          },
-          [
-            _c("p", [_vm._v(_vm._s(postAdmin.wpBlog_title))]),
-            _vm._v(" "),
-            _c("p", [_vm._v(_vm._s(_vm.truncateText(postAdmin.wpBlog_text)))]),
-            _vm._v(" "),
-            postAdmin.get_images.length
-              ? _c(
-                  "a",
-                  {
-                    attrs: {
-                      href:
-                        "images/wpressImages/" +
-                        postAdmin.get_images[0].wpImStock_name,
-                      title: "image",
-                      "data-lightbox": "roadtrip" + postAdmin.wpBlog_id
-                    }
-                  },
-                  [
-                    postAdmin.get_images.length
-                      ? _c("img", {
-                          staticClass: "card-img-top my-adm-img",
-                          attrs: {
-                            src:
-                              "images/wpressImages/" +
-                              postAdmin.get_images[0].wpImStock_name
-                          }
-                        })
-                      : _vm._e()
-                  ]
-                )
-              : _c("img", {
-                  staticClass: "card-img-top my-img",
-                  attrs: { src: "images/no-image-found.png" }
-                }),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("p", [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-success",
-                  staticStyle: { "font-size": "19px" },
-                  on: {
-                    click: function($event) {
-                      return _vm.goToEditDetail(postAdmin.wpBlog_id)
-                    }
-                  }
-                },
-                [_vm._v("Edit   "), _c("i", { staticClass: "fa fa-pencil" })]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-danger",
-                  staticStyle: { "font-size": "19px" },
-                  on: {
-                    click: function($event) {
-                      return _vm.deletePost(postAdmin.wpBlog_id)
-                    }
-                  }
-                },
-                [_vm._v(" Delete "), _c("i", { staticClass: "fa fa-trash-o" })]
-              )
-            ])
-          ]
+          { staticClass: "col-sm-12 col-xs-12 alert alert-info" },
+          [_c("you-are-not-logged-page")],
+          1
         )
-      })
-    ],
-    2
-  )
+      : this.$store.state.passport_api_tokenY != null
+      ? _c(
+          "div",
+          _vm._l(_vm.booksGet, function(postAdmin, i) {
+            return _c(
+              "div",
+              {
+                key: i,
+                staticClass: "col-sm-12 col-xs-12 oneAdminPost",
+                attrs: { id: postAdmin.wpBlog_id }
+              },
+              [
+                _c("p", [_vm._v(" " + _vm._s(postAdmin.wpBlog_title) + " ")]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    " " + _vm._s(_vm.truncateText(postAdmin.wpBlog_text)) + " "
+                  )
+                ]),
+                _vm._v(" "),
+                postAdmin.get_images.length
+                  ? _c(
+                      "a",
+                      {
+                        attrs: {
+                          href:
+                            "images/wpressImages/" +
+                            postAdmin.get_images[0].wpImStock_name,
+                          title: "image",
+                          "data-lightbox": "roadtrip" + postAdmin.wpBlog_id
+                        }
+                      },
+                      [
+                        postAdmin.get_images.length
+                          ? _c("img", {
+                              staticClass: "card-img-top my-adm-img",
+                              attrs: {
+                                src:
+                                  "images/wpressImages/" +
+                                  postAdmin.get_images[0].wpImStock_name
+                              }
+                            })
+                          : _vm._e()
+                      ]
+                    )
+                  : _c("img", {
+                      staticClass: "card-img-top my-img",
+                      attrs: { src: "images/no-image-found.png" }
+                    }),
+                _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
+                _c("p", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success",
+                      staticStyle: { "font-size": "19px" },
+                      on: {
+                        click: function($event) {
+                          return _vm.goToEditDetail(postAdmin.wpBlog_id)
+                        }
+                      }
+                    },
+                    [
+                      _vm._v("Edit   "),
+                      _c("i", { staticClass: "fa fa-pencil" })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      staticStyle: { "font-size": "19px" },
+                      on: {
+                        click: function($event) {
+                          return _vm.deletePost(postAdmin.wpBlog_id)
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(" Delete "),
+                      _c("i", { staticClass: "fa fa-trash-o" })
+                    ]
+                  )
+                ])
+              ]
+            )
+          }),
+          0
+        )
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -82693,6 +82738,198 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-34cea5af", module.exports)
+  }
+}
+
+/***/ }),
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(308)
+}
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(310)
+/* template */
+var __vue_template__ = __webpack_require__(311)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-74516be1"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/WpBlog_Admin_Part/components/subcomponents/you_are_not_logged.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-74516be1", Component.options)
+  } else {
+    hotAPI.reload("data-v-74516be1", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 308 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(309);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(9)("49b2a25e", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-74516be1\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./you_are_not_logged.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-74516be1\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./you_are_not_logged.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 309 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(8)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.small[data-v-74516be1]  {font-size: 0.3em;\n}\n.my-btn[data-v-74516be1] { padding:0.5em; font-size: 0.8em;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 310 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	name: 'You_are_not_now_logged',
+	data: function data() {
+		return {
+			title: 'Unlogged'
+		};
+	}
+});
+
+/***/ }),
+/* 311 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h3", [
+      _c("p", { staticClass: "small" }, [
+        _vm._v("subcomponent/you_are_not_logged ")
+      ]),
+      _vm._v(" "),
+      _c("i", {
+        staticClass: "fa fa-minus-circle",
+        staticStyle: { "font-size": "15px", color: "red" }
+      }),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v("Sorry, you are not logged to Admin section. Login first ")
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _c("button", { staticClass: "btn-default my-btn" }, [
+          _c("a", { attrs: { href: "login" } }, [
+            _vm._v(" Click to go to Login page ")
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("i", {
+        staticClass: "fa fa-globe",
+        staticStyle: { "font-size": "55px" }
+      })
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-74516be1", module.exports)
   }
 }
 

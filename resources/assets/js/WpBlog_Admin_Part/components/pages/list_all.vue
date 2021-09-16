@@ -1,41 +1,60 @@
 <template>
 	<div class="services">
-		<h1>{{title}}</h1>
-		<p>
-			
-
-		</p>
+		<h1> {{title}}</h1>
+		<p></p>
         
-        <!-- V loop over ajax success data -->
-        <div v-for="(postAdmin, i) in booksGet" :key=i class="col-sm-12 col-xs-12 oneAdminPost" :id="postAdmin.wpBlog_id"> 
-            <p>{{postAdmin.wpBlog_title}}</p>
-            <p>{{ truncateText(postAdmin.wpBlog_text) }}</p>
+		 <!--------- Unauthorized/unlogged Section ------> 
+        <div v-if="this.$store.state.passport_api_tokenY == null" class="col-sm-12 col-xs-12 alert alert-info"> <!--auth check if Passport Token is set, i.e user is logged -->
             
-            <!-- Image with LightBox -->
-	        <a v-if="postAdmin.get_images.length" :href="`images/wpressImages/${postAdmin.get_images[0].wpImStock_name}`"   title="image" :data-lightbox="`roadtrip${postAdmin.wpBlog_id}`" > <!-- roadtrip + currentID, to create a unique data-lightbox name, so in modal LightBox will show images related to this article only, not all -->
-                <img v-if="postAdmin.get_images.length" class="card-img-top my-adm-img" :src="`images/wpressImages/${postAdmin.get_images[0].wpImStock_name}`" />
-	        </a>
-            <!-- End Image with LightBox -->
+            <!-- Display subcomponent/you_are_not_logged.vue -->
+            <you-are-not-logged-page></you-are-not-logged-page>         
+        </div>
+        
 		
-            <!-- If image does not exist. ELSE -->
-            <img v-else class="card-img-top my-img" :src="`images/no-image-found.png`" />
+		
+		<!--------- Authorized/Logged Section ----------> 
+        <div v-else-if="this.$store.state.passport_api_tokenY != null">
+        
+		
+            <!-- V loop over ajax success data -->
+            <div v-for="(postAdmin, i) in booksGet" :key=i class="col-sm-12 col-xs-12 oneAdminPost" :id="postAdmin.wpBlog_id"> 
+                <p> {{postAdmin.wpBlog_title}} </p>
+                <p> {{truncateText(postAdmin.wpBlog_text)}} </p>
             
-            <!-- Edit/Delet Buttons --> 
-            <hr>            
-            <p>  
-                <button style="font-size:19px" class="btn btn-success" @click="goToEditDetail(postAdmin.wpBlog_id)">Edit   <i class="fa fa-pencil"></i></button>
-                <button style="font-size:19px" class="btn btn-danger"  @click="deletePost(postAdmin.wpBlog_id)"> Delete <i class="fa fa-trash-o"></i></button>
-            </p>
+                <!-- Image with LightBox -->
+	            <a v-if="postAdmin.get_images.length" :href="`images/wpressImages/${postAdmin.get_images[0].wpImStock_name}`"   title="image" :data-lightbox="`roadtrip${postAdmin.wpBlog_id}`" > <!-- roadtrip + currentID, to create a unique data-lightbox name, so in modal LightBox will show images related to this article only, not all -->
+                    <img v-if="postAdmin.get_images.length" class="card-img-top my-adm-img" :src="`images/wpressImages/${postAdmin.get_images[0].wpImStock_name}`" />
+	            </a>
+                <!-- End Image with LightBox -->
+		
+                <!-- If image does not exist. ELSE -->
+                <img v-else class="card-img-top my-img" :src="`images/no-image-found.png`" />
+            
+                <!-- Edit/Delet Buttons --> 
+                <hr>            
+                <p>  
+                    <button style="font-size:19px" class="btn btn-success" @click="goToEditDetail(postAdmin.wpBlog_id)">Edit   <i class="fa fa-pencil"></i></button>
+                    <button style="font-size:19px" class="btn btn-danger"  @click="deletePost(postAdmin.wpBlog_id)"> Delete <i class="fa fa-trash-o"></i></button>
+                </p>
         </div>
         <!-- End V loop over ajax success data -->
+		
+		</div>
+        <!------------ END Authorized/Logged Section -----------------> 
         
 	</div>
 </template>
 
 <script>
     import { mapState } from 'vuex';
+	//using other sub-component 
+    import youAreNotLogged  from '../subcomponents/you_are_not_logged.vue'; 
 	export default{
 		name:'blog',
+		//using other sub-component 
+	    components: {
+            'you-are-not-logged-page' : youAreNotLogged,
+        },
 		data (){
 			return{
 				title:'List all blog entries',
@@ -54,9 +73,15 @@
         
         
         beforeMount() { 
-            let token = document.head.querySelector('meta[name="csrf-token"]'); //gets meta tag with csrf
+            let token = document.head.querySelector('meta[name="csrf-token"]'); //gets meta tag with csrf //NOT USED in Passport????
             //alert(token.content);
-	        this.tokenXX = token.content; //gets csrf token and sets it to data.tokenXX
+	        this.tokenXX = token.content; //gets csrf token and sets it to data.tokenXX //NOT USED in Passport????
+			
+			//Passport token check
+            if(this.$store.state.passport_api_tokenY == null){
+                swal("List_all says: Access denied", "You are not logged", "error");
+                return false;
+            }
             this.runAjaxToGetPosts();
         }, 
         

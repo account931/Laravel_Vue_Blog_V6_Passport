@@ -2165,7 +2165,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     },
     beforeMount: function beforeMount() {},
     created: function created() {
-        alert("Login_component.vue says : passport_api_tokenY type is " + _typeof(this.$store.state.passport_api_tokenY) + " . Type Object means Null");
+        alert("Login_component.vue says : passport_api_tokenY type is " + _typeof(this.$store.state.passport_api_tokenY) + " . If Type is Object -> it means Null(no token), type String means Passport token is set ");
     },
 
 

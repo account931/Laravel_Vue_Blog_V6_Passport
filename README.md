@@ -3,15 +3,24 @@
 - <p> This project uses api auth via Passport, while {CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses api auth via token sent in headers in ajax (in vue). Token is a column {api_token} in DB {Users}  </p>
 - <p> As long as this project is on Laravel version 6, it can not use Entrust Rbac like {CLEANSED_GIT_HUB/Laravel_Vue_Blog} do, so it uses Spatie Laravel permission RBAC </p>
 - <p> This project uses in {/config/auth.php}  'guards' => [ 'api' => [ 'driver'   => 'passport' ] ], while {CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses 'guards' => [ 'api' => [ 'driver'   => 'token' ] ] </p>
-- <p>This project uses auth soleley on token(including login/register), while {CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses login/register via regular http sessions, and only while requesting REST API resources uses token,
+- <p> This project uses auth soleley on token(including login/register), while {CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses login/register via regular http sessions, and only while requesting REST API resources uses token,
      So, this project for Login uses \App\Http\Controllers\Auth_API\UserAuthController and in Login form (/views/auth/login.blade.php) uses api route action="{{ route('passport_login') }}, {CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses route action="{{ route('login') }}
   </p>
-  - <p>Additionally, we disabled middleware('auth') {Route::get()->middleware('auth')} in routes/web.ph, and disabled checking in Ctrl { if(auth()->user()->api_token == null) }</p>
+- <p> Additionally, we disabled middleware('auth') {Route::get()->middleware('auth')} in routes/web.ph, and disabled checking in Contrlller { if(auth()->user()->api_token == null) }. But additionally add {Route::group(['middleware' => ['auth:api'] } in /routes/api.php</p>
   
 - <p> History of this project: firstly it was developed within {Laravel+Yii2_comment_widget}, then was carved as separated {CLEANSED_GIT_HUB/Laravel_Vue_Blog} and finally carved to account931 for Passport and Spatie testing. </p>
 
+- <p> In {Laravel_Vue_Blog_V6_Passport} token (Passport token from DB) is set to Vuex Store while login, in {CLEANSED_GIT_HUB/Laravel_Vue_Blog} token is stored in Vuex as well, this token is a User Table column and it is passed from php in view as <vue-router-menu-with-link-content-display v-bind:current-user='{!! Auth::user()->toJson() !!}'>.
+      See details in Readme_This_Project_itself.txt
+  </p>
+
+- <p> In {WpBlog_Rest_API_Contoller/function createPost() } to get current user we use =>
+     for {/Laravel_Vue_Blog} we used            => $userX = User::where('api_token', '=', $request->bearerToken())->first();
+     for {Laravel_Vue_Blog_V6_Passport } we use => $userX = Auth::user();  //getting the logged user Object, version for Passport
+  </p>
+
 ## Main features  (same for both projects):
-- <p> Api routes use 'middleware' => ['auth:api', 'myJsonForce'] </p>
+- <p> Api routes use 'middleware' => ['auth:api', 'myJsonForce']  </p>
 - <p> Users can view posts and load new, Admin can view, edit and delete </p>
 - <p> Users's ability to view posts is implemented in JS in              => /resources/assets/js/WpBlog_Vue/components/pages/blog_2021.vue   </p>
 - <p> Users's ability to load new posts is implemented in JS in          => /resources/assets/js/WpBlog_Vue/components/pages/loadnew.vue     </p>
@@ -32,7 +41,7 @@
 - <p>When the migration is completed, run the seeding command <b> php artisan db:seed </b> to seed the dummy data, after you may login using login: <b>test@gmail.com</b>, password: <b>testtest</b>. </p>
 - <p>Js assets are minified and concatenated with Laravel Mix, source code is in <b>/resources/assets</b>, 
     to manage JS dependencies run <b>npm install</b>, 
-    to minify js files run <b>npm run production</b>, to automate your build when there is any change use <b>npm run watch </b></p>
+    to minify js files run <b>npm run production</b>, to automate your build when there is any change use <b> npm run watch </b></p>
 - <p>If encounter error <b> cross-env not found </b> , firstly run command <b>npm i cross-env --save</b> </p>
 - <p>To init Passport seetings, run <b> php artisan passport:install </b> </p>
 

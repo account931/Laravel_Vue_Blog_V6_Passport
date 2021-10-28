@@ -101,7 +101,10 @@ class WpBlog_Rest_API_Contoller extends Controller
 	
 	
 	
-	 /**
+	
+	
+	
+	/**
      * REST API to /POST (create) a new blog. 
      * Ajax Requst comes by button click from \resources\assets\js\WpBlog_Vue\components\pages\loadnew.vue
      * @param SaveNewArticleRequest $request
@@ -151,9 +154,11 @@ class WpBlog_Rest_API_Contoller extends Controller
         header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Authorization');
 	    */
        
-        //find User Id by his sent token
-        $userX = User::where('api_token', '=', $request->bearerToken())->first(); //$request->bearerToken() is an access token sent in headers in ajax
+        //find User Id by his sent token. NB: was used (& 100% worked) in pre-Passport version {Laravel_Vue_Blog}, now reassigned to Passport
+        //$userX = User::where('api_token', '=', $request->bearerToken())->first(); //$request->bearerToken() is an access token sent in headers in ajax
         
+		$userX = Auth::user();  //getting the logged user Object, version for Passport
+		
 		//return response()->json(['error' => false, 'data' => 'Too Good, but process back-end validation : ' . $request->title .  ' / ' .  $request->body . '/UserID:' . $userX->id  . '/' . $request->bearerToken()]);
 	    //return response()->json(['error' => false, 'data' => 'Too Good, but process back-end validation : ' . $request->bearerToken()]);
 

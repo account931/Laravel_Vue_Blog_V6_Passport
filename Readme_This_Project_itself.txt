@@ -20,10 +20,10 @@
      # Admin api routes additionally use  Route::group(['middleware' => ['myRbacCheck']] (RBAC check by Spatie)
    -------------------
    How it works:
-   1. Login
+   1. Login (& getting Passport token + saving it to Vuex Store)
    1.2 Log out
    2. Differences and similarities between {CLEANSED_GIT_HUB/Laravel_Vue_Blog_V6_Passport} and {CLEANSED_GIT_HUB/Laravel_Vue_Blog}
-   3. Get Article posts
+   3. Get all Articles posts
    4. Create an Article post
    5. Edit   one Article post (Admin Part)
    6. Delete one Article post (Admin Part)
@@ -33,7 +33,8 @@
    
    
    ------------------
-   1. Login
+    1. Login (& getting Passport token + saving it to Vuex Store)
+
    
    Login works on Vue component, to init it in login.blade.php we insert <login-vue-component> <login-vue-component/>, which actually is  ./components/Login_component.vue
    Login_component.vue is bind to div id="vue-login" in views/auth/login.blade.php in a start script \resources\assets\js\Wp_Login_Register_Rest\auth-start.js. 
@@ -83,7 +84,7 @@
 
    
     --------------------------------------------------
-    3. Get Article posts
+    3. Get all Articles posts
         1. Logic is in \resources\assets\js\WpBlog_Vue\components\pages\blog_2021.vue
         2. In beforeMount() {} we 1stly make Passport token check
             if(this.$store.state.passport_api_tokenY == null){ return false;}
@@ -144,8 +145,9 @@
  Main features:
      # Stack: Laravel 5.4, Vue 2, Entrust RBAC, token check by {user} table column
      # Login/register actions work via regular http sessions, while CRUD operations (read, create, delete, etc) uses access token for auth (sent as header in Vue ajax)
-     # Auth verification(except for login) is performed via token (token is issued manually when user clicks button "Generate token" and saved to table {users} -> column {api_token}) and this token is sent with every ajax request in headers
-
+     # Auth verification(except for login) is performed via token (token is issued manually when user clicks button "Generate token" and saved to table {users} -> column {api_token}) and this token is sent with every ajax request in headers. The token is stored in Vuex Store. See next line how the token appears/saved/bound in Vuex Store. 
+     # Token (api_token) is passed from php in view as <vue-router-menu-with-link-content-display v-bind:current-user='{!! Auth::user()->toJson() !!}'>  and uplifted to Vuex store in VueRouterMenu in beforeMount() Section
+	 
      # This WpRess Vue.js Blog uses 3-table DB (same as Wpress Image Blog and {Laravel_Vue_Blog_V6_Passport}):
          wpressimages_blog_post
          wpressimage_category

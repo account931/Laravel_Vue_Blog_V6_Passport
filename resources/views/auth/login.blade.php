@@ -135,7 +135,9 @@
 </div>
 
 
-
+<div class="col-md-9 col-md-offset-2 alert alert-danger">
+    <center>If see no Vue login form below, check if the JS is not corrupted</center>
+</div>
 
 
 <!----------------------------- Vue Login component (Rest Api Login) ---------------------------------->

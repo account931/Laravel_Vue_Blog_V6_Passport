@@ -35,7 +35,7 @@ export default new Vuex.Store({
     
     getters: {
         //minor getter, can delete (both from Login_component)
-        getCart(state) {
+        getCart(state) { 
             return state.passport_api_tokenY;
         },
         
@@ -52,6 +52,8 @@ export default new Vuex.Store({
             
         },
         */
+		
+		
     },
     
  
@@ -84,7 +86,7 @@ export default new Vuex.Store({
         //state.ifLogged = (state.passport_api_tokenY !='') ? true : false;
         return commit('Fire', 'dataTestX' ); //fire muation
     },
-    
+    /*
     watch: {
         myZZZ() {
            //state.ifLogged = (state.passport_api_tokenY !='') ? true : false;
@@ -92,6 +94,22 @@ export default new Vuex.Store({
         }
     },
     */
+	
+	//does not work
+	watch: {
+       //'state.passport_api_tokenY': function(newValue, oldValue) {
+		getCart(oldValue, newValue) {
+               alert(`Field changed for player from ${oldValue} to ${newValue}`);
+        },
+		'state.passport_api_tokenY': function() {
+            alert("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+        },
+    },
+	
+
+	
+
+
     
     actions: {
 		/*

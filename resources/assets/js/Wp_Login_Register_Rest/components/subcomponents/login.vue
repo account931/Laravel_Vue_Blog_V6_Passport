@@ -41,6 +41,20 @@
                     <input required v-model="password" type="password" placeholder="Password" id="passwordd"  class="form-control"/>
                     <i class="fa fa-eye" id="passEye" @click="togglePassword" style="cursor:pointer;"></i>
                 </div>
+				
+				
+				
+				<!-- Hint/promt for username. If username was prev saved to LocalStorage -->
+				<div class="col-sm-12 col-xs-12 alert alert-info borderX" :class="this.cssStateFlagHidden ? ' hide-me' : '' "   id="userNameHint">
+				<transition name="moveInUp">
+				    <p class="small-ft"> 
+					    Last time you logged as <b> {{ this.user_Name_Hint }} </b> (LocStorage). 
+						Wanna use it? <button type="button"  v-on:click="useNameHint"> Yes </button> <!-- if use simple <button> it will fire form submitting -->
+					</p>
+				</transition>	
+				</div>
+				<!-- End Hint/promt for username. If username was prev saved to LocalStorage -->
+				
                 
                 <hr><br><br>
                 <button type="submit" class="btn btn-info">Login <i class="	fa fa-folder-open-o" style="font-size:12px"></i></button>
@@ -61,13 +75,32 @@ export default {
             password : "",
             status_msg: "", //validate error message
             status: "",
+			cssStateFlagHidden: true, //flag for CSS visibility change (username hint). true means hidden
+			user_Name_Hint: "",
         };
     },
   
     //computed property is used to declaratively describe a value that depends on other values. When you data-bind to a computed property inside the template, Vue knows when to update the DOM when any of the values depended upon by the computed property has changed.
     computed: { 
+
+
     },
     beforeMount() {
+	    
+		//check if Local storage contains userName hint (from prev Login)
+		if (localStorage.getItem("usernameHint93111111") != null) {
+		    let locStorageName = localStorage.getItem("usernameHint93111111"); //gets the prev value of username field
+			
+			var thatSelf = this; //this doesn't correspond with your Vue instance.
+			
+			//set with delay to show interactivity
+			setTimeout(function(thatX ) {
+			    thatSelf.cssStateFlagHidden = false;
+			    thatSelf.user_Name_Hint = locStorageName;
+            }, 2000)
+			
+			
+		}
 
     },
     methods: {
@@ -85,6 +118,10 @@ export default {
                 return false;
             }
             
+			//save userName to Locasl storage for UserName hint
+			localStorage.setItem("usernameHint93111111", this.email);
+			
+			
             let emailX    = this.email; 
             let passwordX = this.password;
             
@@ -121,7 +158,8 @@ export default {
                         swal("Failed", data.error_message, "error");
                         thatX.status_msg = data.error_message;
                     } else {
-                        thatX.$store.dispatch('changeVuexStoreLogged', data); //working example how to change Vuex store from child component  
+                        thatX.$store.dispatch('changeVuexStoreLogged', data); //working example how to change Vuex store from child component 
+                        						
                     }
                      
                 },  //end success
@@ -184,8 +222,54 @@ export default {
             // toggle the eye slash icon
             document.getElementById("passEye").classList.toggle('fa-eye-slash');//HTML DOM property element.classList //classList.toggle => if css class exists, it acts as classList.remove (i.e remove class).  If class does not exist, it works as classList.add (i.e add class), 
         },
+		
+		
+		/*
+        |--------------------------------------------------------------------------
+        |Use userName Hint, on button click "Yes", set Loc storage vaue to email
+        |--------------------------------------------------------------------------
+        |
+        |
+        */
+		useNameHint(){
+		    //alert(this.user_Name_Hint);
+			this.email = this.user_Name_Hint;
+			return false;
+		},
         
         
     },
 }
 </script>
+
+<style scoped>
+.hide-me {display:none;}
+.small-ft {font-size:0.7em;}
+
+/* animation */	
+.moveInUp-enter-active{
+  animation: fadeIn 2s ease-in;
+}
+@keyframes fadeIn{
+  0%{
+    opacity: 0;
+  }
+  50%{
+    opacity: 0.5;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+.moveInUp-leave-active{
+  animation: moveInUp .3s ease-in;
+}
+@keyframes moveInUp{
+ 0%{
+  transform: translateY(0);
+ }
+  100%{
+  transform: translateY(-400px);
+ }
+}
+</style>

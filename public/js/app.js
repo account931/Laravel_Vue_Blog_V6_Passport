@@ -105,7 +105,7 @@ var app = new Vue({
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(4)
 /* script */
 var __vue_script__ = __webpack_require__(197)
 /* template */
@@ -476,7 +476,7 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-/***/ 3:
+/***/ 4:
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */

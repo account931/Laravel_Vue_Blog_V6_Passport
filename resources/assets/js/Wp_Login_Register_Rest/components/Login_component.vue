@@ -67,14 +67,15 @@ export default {
         
         isLoggedInZ(){ return this.$store.getters.isLoggedIn },
 		
-		//change menu Login if user is logged (has passport_api_tokenY). HHYNYA., DOES NOT WORK
+		//change menu Login if user is logged (has passport_api_tokenY)., DOES NOT WORK
+		/*
 		whatMenuToFire(){
 		    if(this.$store.state.passport_api_tokenY !== null){
 		        $("#changeMenu").html('My dashBoard');
 		    } else { 
 		        $("#changeMenu").html('Log inn');
 		    }
-		},
+		}, */
 
     },
 	
@@ -96,7 +97,8 @@ export default {
     created(){
 	    //just for information
         alert("Login_component.vue says : passport_api_tokenY type is " + typeof this.$store.state.passport_api_tokenY + " . If Type is Object -> it means Null(no token), type String means Passport token is set ");
-	    this.$store.state.passport_api_tokenY !== null ? $("#changeMenu").html('My dashBoard2') : $("#changeMenu").html('Log inn2');
+	    
+		//this.$store.state.passport_api_tokenY !== null ? $("#changeMenu").html('My dashBoard2') : $("#changeMenu").html('Log inn2');
 	},
     
     methods: {

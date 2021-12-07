@@ -157,15 +157,34 @@
                         console.log(errorZ);
 
                         if(errorZ.responseJSON != null){
+						    /*
                             if(errorZ.responseJSON.error == true || errorZ.responseJSON.error == "Unauthenticated."){ //if Rest endpoint returns any predefined error
                                 swal("Error: Unauthenticated", "Check Bearer Token", "error");  
                                 //alert("Unauthenticated");                  
-                            } 
+                            } */
+							if (errorZ.responseJSON.error == "Error: Request failed with status code 401" ||  errorZ.responseJSON.error == "Unauthenticated."){ //if Rest endpoint returns 401 error
+
+                                swal("Unauthenticated", "Check Bearer Token", "error");
+								alert('Vuex log out - pre'); 
+								
+                                //Unlog the user if dataZ.error == "Unauthenticated." || 401, otherwise if user has wrong password token saved in Locals storage, he will always recieve error and neber log out                  
+                                that.$store.dispatch('LogUserOut'); //reset state vars (state.passport_api_tokenY + state.loggedUser) via mutation
+                            } else {  
+
+                               swal("Error", "Something else crashed", "error"); 
+                            }
                         }
-                        swal("Error", "Something crashed", "error");  
+                        //swal("Error", "Something crashedd", "error");  
                         $('.loader-x').fadeOut(800); //show loader
                 
-			        }	  
+			        }	
+
+
+
+
+
+                   
+					
                 });                             
                 //END AJAXed  part
             

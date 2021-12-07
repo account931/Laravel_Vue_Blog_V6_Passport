@@ -96,6 +96,7 @@ export default new Vuex.Store({
     */
 	
 	//does not work
+	/*
 	watch: {
        //'state.passport_api_tokenY': function(newValue, oldValue) {
 		getCart(oldValue, newValue) {
@@ -105,7 +106,7 @@ export default new Vuex.Store({
             alert("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
         },
     },
-	
+	*/
 
 	
 

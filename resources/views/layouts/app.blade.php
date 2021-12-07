@@ -49,7 +49,9 @@
                         {{ config('app.name', 'Laravel') }}
                     </a>
                 </div>
-
+                
+				
+				
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
@@ -63,11 +65,13 @@
 						<li class="{{ Request::is('wpBlogVueFrameWork*') ? 'active' : '' }}"> <a href="{{ route('wpBlogVueFrameWork') }}" > WPress Vue.js + Vuex Store     </a> </li> <!-- NOTE: name vs route -->
 						<li class="{{ Request::is('adminStart*') ? 'active' : '' }}">         <a href="{{ route('adminStart') }}" > Vue AdminPart</a></li>
                         <li class="{{ Request::is('getToken*') ? 'active' : '' }}"> <a href="{{ route('getToken') }}" > Get token(DELETE)</a></li>
-
+                        
+						<!-- Vue Component: Menu One Item, Vue switch between Login/Logged . id="menuOneItem is for Vue binding-->
+				        <li id="menuOneItem" class="{{ Request::is('login*') ? 'active' : '' }}"> <a href="{{ route('login') }}"> <menu-one-item/>  </a> </li>
    
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li class="{{ Request::is('login*') ? 'active' : '' }}">  <a id="changeMenu" href="{{ route('login') }}"> Login </a> </li>
+                            <li class="{{ Request::is('login*') ? 'active' : '' }}">    <a id="changeMenu" href="{{ route('login') }}"> Login </a> </li>
                             <li class="{{ Request::is('register*') ? 'active' : '' }}">  <a href="{{ route('register') }}">Register </a></li>
 							
                         @else
@@ -102,9 +106,11 @@
     </div>
 
     <!-- Scripts -->
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> <!-- Mega Fix (collapsed main menu won't open)-->	
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>                 <!-- Mega Fix (collapsed main menu won't open)-->	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css"> <!-- Sweet Alert CSS -->
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js'></script> <!--Sweet Alert JS-->    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js'></script>     <!-- Sweet Alert JS-->  
+	<script src="{{ asset('js/Menu_One_Item/one_menu_item_login_logged_start.js') }}"></script>           <!-- /Vue Menu for One Item (login/logged)(component used in Menu in /views/layouts/app.php) -->
+	
       
       
     <!-- Login, Register Rest API --> 

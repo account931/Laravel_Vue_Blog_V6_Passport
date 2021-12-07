@@ -43,7 +43,9 @@
                     @endif
                     <!-- End Display form validation errors var 2 -->				
 					
-					
+					 
+ 
+ 
                     <div class="panel-heading text-warning">
                         <i class="fa fa-window-restore" style="font-size:84px"></i>
                         Auth via Passport
@@ -57,8 +59,8 @@
                         <p> <i class="fa fa-check-circle-o" style="font-size:24px"></i> Laravel Framework 6.20. Rest Api Blog on Vue + Vuex Store + Vue Router + Bearer token Header Authentication (middleware 'auth:api'). </p>
                         <p> <i class="fa fa-check-circle-o" style="font-size:24px"></i> Uses UI Toolkit Element-UI, Vue 2.0 based component library. </p>
                         <p> <i class="fa fa-check-circle-o" style="font-size:24px"></i> Login/password auth via session, REST API auth via Bearer token . </p>
-                        <p> <i class="fa fa-check-circle-o" style="font-size:24px"></i>Rest Api uses middleware 'myJsonForce' to return JSON</p>
-                        <p> <i class="fa fa-check-circle-o" style="font-size:24px"></i> Token is User's table 'api_token' field. </p>
+                        <p> <i class="fa fa-check-circle-o" style="font-size:24px"></i> Rest Api uses middleware 'myJsonForce' to return JSON</p>
+                        <p> <i class="fa fa-check-circle-o" style="font-size:24px"></i> {Laravel_Vue_Blog_V6_Passport} uses Passport token stored hashed in table {oauth_access_tokens`}. Following is True only for {Laravel_Vue_Blog}=>  Token is User's table 'api_token' field. </p>
                         <p> <i class="fa fa-check-circle-o" style="font-size:24px"></i> Admin Part is protected with Zizaco/Entrust JSON middleware and available for users with Admin rights only </p>
 
                         <p> <i class="fa fa-check-circle-o" style="font-size:24px"></i> Blog with images </p>

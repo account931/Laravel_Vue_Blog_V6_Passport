@@ -4,60 +4,82 @@
 	<div class="services">
 		<h1>{{pageTitle}} number <b> {{this.currentDetailID}}</b></h1>
         
-        <!-- Nav Link go back -->
-		<p class="z-overlay-fix-2"> 
-            <router-link class="nav-link" to="/list_all">
-                <i class="fa fa-tag" style="font-size:24px"></i>
-                <button class="btn"> Back to List of all <i class="fa fa-tag" style="font-size:14px"></i></button>
-            </router-link>
-        </p>
-
-        
-        <!-- V loop over ajax success data -->
-        <p> You are editing item with title:  <i class="text-danger"><b> {{this.inputTitleValue}}  </b></i></p>
-        <!-- End V loop over ajax success data -->
-        
-        
-        <!-- Display Loaded images -->
-        <div v-for="(imageXX, i) in imggGet " :key="i" class="alert alert-success"> 
-            <div class="col-sm-12 col-xs-12"  v-if="i  == 0"> <p> Item's images </p></div>
-            <img v-if="imggGet.length" class="card-img-top my-adm-img" :src="`images/wpressImages/${imageXX.nameN}`"/>
-            <button style="font-size:11px" class="btn btn-danger"  @click="deleteDBImage(imageXX)"> Delete <i class="fa fa-trash-o"></i></button>
-
+		
+		
+		
+		<!--------- Unauthorized/unlogged Section ------> 
+        <div v-if="this.$store.state.passport_api_tokenY == null" class="col-sm-12 col-xs-12 alert alert-info"> <!--auth check if Passport Token is set, i.e user is logged -->
+            
+            <!-- Display subcomponent/you_are_not_logged.vue -->
+            <you-are-not-logged-page></you-are-not-logged-page>         
         </div>
+        <!--------- End Unauthorized/unlogged Section ------> 
+		
+		
+		
+		
+		
+		
+		<!--------- Authorized/Logged Section ----------> 
+        <div v-else-if="this.$store.state.passport_api_tokenY != null">
+		
+            <!-- Nav Link go back -->
+		    <p class="z-overlay-fix-2"> 
+                <router-link class="nav-link" to="/list_all">
+                    <i class="fa fa-tag" style="font-size:24px"></i>
+                    <button class="btn"> Back to List of all <i class="fa fa-tag" style="font-size:14px"></i></button>
+                </router-link>
+            </p>
+
+        
+            <!-- Get the title, uses computed to return reactive data -->
+            <p> You are editing item with title:  <i class="text-danger"> <b>  {{ this.titleGet}}  </b></i></p>     <!-- {{this.inputTitleValue}} -->
+            <!-- End Get the title, uses computed to return reactive data -->
+        
+        
+		
+            <!-- Display Loaded images -->
+            <div v-for="(imageXX, i) in imggGet " :key="i" class="alert alert-success"> 
+                <div class="col-sm-12 col-xs-12"  v-if="i  == 0"> <p> Item's images </p></div>
+                <img v-if="imggGet.length" class="card-img-top my-adm-img" :src="`images/wpressImages/${imageXX.nameN}`"/>
+                <button style="font-size:11px" class="btn btn-danger"  @click="deleteDBImage(imageXX)"> Delete <i class="fa fa-trash-o"></i></button>
+
+            </div>
         
        
       
-        <!------- INJECTED ------->
-        <div class="card-body">
-        <div v-if="status_msg" :class="{ 'alert-success': status, 'alert-danger': !status }" class="alert" role="alert">
-            {{ status_msg }}
-        </div>
+            <!------- INJECTED ------->
+            <div class="card-body">
+            <div v-if="status_msg" :class="{ 'alert-success': status, 'alert-danger': !status }" class="alert" role="alert">
+                {{ status_msg }}
+            </div>
         
 	  
-        <!-- Display Validation errors if any come from Controller Request Php validator -->   
-        <div v-for="(book, i) in ValidorErrorGet " :key="i" class="alert alert-danger"> 
-            Error: {{ book }} 
-        </div>
+            <!-- Display Validation errors if any come from Controller Request Php validator -->   
+            <div v-for="(book, i) in ValidorErrorGet " :key="i" class="alert alert-danger"> 
+                Error: {{ book }} 
+            </div>
         
         
 	    
 	  
-      <form id="myFormZZ">
-	    <input type="hidden" name="_token" :value="tokenXX" /> <!-- csfr token -->
-		<!--<input type="hidden" name="_token" value="4gyBcsEYlPibNHfhi1r55rRQAZkBWepxCmVLlqAW" />-->
+            <form id="myFormZZ">
+	            <input type="hidden" name="_token" :value="tokenXX" /> <!-- csfr token -->
+		        <!--<input type="hidden" name="_token" value="4gyBcsEYlPibNHfhi1r55rRQAZkBWepxCmVLlqAW" />-->
 		
-		<!-- Title -->
-        <div class="form-group">
-          <label for="exampleFormControlInput1">Title</label>
-          <input id="title" type="text" class="form-control" placeholder="Post Title" v-model="inputTitleValue" required>
-        </div>
+		        <!-- Title -->
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Title</label>
+                    <input id="title" type="text" class="form-control" placeholder="Post Title" v-model="inputTitleValue" required>
+                </div>
         
-        <!-- Body -->
-        <div class="form-group">
-          <label for="exampleFormControlTextarea1">Post Content</label>
-          <textarea id="post-content" v-model="inputBodyValue" class="form-control" rows="3" required />
-        </div>
+                <!-- Body -->
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Post Content</label>
+                    <textarea id="post-content" v-model="inputBodyValue" class="form-control" rows="3" required />
+                </div>
+				
+				<!-- CONTINUE HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
         
         
         <!-- Select category -->
@@ -115,6 +137,12 @@
       </button>
       
     </div>
+	
+	
+	</div>
+    <!------------ END Authorized/Logged Section -----------------> 
+	
+	
   </div>
   
   
@@ -132,8 +160,18 @@
 
 <script>
     import { mapState } from 'vuex';
+
+	//using other sub-component 
+    import youAreNotLogged  from '../subcomponents/you_are_not_logged.vue'; 
+	
 	export default{
 		name:'edit-one-item',
+		
+		//using other sub-component 
+	    components: {
+            'you-are-not-logged-page' : youAreNotLogged,
+        },
+		
 		data (){ 
 			return{
 				pageTitle:'Edit one item',
@@ -171,7 +209,11 @@
             //images already loaded to DB
             imggGet() { //make reactive ajax response 
                 return this.inputImagesValueX;
-            }
+            },
+			
+			titleGet() { //make reactive ajax response 
+			    return this.inputTitleValue;
+			},
            
         },
         
@@ -182,13 +224,18 @@
 	        this.currentDetailID = ID; // 
             console.log("Editing ID is " + this.currentDetailID);
             
-            //get the csrf token
+            //get the csrf token for form verification
             let token = document.head.querySelector('meta[name="csrf-token"]'); //gets meta tag with csrf
             this.tokenXX = token.content; //gets csrf token and sets it to data.tokenXX
             
+			//Passport token check
+            if(this.$store.state.passport_api_tokenY == null){
+                swal("List_all says: Access denied", "You are not logged", "error");
+                return false;
+            }
              
             
-            //run ajax to get One item
+            //run ajax to get One post item
             this.runAjaxToGetOneItem(this.currentDetailID); 
             
             this.getAjaxCategories(); //get /GET all DB table categories (to build <select> in loadnew.vue)            
@@ -264,7 +311,7 @@
             
             /*
             |--------------------------------------------------------------------------
-            | When user clicks "Edit on some item" , i.e fires ajax to get 1 item data (to be used in edit/update form) via /GET 
+            | When user clicks "Edit on some item" in list_all.vue , i.e fires ajax to get 1 item data (to be used in edit/update form) via /GET 
             |--------------------------------------------------------------------------
             |
             |
@@ -277,7 +324,7 @@
                 //Add Bearer token to headers
                 $.ajaxSetup({
                     headers: {
-                        'Authorization': 'Bearer ' + this.$store.state.api_tokenY
+                        'Authorization': 'Bearer ' + this.$store.state.passport_api_tokenY  //PASSPORT api_tokenY   //this.$store.state.api_tokenY - old variant
                     }
                 }); 
       
@@ -305,7 +352,7 @@
                             var text = data.data;
                             swal("Check", text, "error");
               
-                        //if OK
+                        //if all is OK
                         } else if(data.error == false){
                             //return commit('setPosts', data ); //sets ajax results to store via mutation
                             that.ajaxOneItem = data.data; 
@@ -338,17 +385,21 @@
                         console.log(errorZ.responseText);
                         console.log(errorZ);
                 
-                        /*
-                        if (errorZ.status == 422) {
-                            swal("Error", "Validation crashed", "error");  
-                        }*/
-                
                         if(errorZ.responseJSON != null){
-                            if(errorZ.responseJSON.error == true || errorZ.responseJSON.error == "Unauthenticated."){ //if Rest endpoint returns any predefined error
-                                swal("Error: Unauthenticated", "Check Bearer Token", "error");  
-                            } 
+						  
+							if (errorZ.responseJSON.error == "Error: Request failed with status code 401" ||  errorZ.responseJSON.error == "Unauthenticated."){ //if Rest endpoint returns 401 error
+
+                                swal("Unauthenticated", "Check Bearer Token", "error");
+								alert('Vuex log out - pre'); 
+								
+                                //Unlog the user if dataZ.error == "Unauthenticated." || 401, otherwise if user has wrong password token saved in Locals storage, he will always recieve error and neber log out                  
+                                that.$store.dispatch('LogUserOut'); //reset state vars (state.passport_api_tokenY + state.loggedUser) via mutation
+                            } else {  
+
+                               swal("Error", "Something else crashed", "error"); 
+                            }
                         }
-                        swal("Error", "Something crashed", "error");  
+                        //swal("Error", "Something crashedd", "error"); //Commented or it will overleap and prevent to appear  swal("Error: Unauthenticated  
                         $('.loader-x').fadeOut(800); //hide loader
                 
 			        }	  
@@ -397,7 +448,7 @@
                 //Add Bearer token to headers
                 $.ajaxSetup({
                     headers: {
-                        'Authorization': 'Bearer ' + this.$store.state.api_tokenY
+                        'Authorization': 'Bearer ' + this.$store.state.passport_api_tokenY  //PASSPORT api_tokenY   //this.$store.state.api_tokenY - old variant
                     }
                 }); 
       
@@ -453,17 +504,21 @@
                         console.log(errorZ.responseText);
                         console.log(errorZ);
                 
-                        /*
-                        if (errorZ.status == 422) {
-                            swal("Error", "Validation crashed", "error");  
-                        }*/
-                
                         if(errorZ.responseJSON != null){
-                            if(errorZ.responseJSON.error == true || errorZ.responseJSON.error == "Unauthenticated."){ //if Rest endpoint returns any predefined error
-                                swal("Error: Unauthenticated", "Check Bearer Token", "error");  
-                            } 
+						  
+							if (errorZ.responseJSON.error == "Error: Request failed with status code 401" ||  errorZ.responseJSON.error == "Unauthenticated."){ //if Rest endpoint returns 401 error
+
+                                swal("Unauthenticated", "Check Bearer Token", "error");
+								alert('Vuex log out - pre'); 
+								
+                                //Unlog the user if dataZ.error == "Unauthenticated." || 401, otherwise if user has wrong password token saved in Locals storage, he will always recieve error and neber log out                  
+                                that.$store.dispatch('LogUserOut'); //reset state vars (state.passport_api_tokenY + state.loggedUser) via mutation
+                            } else {  
+
+                               swal("Error", "Something else crashed", "error"); 
+                            }
                         }
-                        swal("Error", "Something crashed", "error");  
+                        //swal("Error", "Something crashedd", "error"); //Commented or it will overleap and prevent to appear  swal("Error: Unauthenticated  
                         $('.loader-x').fadeOut(800); //hide loader
                         thatX.isCreatingPost = false; //flag for button text
                 
@@ -482,11 +537,15 @@
             |
             */
 	        getAjaxCategories(){
-    
+			
+                var that = this; //Explaination => if you use this.data, it is incorrect, because when 'this' reference the vue-app, you could use this.data, but here (ajax success callback function), this does not reference to vue-app, instead 'this' reference to whatever who called this function(ajax call)
+
                 fetch('api/post/get_categories', { /*http://localhost/Laravel+Yii2_comment_widget/blog_Laravel/public/post/get_categories*/
                     method: 'get',
                     //pass Bearer token in headers ()
-                    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.$store.state.api_tokenY },
+                    headers: { 
+					    'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.$store.state.passport_api_tokenY  //PASSPORT api_tokenY   //this.$store.state.api_tokenY - old variant
+					},
                     //contentType: 'application/json',
 
    
@@ -495,10 +554,17 @@
                     return response.json();
                 }).then(dataZ => {
                     console.log("Categories => " + dataZ); 
-                    if(dataZ.error == true|| dataZ.error == "Unauthenticated."){ //if Rest endpoint returns any predefined error
+					
+                    if(dataZ.error == true || dataZ.error == "Unauthenticated." || dataZ.error =="Error: Request failed with status code 401" ){ //if Rest endpoint returns any predefined error
                         alert(dataZ.data);
-                        swal("Unauthenticated", "Check Bearer Token", "error");
+                        swal("Unauthenticated to load categories", "Check Bearer Token", "error");
+						alert('Vuex log out - pre'); 
+								
+                        //Unlog the user if dataZ.error == "Unauthenticated." || 401, otherwise if user has wrong password token saved in Locals storage, he will always recieve error and neber log out                  
+                        that.$store.dispatch('LogUserOut'); //reset state vars (state.passport_api_tokenY + state.loggedUser) via mutation
                   
+				  
+				    //all is OK 
                     } else if(dataZ.error == false){
                         swal("Done", "Categories are loaded.", "success");
                         this.categoriesList = dataZ.data;
@@ -512,6 +578,19 @@
       
             },
             
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+				
+				
             
             
 	        /*

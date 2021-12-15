@@ -46,7 +46,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{ config('app.name', 'LaravelZ') }}
                     </a>
                 </div>
                 
@@ -66,9 +66,15 @@
 						<li class="{{ Request::is('adminStart*') ? 'active' : '' }}">         <a href="{{ route('adminStart') }}" > Vue AdminPart</a></li>
                         <li class="{{ Request::is('getToken*') ? 'active' : '' }}"> <a href="{{ route('getToken') }}" > Get token(DELETE)</a></li>
                         
-						<!-- Vue Component: Menu One Item, Vue switch between Login/Logged . id="menuOneItem is for Vue binding-->
+						
+						
+						<!-- Menu item via Vue Component -->
+						<!-- Vue Component: Menu One Item, Vue switch between menu text "Login"/"Logged" . id="menuOneItem is for Vue binding-->
 				        <li id="menuOneItem" class="{{ Request::is('login*') ? 'active' : '' }}"> <a href="{{ route('login') }}"> <menu-one-item/>  </a> </li>
-   
+                        <!-- End Menu item via Vue Component -->
+						
+						
+						
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li class="{{ Request::is('login*') ? 'active' : '' }}">    <a id="changeMenu" href="{{ route('login') }}"> Login </a> </li>

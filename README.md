@@ -1,16 +1,16 @@
-## This project is so much like {CLEANSED_GIT_HUB/Laravel_Vue_Blog}, but the main differences:
-- <p> This project uses Laravel version 6, while {CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses version 5.4. </p>
-- <p> This project uses api auth via Passport, while {CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses api auth via token sent in headers in ajax (in vue). Token is a column {api_token} in DB {Users}  </p>
-- <p> As long as this project is on Laravel version 6, it can not use Entrust Rbac like {CLEANSED_GIT_HUB/Laravel_Vue_Blog} do, so it uses Spatie Laravel permission RBAC </p>
-- <p> This project uses in {/config/auth.php}  'guards' => [ 'api' => [ 'driver'   => 'passport' ] ], while {CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses 'guards' => [ 'api' => [ 'driver'   => 'token' ] ] </p>
-- <p> This project uses auth soleley on token(including login/register), while {CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses login/register via regular http sessions, and only while requesting REST API resources uses token,
-     So, this project for Login uses \App\Http\Controllers\Auth_API\UserAuthController and in Login form (/views/auth/login.blade.php) uses api route action="{{ route('passport_login') }}, {CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses route action="{{ route('login') }}
+## This project is so much like {NON_NON_CLEANSED_GIT_HUB/Laravel_Vue_Blog}, but the main differences:
+- <p> This project uses Laravel version 6, while {NON_CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses version 5.4. </p>
+- <p> This project uses api auth via Passport, while {NON_CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses api auth via token sent in headers in ajax (in vue). Token is a column {api_token} in DB {Users}  </p>
+- <p> As long as this project is on Laravel version 6, it can not use Entrust Rbac like {NON_CLEANSED_GIT_HUB/Laravel_Vue_Blog} do, so it uses Spatie Laravel permission RBAC </p>
+- <p> This project uses in {/config/auth.php}  'guards' => [ 'api' => [ 'driver'   => 'passport' ] ], while {NON_CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses 'guards' => [ 'api' => [ 'driver'   => 'token' ] ] </p>
+- <p> This project uses auth soleley on token(including login/register), while {NON_CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses login/register via regular http sessions, and only while requesting REST API resources uses token,
+     So, this project for Login uses \App\Http\Controllers\Auth_API\UserAuthController and in Login form (/views/auth/login.blade.php) uses api route action="{{ route('passport_login') }}, {NON_CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses route action="{{ route('login') }}
   </p>
 - <p> Additionally, we disabled middleware('auth') {Route::get()->middleware('auth')} in routes/web.ph, and disabled checking in Contrlller { if(auth()->user()->api_token == null) }. But additionally add {Route::group(['middleware' => ['auth:api'] } in /routes/api.php</p>
   
-- <p> History of this project: firstly it was developed within {Laravel+Yii2_comment_widget}, then was carved as separated {CLEANSED_GIT_HUB/Laravel_Vue_Blog} and finally carved to account931 for Passport and Spatie testing. </p>
+- <p> History of this project: firstly it was developed within {Laravel+Yii2_comment_widget}, then was carved as separated {NON_CLEANSED_GIT_HUB/Laravel_Vue_Blog} and finally carved to account931 for Passport and Spatie testing. </p>
 
-- <p> In {Laravel_Vue_Blog_V6_Passport} token (Passport token from DB) is set to Vuex Store while login, in {CLEANSED_GIT_HUB/Laravel_Vue_Blog} token is stored in Vuex as well, this token is a User Table column and it is passed from php in view as <vue-router-menu-with-link-content-display v-bind:current-user='{!! Auth::user()->toJson() !!}'>.
+- <p> In {Laravel_Vue_Blog_V6_Passport} token (Passport token from DB) is set to Vuex Store while login, in {NON_CLEANSED_GIT_HUB/Laravel_Vue_Blog} token is stored in Vuex as well, this token is a User Table column and it is passed from php in view as <vue-router-menu-with-link-content-display v-bind:current-user='{!! Auth::user()->toJson() !!}'>.
       See details in Readme_This_Project_itself.txt
   </p>
 
@@ -30,7 +30,11 @@
 - <p> Back-end is implemented in  =>  /Controllers/WpBlog_Rest_API_Contoller.php and  /Controllers/WpBlog_Admin_Part/WpBlog_Admin_Rest_API_Contoller.php</p>
 
 
-## Below is copy from {CLEANSED_GIT_HUB/Laravel_Vue_Blog} =>
+
+
+
+
+## Below is copy from {NON_CLEANSED_GIT_HUB/Laravel_Vue_Blog} =>
 
 ## Laravel Rest Api Blog on Vue + Vuex Store + Vue Router + Bearer token Header Authentication (middleware 'auth:api'). Token is User's table 'api_token' field. Uses UI Toolkit Element-UI, Vue 2.0 based component library
 - <p>To run the application on <b>http://localhost</b>, copy the repository code and run <b>composer install</b> to load all dependencies. </p>

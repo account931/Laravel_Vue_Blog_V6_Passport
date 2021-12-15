@@ -1,6 +1,6 @@
 ﻿ TABLE OF CONTENT:
  1. This project {Laravel_Vue_Blog_V6_Passport} 
- 2. {CLEANSED_GIT_HUB/Laravel_Vue_Blog}                        
+ 2. {NOT_CLEANSED_GIT_HUB/Laravel_Vue_Blog}                        
 
 
 
@@ -137,7 +137,7 @@
 ===============================================================================================================
 
 
- 2. {CLEANSED_GIT_HUB/Laravel_Vue_Blog}        
+  2. {NOT_CLEANSED_GIT_HUB/Laravel_Vue_Blog}       
      => see additional ReadMe at => 13.2   REST API authentication via token (Token Bearer, String Query) at => https://github.com/account931/Laravel-Yii2_Comment_Vote_widgets/blob/master/blog_Laravel/ReadMe_Laravel_Com_Commands.txt
     
     This project was carved out from {Laravel-Yii2_Comment_Vote_widgets} to this separate project {CLEANSED_GIT_HUB/Laravel_Vue_Blog}. Later in other/further project we modified/improved it with Passport, Spatie and full REST API and carved to {Laravel_Vue_Blog_V6_Passport}

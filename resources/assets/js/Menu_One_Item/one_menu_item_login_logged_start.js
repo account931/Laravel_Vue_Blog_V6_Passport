@@ -1,4 +1,4 @@
-//Vue Menu for One Item (login/logged)(component used in Menu in /views/layouts/app.php)
+//Vue Menu for One Menu <li> Item (switches text "login"/"logged")(component used in Menu in /views/layouts/app.php)
 
 
 /**

@@ -35,7 +35,7 @@ export default new Vuex.Store({
     
     getters: {
         //minor getter, can delete (both from Login_component)
-        getCart(state) { 
+         getCart: function (state) { //getCart(state) {
             return state.passport_api_tokenY;
         },
         
@@ -251,7 +251,7 @@ export default new Vuex.Store({
                 */
                 
                 //change for Axios
-                if (dataZ.data.error == false){ 
+                if (dataZ.data.error == false){  //All Is OK
                     alert('dataZ.data.error 4 ' + dataZ.data.error);
                     swal("Done", "Articles are loaded (axios) (Vuex store).", "success");
 	                return commit('setPosts', dataZ.data ); //sets ajax results to store via mutation
@@ -304,13 +304,7 @@ export default new Vuex.Store({
       
       
       
-        /*
-        |--------------------------------------------------------------------------
-        | Mutation section
-        |--------------------------------------------------------------------------
-        |
-        |
-        */
+      
         //For mutation to set a quantity of found posts(in Admin Part). Fired in list_all. passedArgument is an arg passed in list_all.vue
         setPostsQuantity ({ commit, state  }, passedArgument) {  //state is a fix
             return commit('setQuantMutations', passedArgument ); //to store via mutation
@@ -328,7 +322,14 @@ export default new Vuex.Store({
 	  
 	},
 
-
+    
+	/*
+     |--------------------------------------------------------------------------
+     | Mutation section
+     |--------------------------------------------------------------------------
+     |
+     |
+     */
 
     mutations: {
         setPosts(state, response) {  
@@ -363,6 +364,7 @@ export default new Vuex.Store({
             //Vue.set(state, passport_api_token, response.token);
             localStorage.setItem('tokenZ', response.token); //saves to localStorage to not reset data on every F5        
             state.passport_api_tokenY = response.token;
+			//Vue.set(state.passport_api_tokenY, response.token);
 
             
             alert('Logged successfully');

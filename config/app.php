@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel Vue Passport'),
+    'name' => env('APP_NAME', 'Larave Vue Passport'),
 
     /*
     |--------------------------------------------------------------------------

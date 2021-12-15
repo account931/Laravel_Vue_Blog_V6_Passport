@@ -3,7 +3,7 @@
 		<h1> {{title}}</h1>
 		<p></p>
         
-		 <!--------- Unauthorized/unlogged Section ------> 
+		<!--------- Unauthorized/unlogged Section ------> 
         <div v-if="this.$store.state.passport_api_tokenY == null" class="col-sm-12 col-xs-12 alert alert-info"> <!--auth check if Passport Token is set, i.e user is logged -->
             
             <!-- Display subcomponent/you_are_not_logged.vue -->
@@ -23,11 +23,11 @@
             
                 <!-- Image with LightBox -->
 	            <a v-if="postAdmin.get_images.length" :href="`images/wpressImages/${postAdmin.get_images[0].wpImStock_name}`"   title="image" :data-lightbox="`roadtrip${postAdmin.wpBlog_id}`" > <!-- roadtrip + currentID, to create a unique data-lightbox name, so in modal LightBox will show images related to this article only, not all -->
-                    <img v-if="postAdmin.get_images.length" class="card-img-top my-adm-img" :src="`images/wpressImages/${postAdmin.get_images[0].wpImStock_name}`" />
+                    <img v-if="postAdmin.get_images.length" class="card-img-top my-adm-img" :src="`images/wpressImages/${postAdmin.get_images[0].wpImStock_name}`"  @error="imageUrlAlt" />       <!-- @error - is a method to run if image url is invalid or broken or image physically not available in folder -->
 	            </a>
                 <!-- End Image with LightBox -->
 		
-                <!-- If image does not exist. ELSE -->
+                <!-- If image does not exist (not connected via hasOne relation). ELSE -->
                 <img v-else class="card-img-top my-img" :src="`images/no-image-found.png`" />
             
                 <!-- Edit/Delet Buttons --> 
@@ -75,7 +75,7 @@
         beforeMount() { 
             let token = document.head.querySelector('meta[name="csrf-token"]'); //gets meta tag with csrf //NOT USED in Passport????
             //alert(token.content);
-	        this.tokenXX = token.content; //gets csrf token and sets it to data.tokenXX //NOT USED in Passport????
+	        this.tokenXX = token.content; //gets csrf token and sets it to data.tokenXX //NOT USED in Passport???? This is csrf token used to verify form submission. For READ operation (get all posts) it is not required
 			
 			//Passport token check
             if(this.$store.state.passport_api_tokenY == null){
@@ -87,6 +87,17 @@
         
         
         methods: {
+		    /*
+            |--------------------------------------------------------------------------
+            | If image url is invalid or broken or image physically not available in folder, then use 'images/image-corrupted.jpg"
+            |--------------------------------------------------------------------------
+            |
+            |
+            */
+		    imageUrlAlt(event) {
+                event.target.src = "images/image-corrupted.jpg"
+            },
+			
               
            /*
             |--------------------------------------------------------------------------
@@ -147,7 +158,7 @@
                             swal("Good", "Bearer Token is OK", "success");
                             swal("Good",  "All articles are loaded"/*data.data*/, "success");
                         }
-                        $('.loader-x').fadeOut(800); //show loader
+                        $('.loader-x').fadeOut(800); //hide loader
                     },  //end success
             
 			        error: function (errorZ) {
@@ -174,8 +185,8 @@
                                swal("Error", "Something else crashed", "error"); 
                             }
                         }
-                        //swal("Error", "Something crashedd", "error");  
-                        $('.loader-x').fadeOut(800); //show loader
+                        //swal("Error", "Something crashedd", "error"); //Commented or it will overleap and prevent to appear  swal("Error: Unauthenticated  
+                        $('.loader-x').fadeOut(800); //hide loader
                 
 			        }	
 
@@ -211,7 +222,7 @@
                 if(!confirm('Sure to delete Post ' + item + '?')){
                     return false;
                 }
-                
+                $('.loader-x').fadeIn(800); //show loader
                 var that = this; //to fix context issue
                 this.selectedItem = item;
                 alert('Delete ' + this.selectedItem + " Implement REST API delete function");
@@ -219,7 +230,7 @@
                 //Add Bearer token to headers
                 $.ajaxSetup({
                     headers: {
-                        'Authorization': 'Bearer ' + this.$store.state.passport_api_tokenY //api_tokenY
+                        'Authorization': 'Bearer ' + this.$store.state.passport_api_tokenY //PASSPORT api_tokenY
                     }
                 }); 
       
@@ -248,7 +259,7 @@
                             var text = data.data;
                             swal("Check", text, "error");
                     
-                            //if validation errors (i.e if REST Contoller returns json ['error': true, 'data': 'Good, but validation crashes', 'validateErrors': title['Validation err text'],  body['Validation err text']])
+                            //if validation errors (NOT THE CASE FOR DELETE) (i.e if REST Contoller returns json ['error': true, 'data': 'Good, but validation crashes', 'validateErrors': title['Validation err text'],  body['Validation err text']])
                             if(data.validateErrors){
                                 var tempoArray = []; //temporary array
                                 for (var key in data.validateErrors) { //Object iterate
@@ -262,6 +273,7 @@
                             swal({html:true, title: "Deletion was OK", text: data.data, type: "success"});
                             that.runAjaxToGetPosts(); //renew the list
                         }
+						$('.loader-x').fadeOut(800); //hide loader
                     },  //end success
             
 			        error: function (errorZ) {
@@ -271,11 +283,19 @@
                         console.log(errorZ);
                 
                         if(errorZ.responseJSON != null){
-                            if(errorZ.responseJSON.error == true || errorZ.responseJSON.error == "Unauthenticated."){ //if Rest endpoint returns any predefined error
-                               swal("Error: Unauthenticated", "Check Bearer Token", "error");  
-                            } 
+                            if(errorZ.responseJSON.error == "Error: Request failed with status code 401" ||  errorZ.responseJSON.error == "Unauthenticated."){ //if Rest endpoint returns any predefined error
+                                swal("Error: Unauthenticated", "Check Bearer Token", "error"); 
+                                alert('Vuex log out - pre'); 
+								
+                                //Unlog the user if dataZ.error == "Unauthenticated." || 401, otherwise if user has wrong password token saved in Locals storage, he will always recieve error and neber log out                  
+                                that.$store.dispatch('LogUserOut'); //reset state vars (state.passport_api_tokenY + state.loggedUser) via mutation							   
+                            } else {  
+
+                               swal("Error", "Something else crashed", "error"); 
+                            }
                         }
-                        swal("Error", "Something crashed", "error");  
+                        //swal("Error", "Something crashed", "error"); //Commented or it will overleap and prevent to appear  swal("Error: Unauthenticated
+                        $('.loader-x').fadeOut(800); //hide loader						
 
 			        }	  
                 });                             
@@ -283,6 +303,7 @@
                 
             },
             
+
 
             
             

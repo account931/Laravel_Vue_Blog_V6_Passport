@@ -45,6 +45,9 @@
                 </div> 
                 
                 
+				<div class="alert alert-danger">
+                    Don't use this 1st from (it is authentic Laravel form), use the second one below (Vue Form) 
+                </div> 
                 
                 
                 <!-- This Login form is no longer used (was OK for regular hhtp), reassigned to REST API <login-vue-component> <login-vue-component/> -->

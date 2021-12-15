@@ -40,11 +40,11 @@
 		
 		            <!-- Image with LightBox -->
 	                <a v-if="post.get_images.length" :href="`images/wpressImages/${post.get_images[0].wpImStock_name}`"   title="image" :data-lightbox="`roadtrip${post.wpBlog_id}`" > <!-- roadtrip + currentID, to create a unique data-lightbox name, so in modal LightBox will show images related to this article only, not all -->
-                        <img v-if="post.get_images.length" class="card-img-top my-img" :src="`images/wpressImages/${post.get_images[0].wpImStock_name}`" />
+                        <img v-if="post.get_images.length" class="card-img-top my-img" :src="`images/wpressImages/${post.get_images[0].wpImStock_name}`" @error="imageUrlAlt" />       <!-- @error - is a method to run if image url is invalid or broken or image physically not available in folder -->
 	                </a>
                     <!-- End Image with LightBox -->
 		
-                    <!-- If image does not exist. ELSE -->
+                    <!-- If image does not exist (no image connected via hasOne relation). ELSE -->
                     <img v-else class="card-img-top my-img" :src="`images/no-image-found.png`" />
 
         
@@ -191,7 +191,18 @@
             goTodetail(prodId) {
                 let proId = prodId+1;
                 this.$router.push({name:'details-info',params:{Pidd:proId}}) //creates route like "/wpBlogVueFrameWork#/details/3"
-            }, 
+            },
+
+            /*
+            |--------------------------------------------------------------------------
+            | If image url is invalid or broken or image physically not available in folder, then use 'images/image-corrupted.jpg"
+            |--------------------------------------------------------------------------
+            |
+            |
+            */
+		    imageUrlAlt(event) {
+                event.target.src = "images/image-corrupted.jpg"
+            },			
     
 
 

@@ -42,9 +42,11 @@ class SaveNewArticleRequest extends FormRequest
 		    'body'         => 'required|string|min:5|max:255', 
             'selectV'      => ['required', 'string', Rule::in($rolesList) ],  //integer];        
 			//image validation https://hdtuto.com/article/laravel-57-image-upload-with-validation-example
-			'imagesZZZ'    => ['required', /*'image',*/ /*'mimes:jpeg,png,jpg,gif,svg',*/ 'max:2048' ], // 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',,
+			//'imagesZZZ'    => ['required', /*'image',*/ /*'mimes:jpeg,png,jpg,gif,svg',*/ 'max:2048' ], // 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',,
 			//'filename' => 'required',
-            'filename.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048' //min:2048
+            //'filename.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048' //min:2048
+			'imagesZZZ'    => 'required|array',                             //validation for array of images //Amendment 2022, in CLEANSED version 'imagesZZZ' changed to 'imagesSet'
+            'imagesZZZ.*'  => 'image|mimes:jpg,jpeg,gif,svg,png|max:2048',  //validation for array of images  //Amendment 2022, in CLEANSED version 'imagesZZZ' changed to 'imagesSet'
 		];
     }
     
@@ -66,15 +68,19 @@ class SaveNewArticleRequest extends FormRequest
 		   'body.min'             => 'We kindly require more than 5 letters for article text',
            'selectV.required'     => 'We need u to specify the category',
            'selectV.in'           => 'You enetered invalid category',
-		   'imagesZZZ.required'   => 'Image is very much required',
-		   'imagesZZZ.image'    => 'Make sure it is an image',
-		   'imagesZZZ.mimes'    => 'Must be .jpeg, .png, .jpg, .gif, .svg file. Max size is 2048',
-		   'imagesZZZ.max'      => 'Sorry! Maximum allowed size for an image is 2MB',
+		   //'imagesZZZ.required' => 'Image is very much required',
+		   //'imagesZZZ.image'    => 'Make sure it is an image',
+		   //'imagesZZZ.mimes'    => 'Must be .jpeg, .png, .jpg, .gif, .svg file. Max size is 2048',
+		   //'imagesZZZ.max'      => 'Sorry! Maximum allowed size for an image is 2MB',
 		   //'imagesZZZ.min'      => 'Your image is too small',
+		   'imagesZZZ.*.image'    => 'Make sure it is an image',      //Amendment 2022, in CLEANSED version 'imagesZZZ' changed to 'imagesSet'
+		   'imagesZZZ.*.mimes'    => 'File cant be only .jpeg, .png, .jpg, .gif, .svg file. Max size is 2048',
+		   'imagesZZZ.*.max'      => 'Sorry! Maximum allowed size for an image is 2MB',
 		];
 	}
 	
-
+		  
+		   
     
 	 
 	/**

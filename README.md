@@ -1,4 +1,7 @@
-## This project is so much like {NON_NON_CLEANSED_GIT_HUB/Laravel_Vue_Blog}, but the main differences:
+- <p> NB: by notion {NON_CLEANSED_GIT_HUB/Laravel_Vue_Blog} we mean https://github.com/account931/Laravel_Vue_Blog </p>
+- <p>Aditionally, we have a cleansed version of this project (with less comments) at https://github.com/account931/CLEANSED_GIT_HUB/tree/main/Laravel_Vue_Blog_V6_Passport, which is a copy(slave copy) from dim***1/Laravel_Vue_Blog_V6_Passport/</p>
+
+## This project is very much like {NON_NON_CLEANSED_GIT_HUB/Laravel_Vue_Blog}, but the main differences:
 - <p> This project uses Laravel version 6, while {NON_CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses version 5.4. </p>
 - <p> This project uses api auth via Passport, while {NON_CLEANSED_GIT_HUB/Laravel_Vue_Blog} uses api auth via token sent in headers in ajax (in vue). Token is a column {api_token} in DB {Users}  </p>
 - <p> As long as this project is on Laravel version 6, it can not use Entrust Rbac like {NON_CLEANSED_GIT_HUB/Laravel_Vue_Blog} do, so it uses Spatie Laravel permission RBAC </p>
@@ -34,7 +37,7 @@
 
 
 
-## Below is copy from {NON_CLEANSED_GIT_HUB/Laravel_Vue_Blog} =>
+## Below is copy from {NON_CLEANSED_GIT_HUB/Laravel_Vue_Blog} (may delete when no longer necessary) =>
 
 ## Laravel Rest Api Blog on Vue + Vuex Store + Vue Router + Bearer token Header Authentication (middleware 'auth:api'). Token is User's table 'api_token' field. Uses UI Toolkit Element-UI, Vue 2.0 based component library
 - <p>To run the application on <b>http://localhost</b>, copy the repository code and run <b>composer install</b> to load all dependencies. </p>

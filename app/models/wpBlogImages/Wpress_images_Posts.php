@@ -186,8 +186,8 @@ class Wpress_images_Posts extends Model
     * @return string
     */
 	public function updatePostItem($idX, $request)
-    {
-        self::where('wpBlog_id', $idX)->update([  'wpBlog_text' => $request->title, 'wpBlog_title' => $request->body, 'wpBlog_category' => $request->selectV  ]);
+    {   //amendment 30.03.2022 =>$request->body switch
+        self::where('wpBlog_id', $idX)->update([  'wpBlog_text' => $request->body, 'wpBlog_title' => $request->title, 'wpBlog_category' => $request->selectV  ]);
         
         //return string to construct an informational response
         return '</br> Title: <i> '   . $request->title   . '.</i> ' .
@@ -255,7 +255,7 @@ class Wpress_images_Posts extends Model
     */
 	public function deleteOldImages($idX, $request)
     {
-        if ($request->has('imageToDelete')){ //if user opted some old images to be deleted
+        if ($request->has('imageToDelete') && $request->imageToDelete != null){ //if user opted some old images to be deleted // amendment 30.03.2022
                     
             //convert string {$request->imageToDelete} to array
             $del = explode(" ", $request->imageToDelete); // for bizzare reason {$request->imageToDelete) comes to Server as string not array 

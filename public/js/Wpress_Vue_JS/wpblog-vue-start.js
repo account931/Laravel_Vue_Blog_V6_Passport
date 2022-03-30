@@ -82296,6 +82296,30 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 //using other sub-component 
@@ -82351,7 +82375,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
 
 
-    //CONFIRM DELETE THIS SECTION
+    //CONFIRM DELETE THIS SECTION => NO, IT IS NEEDED!. Amendment 30.03.2022
     //check if prev URL was '/details-info/2', if True, don't make ajax request again, as u are back from details-info
     beforeRouteEnter: function beforeRouteEnter(to, from, next) {
         //the target Route Object being navigated to,  the current route being navigated away from., this function must be called to resolve the hook
@@ -82567,6 +82591,19 @@ var render = function() {
               _vm._v(" "),
               _c("p", [_vm._v(_vm._s(this.ifMakeAjax))])
             ]),
+            _vm._v(
+              "\n         \n        \n\t\t!-- If there is no blog records so far -----> "
+            ),
+            _vm._v(" "),
+            _vm.posts.length == 0
+              ? _c("div", [
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "text-danger" }, [
+                    _vm._v("No records found so far")
+                  ])
+                ])
+              : _vm._e(),
             _vm._v(" "),
             _c(
               "div",
@@ -82697,26 +82734,60 @@ var render = function() {
                       _c(
                         "div",
                         { staticClass: "row" },
-                        _vm._l(_vm.currentPost.get_images, function(img, i) {
-                          return _c(
-                            "div",
-                            { key: i, staticClass: "col-md-12" },
-                            [
-                              _c("p", [
-                                _c("img", {
-                                  staticClass: "img-thumbnail",
-                                  attrs: {
-                                    src:
-                                      "images/wpressImages/" +
-                                      img.wpImStock_name,
-                                    alt: ""
-                                  }
-                                })
-                              ])
-                            ]
-                          )
-                        }),
-                        0
+                        [
+                          _vm._l(_vm.currentPost.get_images, function(img, i) {
+                            return _c(
+                              "div",
+                              { key: i, staticClass: "col-md-12" },
+                              [
+                                _c("p", [
+                                  _c("img", {
+                                    staticClass: "img-thumbnail",
+                                    attrs: {
+                                      src:
+                                        "images/wpressImages/" +
+                                        img.wpImStock_name,
+                                      alt: ""
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: {
+                                      href:
+                                        "images/wpressImages/" +
+                                        img.wpImStock_name,
+                                      title: "image",
+                                      "data-lightbox":
+                                        "roadtrip" + img.wpImStock_name
+                                    }
+                                  },
+                                  [
+                                    _c("img", {
+                                      staticClass: "card-img-top my-img-tiny",
+                                      attrs: {
+                                        src:
+                                          "images/wpressImages/" +
+                                          img.wpImStock_name
+                                      },
+                                      on: { error: _vm.imageUrlAlt }
+                                    })
+                                  ]
+                                )
+                              ]
+                            )
+                          }),
+                          _vm._v(" "),
+                          !_vm.currentPost.get_images.length
+                            ? _c("img", {
+                                staticClass: "card-img-top my-img-small",
+                                attrs: { src: "images/no-image-found.png" }
+                              })
+                            : _vm._e()
+                        ],
+                        2
                       ),
                       _vm._v(" "),
                       _c("hr"),
@@ -82948,6 +83019,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -83060,7 +83138,10 @@ var render = function() {
                         .get_images[0].wpImStock_name
                   }
                 })
-              : _vm._e()
+              : _c("img", {
+                  staticClass: "card-img-top my-img-small",
+                  attrs: { src: "images/no-image-found.png" }
+                })
           ]),
           _c("p"),
           _c("p", [

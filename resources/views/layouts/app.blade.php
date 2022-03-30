@@ -77,8 +77,8 @@
 						
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li class="{{ Request::is('login*') ? 'active' : '' }}">    <a id="changeMenu" href="{{ route('login') }}"> Login </a> </li>
-                            <li class="{{ Request::is('register*') ? 'active' : '' }}">  <a href="{{ route('register') }}">Register </a></li>
+                            <li class="{{ Request::is('login*') ? 'active' : '' }}">    <a id="changeMenu" href="{{ route('login') }}"> Login(dl) </a> </li>
+                            <li class="{{ Request::is('register*') ? 'active' : '' }}">  <a href="{{ route('register') }}">Register(dl)</a></li>
 							
                         @else
 							

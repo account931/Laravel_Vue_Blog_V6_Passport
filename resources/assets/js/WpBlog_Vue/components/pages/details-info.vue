@@ -35,8 +35,15 @@
 		    <p> {{ this.$store.state.posts[this.currentDetailID].wpBlog_id }} {{ this.$store.state.posts[this.currentDetailID].wpBlog_title }}</p>
             
             <!-- Show the first image -->
-            <p> <img :src="`images/wpressImages/${this.$store.state.posts[this.currentDetailID].get_images[0].wpImStock_name}`"  v-if="this.$store.state.posts[this.currentDetailID].get_images.length" class="card-img-top my-img"> <p>
+			<!-- Simple image -->
+            <p> 
+			    <img :src="`images/wpressImages/${this.$store.state.posts[this.currentDetailID].get_images[0].wpImStock_name}`"  v-if="this.$store.state.posts[this.currentDetailID].get_images.length" class="card-img-top my-img"> 
 		    
+			    <!-- If image does not exist (no image connected via hasOne relation).  ELSE -->
+                <img v-else class="card-img-top my-img-small" :src="`images/no-image-found.png`" />
+			<p>
+
+			
             <p>           {{ this.$store.state.posts[this.currentDetailID].wpBlog_text }} </p>
             <p> Author:   {{ this.$store.state.posts[this.currentDetailID].author_name.name }} </p>
             <p> Email:    {{ this.$store.state.posts[this.currentDetailID].author_name.email }} </p>

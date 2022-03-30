@@ -22,6 +22,15 @@
 		</div>
          
         
+		!-- If there is no blog records so far -----> <!-- amendment 30.03.2022 -->
+		<div v-if="posts.length == 0"> 
+            <hr>			
+			 <p class="text-danger">No records found so far</p>
+		</div>
+	    <!-- End If there is no blog records so far -->
+			
+			
+			
         <div class="row">
         
             <!-- Original part, Displays post articles from Vuex Store /store/index.js -->
@@ -61,6 +70,8 @@
 	     </div> <!-- end class="row"-->
 	
 	
+	
+	
 	<!-- Hidden modal window {ElementUI 'element-ui}(installed separately by npm) , will pop-up visible on click showing 1 full article -->
     <el-dialog v-if="currentPost" :visible.sync="postDialogVisible" width="80%" class="z-overlay-3">
       <span>
@@ -70,8 +81,21 @@
           
 		  <!-- Show all article images via FOR LOOP. HasMany Relation -->
           <div class="col-md-12" v-for="(img, i) in currentPost.get_images" :key=i>
+		  
+              <!-- Simple Image (without LightBox) --> 
               <p><img :src="`images/wpressImages/${img.wpImStock_name}`" class="img-thumbnail" alt=""></p>
+			  
+	          <!-- Image with LightBox --> 
+	          <a :href="`images/wpressImages/${img.wpImStock_name}`" title="image" :data-lightbox="`roadtrip${img.wpImStock_name}`" > <!-- roadtrip + currentID, to create a unique data-lightbox name, so in modal LightBox will show images related to this article only, not all -->
+                  <img class="card-img-top my-img-tiny" :src="`images/wpressImages/${img.wpImStock_name}`" @error="imageUrlAlt" />       <!-- @error - is a method to run if image url is invalid or broken or image physically not available in folder -->
+	          </a>
+              <!-- End Image with LightBox -->
+			  
+			  
           </div>
+		  
+		  <!-- Show 'no-image-found.png' If image does not exist (no image connected via hasOne relation).  ELSE -->
+          <img v-if="!currentPost.get_images.length" class="card-img-top my-img-small" :src="`images/no-image-found.png`" />
 		  
         </div>
         <hr>
@@ -152,7 +176,7 @@
   
   
   
-        //CONFIRM DELETE THIS SECTION
+        //CONFIRM DELETE THIS SECTION => NO, IT IS NEEDED!. Amendment 30.03.2022
         //check if prev URL was '/details-info/2', if True, don't make ajax request again, as u are back from details-info
         beforeRouteEnter (to, from, next) { //the target Route Object being navigated to,  the current route being navigated away from., this function must be called to resolve the hook
             console.log("beforeRouteEnter " + from.path);

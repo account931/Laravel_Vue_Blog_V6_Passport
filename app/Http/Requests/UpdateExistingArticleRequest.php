@@ -45,7 +45,8 @@ class UpdateExistingArticleRequest extends FormRequest
             //Image is not required for update
 			//'imagesZZZ'    => ['required', /*'image',*/ /*'mimes:jpeg,png,jpg,gif,svg',*/ 'max:2048' ], // 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',,
 			//'filename' => 'required',
-            'filename.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048' //min:2048
+		    'imagesZZZ'    => 'array',                                      //validation for array of images //Amendments 2022 (+2 next lines), in CLEANSED version 'imagesZZZ' changed to 'imagesSet'
+			'imagesZZZ.*'  => 'image|mimes:jpg,jpeg,gif,svg,png|max:2048',  //validation for array of images
 		];
     }
     
@@ -68,15 +69,20 @@ class UpdateExistingArticleRequest extends FormRequest
            'selectV.required'     => 'We need u to specify the category',
            'selectV.in'           => 'You enetered invalid category',
 		   //'imagesZZZ.required'   => 'Image is very much required',
-		   'imagesZZZ.image'    => 'Make sure it is an image',
-		   'imagesZZZ.mimes'    => 'Must be .jpeg, .png, .jpg, .gif, .svg file. Max size is 2048',
-		   'imagesZZZ.max'      => 'Sorry! Maximum allowed size for an image is 2MB',
+		   //'imagesZZZ.image'    => 'Make sure it is an image',
+		   //'imagesZZZ.mimes'    => 'Must be .jpeg, .png, .jpg, .gif, .svg file. Max size is 2048',
+		   //'imagesZZZ.max'      => 'Sorry! Maximum allowed size for an image is 2MB',
 		   //'imagesZZZ.min'      => 'Your image is too small',
+		   'imagesZZZ.*.image'    => 'Make sure you have uploaded an image',  //Amendments 2022 (+2 next lines), in CLEANSED version 'imagesZZZ' changed to 'imagesSet'
+		   'imagesZZZ.*.mimes'    => 'Must be .jpeg, .png, .jpg, .gif, .svg file. Max size is 2048',
+		   'imagesZZZ.*.max'      => 'Sorry! Maximum allowed size for an image is 2MB',
 		];
 	}
 	
 
-    
+  
+		   
+		   
 	 
 	/**
      * To override Return validation errors. In this case it will return and exucute code in Controller, even if Request Validation fails

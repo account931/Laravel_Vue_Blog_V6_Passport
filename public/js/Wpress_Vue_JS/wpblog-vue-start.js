@@ -82955,6 +82955,8 @@ exports.push([module.i, "\n.contact form[data-v-2ee927a2]{\r\n\tmax-width: 40em;
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__subcomponents_you_are_not_logged_vue__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__subcomponents_you_are_not_logged_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__subcomponents_you_are_not_logged_vue__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -83026,38 +83028,115 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
+
+//using other sub-component 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'details-info',
-    data: function data() {
-        return {
-            //postDialogVisible: false,
-            currentDetailID: 1
-        };
-    },
+				name: 'details-info',
+				//using other sub-component 
+				components: {
+								'you-are-not-logged-page': __WEBPACK_IMPORTED_MODULE_1__subcomponents_you_are_not_logged_vue___default.a
+				},
+				data: function data() {
+								return {
+												//postDialogVisible: false,
+												currentDetailID: 1
+								};
+				},
 
 
-    //computed property is used to declaratively describe a value that depends on other values. When you data-bind to a computed property inside the template, Vue knows when to update the DOM when any of the values depended upon by the computed property has changed.
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapState */])(['posts']), {
-        //is needed for Vuex store, after it u may address Vuex Store value as {products} instead of {this.$store.state.products}
+				//computed property is used to declaratively describe a value that depends on other values. When you data-bind to a computed property inside the template, Vue knows when to update the DOM when any of the values depended upon by the computed property has changed.
+				computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapState */])(['posts']), {
+								//is needed for Vuex store, after it u may address Vuex Store value as {products} instead of {this.$store.state.products}
 
 
-        //mine test
-        checkStore: function checkStore() {
-            console.log(this.$store.state.posts); //Gets values from Vuex store in "/store/index.js" 
-            return this.$store.state.posts;
-        }
-    }),
+								//mine test
+								checkStore: function checkStore() {
+												console.log(this.$store.state.posts); //Gets values from Vuex store in "/store/index.js" 
+												return this.$store.state.posts;
+								}
+				}),
 
-    //before mount
-    beforeMount: function beforeMount() {
-        console.log(this.$store.state.posts);
-        //getting route ID => e.g "wpBlogVueFrameWork#/details/2", gets 2. {Pid} is set in 'pages/home' in => this.$router.push({name:'details',params:{Pid:proId}})
-        var ID = this.$route.params.Pidd; //gets 2
-        ID = ID - 1; //to comply with Vuex Store array, that starts with 0
-        this.currentDetailID = ID; //set to this.state
-    }
+				//before mount
+				beforeMount: function beforeMount() {
+
+								//Passport token check
+								if (this.$store.state.passport_api_tokenY == null) {
+												swal("View one page says: Access denied", "You are not logged", "error");
+												return false;
+								}
+
+								console.log(this.$store.state.posts);
+								//getting route ID => e.g "wpBlogVueFrameWork#/details/2", gets 2. {Pid} is set in 'pages/home' in => this.$router.push({name:'details',params:{Pid:proId}})
+								var ID = this.$route.params.Pidd; //gets 2
+								ID = ID - 1; //to comply with Vuex Store array, that starts with 0
+								this.currentDetailID = ID; //set to this.state
+
+								/*
+        //MegaFIX variant (tested in Laravel_Gii_Crud_2022)-------------
+        var ID = this.$route.params.Pidd; //gets 2, id of blog
+           //ID = ID - 1; //to comply with Vuex Store array, that starts with 0
+        	
+           //MegaFIX
+           //find the array position of object with "wpBlog_id" === ID in this.$store.state.posts
+        let position = this.$store.state.posts.findIndex(x => x.wpBlog_id === ID);
+           //alert(position);
+           this.currentDetailID = position; //set to this.state
+           //this.currentDetailID = ID; //set to this.state
+        //End MegaFIX variant (tested in Laravel_Gii_Crud_2022)----------
+        */
+				}
 });
 
 /***/ }),
@@ -83068,151 +83147,249 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "contact" },
-    [
-      _c("p", [_vm._v("Details")]),
-      _vm._v(" "),
-      _vm._l(_vm.checkStore, function(posts) {
-        return _c("span", { key: posts.wpBlog_id }, [
-          _vm._v(
-            " \n        " +
-              _vm._s(posts.wpBlog_id) +
-              " " +
-              _vm._s(posts.wpBlog_title) +
-              "  \n        "
-          )
-        ])
-      }),
-      _vm._v(" "),
-      _c(
-        "div",
-        [
-          _c("hr"),
+  return _c("div", { staticClass: "contact" }, [
+    this.$store.state.passport_api_tokenY == null
+      ? _c(
+          "div",
+          { staticClass: "col-sm-12 col-xs-12 alert alert-info" },
+          [_c("you-are-not-logged-page")],
+          1
+        )
+      : this.$store.state.passport_api_tokenY != null
+      ? _c("div", [
+          _c("p", [_vm._v("Details")]),
           _vm._v(" "),
-          _c(
-            "p",
-            { staticClass: "z-overlay-fix-2" },
-            [
-              _c(
-                "router-link",
-                { staticClass: "nav-link", attrs: { to: "/New_2021" } },
-                [
-                  _c("button", { staticClass: "btn" }, [
-                    _vm._v("Back to Blog_2021 "),
-                    _c("i", {
-                      staticClass: "fa fa-tag",
-                      staticStyle: { "font-size": "14px" }
-                    })
-                  ])
-                ]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("p", [_vm._v(" One product ")]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              " " +
-                _vm._s(
-                  this.$store.state.posts[this.currentDetailID].wpBlog_id
-                ) +
-                " " +
-                _vm._s(
-                  this.$store.state.posts[this.currentDetailID].wpBlog_title
+          this.$store.state.posts.length == 0
+            ? _c("div", { staticClass: "col-sm-12 col-xs-12" }, [
+                _c("hr"),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  { staticClass: "text-danger" },
+                  [
+                    _vm._v(
+                      " No data fetched for yout Post " +
+                        _vm._s(this.$route.params.Pidd) +
+                        " , visit first "
+                    ),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      { staticClass: "nav-link", attrs: { to: "/New_2021" } },
+                      [
+                        _c("button", { staticClass: "btn btn-success" }, [
+                          _vm._v(" Vue Crud panel ")
+                        ])
+                      ]
+                    )
+                  ],
+                  1
                 )
-            )
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            this.$store.state.posts[this.currentDetailID].get_images.length
-              ? _c("img", {
-                  staticClass: "card-img-top my-img",
-                  attrs: {
-                    src:
-                      "images/wpressImages/" +
-                      this.$store.state.posts[this.currentDetailID]
-                        .get_images[0].wpImStock_name
-                  }
-                })
-              : _c("img", {
-                  staticClass: "card-img-top my-img-small",
-                  attrs: { src: "images/no-image-found.png" }
-                })
-          ]),
-          _c("p"),
-          _c("p", [
-            _vm._v(
-              "           " +
-                _vm._s(
-                  this.$store.state.posts[this.currentDetailID].wpBlog_text
-                ) +
-                " "
-            )
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              " Author:   " +
-                _vm._s(
-                  this.$store.state.posts[this.currentDetailID].author_name.name
-                ) +
-                " "
-            )
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              " Email:    " +
-                _vm._s(
-                  this.$store.state.posts[this.currentDetailID].author_name
-                    .email
-                ) +
-                " "
-            )
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              " Category: " +
-                _vm._s(
-                  this.$store.state.posts[this.currentDetailID].category_names
-                    .wpCategory_name
-                ) +
-                " "
-            )
-          ]),
-          _vm._v(" "),
-          _vm._l(
-            this.$store.state.posts[this.currentDetailID].get_images,
-            function(img, i) {
-              return _c("div", { key: i, staticClass: "col-md-12" }, [
-                i > 0
-                  ? _c("div", [
-                      _c("img", {
-                        staticClass: "img-thumbnail",
-                        attrs: {
-                          src: "images/wpressImages/" + img.wpImStock_name,
-                          alt: ""
-                        }
-                      })
-                    ])
-                  : _vm._e()
               ])
-            }
-          )
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _c("br"),
-      _c("br")
-    ],
-    2
-  )
+            : _c("div", { staticClass: "col-sm-12 col-xs-12" }, [
+                this.$store.state.posts[this.currentDetailID] == undefined
+                  ? _c("div", { staticClass: "col-sm-12 col-xs-12" }, [
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c(
+                        "p",
+                        { staticClass: "text-danger" },
+                        [
+                          _vm._v(
+                            " Article ID " +
+                              _vm._s(this.$route.params.Pidd) +
+                              " does not exist , visit first "
+                          ),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "nav-link",
+                              attrs: { to: "/New_2021" }
+                            },
+                            [
+                              _c("button", { staticClass: "btn btn-success" }, [
+                                _vm._v(" Vue Crud panel ")
+                              ])
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ])
+                  : _c(
+                      "div",
+                      { staticClass: "col-sm-12 col-xs-12" },
+                      [
+                        _c("p", [_vm._v("Details")]),
+                        _vm._v(" "),
+                        _vm._l(_vm.checkStore, function(posts) {
+                          return _c("span", { key: posts.wpBlog_id }, [
+                            _vm._v(
+                              " \n                      " +
+                                _vm._s(posts.wpBlog_id) +
+                                " " +
+                                _vm._s(posts.wpBlog_title) +
+                                "  \n                    "
+                            )
+                          ])
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          [
+                            _c("hr"),
+                            _vm._v(" "),
+                            _c(
+                              "p",
+                              { staticClass: "z-overlay-fix-2" },
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "nav-link",
+                                    attrs: { to: "/New_2021" }
+                                  },
+                                  [
+                                    _c("button", { staticClass: "btn" }, [
+                                      _vm._v("Back to Blog_2021 "),
+                                      _c("i", {
+                                        staticClass: "fa fa-tag",
+                                        staticStyle: { "font-size": "14px" }
+                                      })
+                                    ])
+                                  ]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("p", [_vm._v(" One product ")]),
+                            _vm._v(" "),
+                            _c("p", [
+                              _vm._v(
+                                " " +
+                                  _vm._s(
+                                    this.$store.state.posts[
+                                      this.currentDetailID
+                                    ].wpBlog_id
+                                  ) +
+                                  " " +
+                                  _vm._s(
+                                    this.$store.state.posts[
+                                      this.currentDetailID
+                                    ].wpBlog_title
+                                  )
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("p", [
+                              this.$store.state.posts[this.currentDetailID]
+                                .get_images.length
+                                ? _c("img", {
+                                    staticClass: "card-img-top my-img",
+                                    attrs: {
+                                      src:
+                                        "images/wpressImages/" +
+                                        this.$store.state.posts[
+                                          this.currentDetailID
+                                        ].get_images[0].wpImStock_name
+                                    }
+                                  })
+                                : _c("img", {
+                                    staticClass: "card-img-top my-img-small",
+                                    attrs: { src: "images/no-image-found.png" }
+                                  })
+                            ]),
+                            _c("p"),
+                            _c("p", [
+                              _vm._v(
+                                "           " +
+                                  _vm._s(
+                                    this.$store.state.posts[
+                                      this.currentDetailID
+                                    ].wpBlog_text
+                                  ) +
+                                  " "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("p", [
+                              _vm._v(
+                                " Author:   " +
+                                  _vm._s(
+                                    this.$store.state.posts[
+                                      this.currentDetailID
+                                    ].author_name.name
+                                  ) +
+                                  " "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("p", [
+                              _vm._v(
+                                " Email:    " +
+                                  _vm._s(
+                                    this.$store.state.posts[
+                                      this.currentDetailID
+                                    ].author_name.email
+                                  ) +
+                                  " "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("p", [
+                              _vm._v(
+                                " Category: " +
+                                  _vm._s(
+                                    this.$store.state.posts[
+                                      this.currentDetailID
+                                    ].category_names.wpCategory_name
+                                  ) +
+                                  " "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(
+                              this.$store.state.posts[this.currentDetailID]
+                                .get_images,
+                              function(img, i) {
+                                return _c(
+                                  "div",
+                                  { key: i, staticClass: "col-md-12" },
+                                  [
+                                    i > 0
+                                      ? _c("div", [
+                                          _c("img", {
+                                            staticClass: "img-thumbnail",
+                                            attrs: {
+                                              src:
+                                                "images/wpressImages/" +
+                                                img.wpImStock_name,
+                                              alt: ""
+                                            }
+                                          })
+                                        ])
+                                      : _vm._e()
+                                  ]
+                                )
+                              }
+                            )
+                          ],
+                          2
+                        )
+                      ],
+                      2
+                    )
+              ]),
+          _vm._v(" "),
+          _c("br"),
+          _c("br")
+        ])
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

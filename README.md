@@ -1,3 +1,4 @@
+- <p> NB: Cleansed version is more profound (see +2 lines for URL), use it for example </p>
 - <p> NB: by notion {NON_CLEANSED_GIT_HUB/Laravel_Vue_Blog} we mean https://github.com/account931/Laravel_Vue_Blog </p>
 - <p>Aditionally, we have a cleansed version of this project (with less comments) at https://github.com/account931/CLEANSED_GIT_HUB/tree/main/Laravel_Vue_Blog_V6_Passport, which is a copy(slave copy) from dim***1/Laravel_Vue_Blog_V6_Passport/</p>
 

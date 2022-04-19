@@ -47,7 +47,12 @@ class WpBlog_Admin_Rest_API_Contoller extends Controller
      * @return \Illuminate\Http\Response
      */
     public function getAllAdminOneItem($idX)
-    {    
+    {   
+	    //check if record with this id exists
+        if (!Wpress_images_Posts::where('wpBlog_id', $idX)->exists()) { 
+		    return response()->json(['error' => true, 'data'   => "Article does not exist"]);
+		}
+		
         $posts = Wpress_images_Posts::with('getImages', 'authorName', 'categoryNames')->where('wpBlog_id', $idX)->orderBy('wpBlog_created_at', 'desc')->get(); //->with('getImages', 'authorName', 'categoryNames') => hasMany/belongTo Eager Loading
         return response()->json(['error' => false, 'data' => $posts]);
     }
@@ -112,7 +117,11 @@ class WpBlog_Admin_Rest_API_Contoller extends Controller
         //End Below is just for testing --------
         
         
-
+        //check if record with this id exists
+        if (!Wpress_images_Posts::where('wpBlog_id', $idX)->exists()) { 
+		    return response()->json(['error' => true, 'data'   => "Article u want to update does not exist"]);
+		}
+		
         
         $model = new Wpress_images_Posts();
         
